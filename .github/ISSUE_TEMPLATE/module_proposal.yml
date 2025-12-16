@@ -1,68 +1,57 @@
-name: Module Proposal
-description: Propose a new module or significant feature
-title: "[MODULE] "
-labels: ["enhancement", "proposal"]
+name: Module or Architectural Proposal
+description: Propose a new module, subsystem, or architectural change
+title: "[Proposal]: "
+labels: ["proposal"]
 body:
   - type: markdown
     attributes:
       value: |
-        Use this form to propose a new module or significant addition to the system.
+        Proposals are evaluated conservatively.
+        Structural clarity and continuity preservation take precedence over features.
 
-  - type: input
-    id: module_name
+  - type: dropdown
+    id: affected_ring
     attributes:
-      label: Module Name
-      description: What should this module be called?
-      placeholder: e.g., coherence_tracker
+      label: Primary Ring Affected
+      options:
+        - Source Ring
+        - Bridge Ring
+        - Continuity Ring (Highest Sensitivity)
     validations:
       required: true
 
   - type: dropdown
-    id: ring
+    id: decision_class
     attributes:
-      label: Target Ring
-      description: Which ring would this belong to?
+      label: Decision Class
       options:
-        - source_ring
-        - bridge_ring
-        - continuity_ring
-        - infrastructure
-        - other
+        - Class II — Structural-Adjacent
+        - Class III — Structural (Highest Sensitivity)
     validations:
       required: true
 
   - type: textarea
-    id: purpose
+    id: proposal
     attributes:
-      label: Purpose
-      description: What does this module do? Why is it needed?
-      placeholder: Describe the purpose...
+      label: Proposal Description
+      description: What are you proposing to add or change?
     validations:
       required: true
 
   - type: textarea
-    id: interface
+    id: motivation
     attributes:
-      label: Interface / API
-      description: How would other modules interact with this?
-      placeholder: Describe inputs, outputs, methods...
+      label: Motivation
+      description: What problem does this solve? Why is it necessary?
     validations:
-      required: false
+      required: true
 
   - type: textarea
-    id: dependencies
+    id: risk_analysis
     attributes:
-      label: Dependencies
-      description: What existing modules does this depend on?
-      placeholder: List dependencies...
+      label: Risk Analysis
+      description: |
+        Identify potential drift vectors, invariant risks,
+        or cross-ring contamination concerns.
     validations:
-      required: false
-
-  - type: textarea
-    id: considerations
-    attributes:
-      label: Additional Considerations
-      description: Anything else? Risks, alternatives, timeline?
-      placeholder: Other notes...
-    validations:
-      required: false
+      required: true

@@ -1,0 +1,13 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security and Continuity Issues
+    url: https://github.com/rudi193-cmd/die-namic-system/security/policy
+    about: Report security, continuity, or structural integrity concerns privately.
+
+  - name: Documentation
+    url: https://github.com/rudi193-cmd/die-namic-system/tree/main/docs
+    about: Read detailed architectural and proof documentation.
+
+  - name: Governance Model
+    url: https://github.com/rudi193-cmd/die-namic-system/blob/main/GOVERNANCE.md
+    about: Understand how decisions are made and reviewed.

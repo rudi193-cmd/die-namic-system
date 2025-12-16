@@ -1,50 +1,39 @@
 name: Documentation Change Request
-description: Request a change or addition to documentation
-title: "[DOCS] "
+description: Request a clarification or correction to documentation
+title: "[Docs]: "
 labels: ["documentation"]
 body:
   - type: markdown
     attributes:
       value: |
-        Use this form to request documentation changes or additions.
+        Documentation reflects governance and architectural intent.
+        Changes must not misrepresent system guarantees or structure.
 
   - type: dropdown
-    id: type
+    id: decision_class
     attributes:
-      label: Change Type
-      description: What kind of documentation change?
+      label: Decision Class
+      description: How significant is this documentation change?
       options:
-        - New documentation
-        - Update existing docs
-        - Fix error/typo
-        - Clarification needed
-        - Remove outdated content
+        - Class I — Non-Structural (clarity, typos, examples)
+        - Class II — Structural-Adjacent (describes behavior or boundaries)
     validations:
       required: true
 
   - type: textarea
-    id: location
+    id: change_description
     attributes:
-      label: Document Location
-      description: Which file(s) or section(s)?
-      placeholder: e.g., docs/awa/AWA_Overview_Mission_v1.0.md
-    validations:
-      required: false
-
-  - type: textarea
-    id: description
-    attributes:
-      label: Description
-      description: What needs to change and why?
-      placeholder: Describe the change...
+      label: Proposed Change
+      description: What should be changed and why?
     validations:
       required: true
 
   - type: textarea
-    id: content
+    id: risk
     attributes:
-      label: Proposed Content
-      description: If you have specific text, include it here
-      placeholder: Paste proposed content...
+      label: Risk of Misinterpretation
+      description: |
+        Could incorrect documentation here cause misuse,
+        incorrect assumptions, or continuity risk?
     validations:
       required: false

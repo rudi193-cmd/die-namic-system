@@ -1,48 +1,57 @@
 name: Bug Report
-description: Report a bug or unexpected behavior
-title: "[BUG] "
+description: Report a defect that may affect system behavior, continuity, or structural integrity
+title: "[Bug]: "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for reporting a bug. Please fill out the sections below.
+        This project treats continuity and structural integrity as first-class concerns.
+        Bugs that affect identity, memory, or invariants are considered high priority.
+
+  - type: dropdown
+    id: affected_ring
+    attributes:
+      label: Affected Ring
+      description: Identify the primary architectural ring impacted
+      options:
+        - Source Ring
+        - Bridge Ring
+        - Continuity Ring (Highest Sensitivity)
+        - Unsure
+    validations:
+      required: true
 
   - type: textarea
     id: description
     attributes:
       label: Bug Description
-      description: What happened?
-      placeholder: Describe the bug...
+      description: What is happening? What did you expect to happen instead?
     validations:
       required: true
 
   - type: textarea
-    id: expected
+    id: continuity_impact
     attributes:
-      label: Expected Behavior
-      description: What did you expect to happen?
-      placeholder: Describe expected behavior...
+      label: Continuity Impact Assessment
+      description: |
+        Does this issue affect identity, memory persistence, mandate coherence,
+        or long-horizon behavior? If unsure, explain why.
     validations:
       required: true
 
   - type: textarea
-    id: steps
+    id: reproduction
     attributes:
       label: Steps to Reproduce
-      description: How can we reproduce this?
-      placeholder: |
-        1. Go to...
-        2. Click on...
-        3. See error...
+      description: Include minimal steps, configurations, or conditions.
     validations:
       required: false
 
   - type: textarea
-    id: context
+    id: additional_context
     attributes:
       label: Additional Context
-      description: Any other context, screenshots, or logs
-      placeholder: Add any other context here...
+      description: Logs, screenshots, or validation data.
     validations:
       required: false

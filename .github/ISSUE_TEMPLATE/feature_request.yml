@@ -1,0 +1,47 @@
+name: Feature Request
+description: Suggest a new capability or enhancement
+title: "[Feature]: "
+labels: ["feature-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feature requests are evaluated against continuity,
+        governance overhead, and structural impact.
+
+  - type: dropdown
+    id: target_ring
+    attributes:
+      label: Target Ring
+      options:
+        - Source Ring
+        - Bridge Ring
+        - Continuity Ring (Unlikely; justify carefully)
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: Feature Description
+      description: What capability are you requesting?
+    validations:
+      required: true
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: Justification
+      description: Why does this belong in a structure-locked system?
+    validations:
+      required: true
+
+  - type: textarea
+    id: continuity_considerations
+    attributes:
+      label: Continuity Considerations
+      description: |
+        How does this feature avoid introducing drift,
+        ambiguity, or identity instability?
+    validations:
+      required: true
