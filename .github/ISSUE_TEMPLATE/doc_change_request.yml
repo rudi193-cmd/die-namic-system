@@ -1,0 +1,50 @@
+name: Documentation Change Request
+description: Request a change or addition to documentation
+title: "[DOCS] "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to request documentation changes or additions.
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Change Type
+      description: What kind of documentation change?
+      options:
+        - New documentation
+        - Update existing docs
+        - Fix error/typo
+        - Clarification needed
+        - Remove outdated content
+    validations:
+      required: true
+
+  - type: textarea
+    id: location
+    attributes:
+      label: Document Location
+      description: Which file(s) or section(s)?
+      placeholder: e.g., docs/awa/AWA_Overview_Mission_v1.0.md
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What needs to change and why?
+      placeholder: Describe the change...
+    validations:
+      required: true
+
+  - type: textarea
+    id: content
+    attributes:
+      label: Proposed Content
+      description: If you have specific text, include it here
+      placeholder: Paste proposed content...
+    validations:
+      required: false

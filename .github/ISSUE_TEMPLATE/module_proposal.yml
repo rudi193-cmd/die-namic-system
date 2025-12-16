@@ -1,0 +1,68 @@
+name: Module Proposal
+description: Propose a new module or significant feature
+title: "[MODULE] "
+labels: ["enhancement", "proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to propose a new module or significant addition to the system.
+
+  - type: input
+    id: module_name
+    attributes:
+      label: Module Name
+      description: What should this module be called?
+      placeholder: e.g., coherence_tracker
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ring
+    attributes:
+      label: Target Ring
+      description: Which ring would this belong to?
+      options:
+        - source_ring
+        - bridge_ring
+        - continuity_ring
+        - infrastructure
+        - other
+    validations:
+      required: true
+
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Purpose
+      description: What does this module do? Why is it needed?
+      placeholder: Describe the purpose...
+    validations:
+      required: true
+
+  - type: textarea
+    id: interface
+    attributes:
+      label: Interface / API
+      description: How would other modules interact with this?
+      placeholder: Describe inputs, outputs, methods...
+    validations:
+      required: false
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: What existing modules does this depend on?
+      placeholder: List dependencies...
+    validations:
+      required: false
+
+  - type: textarea
+    id: considerations
+    attributes:
+      label: Additional Considerations
+      description: Anything else? Risks, alternatives, timeline?
+      placeholder: Other notes...
+    validations:
+      required: false
