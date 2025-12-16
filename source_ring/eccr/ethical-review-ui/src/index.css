@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-aionic-dark via-gray-900 to-aionic-dark;
+    @apply text-gray-100 font-sans antialiased;
+    @apply min-h-screen;
+  }
+}
+
+@layer components {
+  .aurora-header {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 213, 128, 0.3) 0%,
+      rgba(168, 184, 200, 0.3) 50%,
+      rgba(255, 213, 128, 0.3) 100%
+    );
+    background-size: 200% 100%;
+    animation: aurora-flow 8s ease-in-out infinite;
+  }
+
+  .ethical-panel {
+    @apply bg-gray-800/50 backdrop-blur-sm;
+    @apply border border-aionic-gold/20;
+    @apply rounded-lg p-6;
+    @apply shadow-xl;
+  }
+
+  .manifest-item {
+    @apply bg-gray-700/30 hover:bg-gray-700/50;
+    @apply border border-aionic-blue/20 hover:border-aionic-gold/40;
+    @apply rounded-md p-4 cursor-pointer;
+    @apply transition-all duration-200;
+  }
+
+  .manifest-item.selected {
+    @apply bg-aionic-gold/10 border-aionic-gold/60;
+  }
+
+  .compassion-quote {
+    @apply text-aionic-gold/80 italic text-sm;
+    @apply border-l-2 border-aionic-gold/40 pl-4 py-2;
+  }
+}

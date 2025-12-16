@@ -1,0 +1,36 @@
+{
+  "name": "eccr-ethical-review-ui",
+  "version": "0.1.0",
+  "description": "Local-only ethical review interface for Aionic ECCR Module 14 - Sandcastle Sequence v0.3",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "mock-server": "node mock-server/mock-server.js"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "lucide-react": "^0.263.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "vite": "^5.3.1"
+  },
+  "ethical": {
+    "mode": "sandbox-only",
+    "standard": "ESC-1",
+    "continuity": "Sandcastle-v0.3",
+    "local_only": true,
+    "synthetic_data_only": true
+  }
+}

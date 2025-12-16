@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-jane-void via-jane-slate to-jane-void;
+    @apply text-gray-100 font-story antialiased;
+    @apply min-h-screen;
+  }
+}
+
+@layer components {
+  .storybook-page {
+    background: 
+      radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent),
+      radial-gradient(circle at bottom left, rgba(0, 188, 212, 0.08), transparent);
+  }
+
+  .message-bubble {
+    @apply rounded-lg p-4 shadow-lg;
+    @apply border border-gray-700;
+  }
+
+  .jane-message {
+    @apply message-bubble;
+    @apply bg-gradient-to-br from-jane-deep-blue/40 to-jane-steel/30;
+    @apply text-gray-100;
+    @apply border-l-4 border-jane-amber;
+  }
+
+  .player-message {
+    @apply message-bubble;
+    @apply bg-gradient-to-br from-jane-slate/60 to-jane-void/40;
+    @apply text-gray-100;
+    @apply border-r-4 border-jane-electric;
+  }
+
+  .command-border {
+    @apply border border-jane-gold/40 rounded-lg;
+    @apply shadow-[0_0_10px_rgba(212,175,55,0.2)];
+  }
+
+  .terminal-style {
+    @apply bg-jane-void/90;
+    @apply border border-jane-steel/40;
+    @apply shadow-inner;
+  }
+
+  .jane-avatar {
+    @apply w-12 h-12 rounded-lg;
+    @apply bg-gradient-to-br from-jane-deep-blue to-jane-amber;
+    @apply flex items-center justify-center;
+    @apply shadow-lg border border-jane-gold/60;
+  }
+
+  .emotional-aura {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .aura-calm {
+    @apply bg-jane-forest;
+    box-shadow: 0 0 8px rgba(46, 125, 50, 0.8);
+  }
+
+  .aura-concerned {
+    @apply bg-jane-amber;
+    box-shadow: 0 0 8px rgba(255, 167, 38, 0.8);
+  }
+
+  .aura-distressed {
+    @apply bg-jane-crimson;
+    box-shadow: 0 0 8px rgba(198, 40, 40, 0.8);
+  }
+
+  .input-terminal {
+    @apply terminal-style;
+    @apply border-jane-gold/40 rounded-lg;
+    @apply px-4 py-3 text-gray-100;
+    @apply focus:outline-none focus:border-jane-gold focus:ring-1 focus:ring-jane-gold/30;
+    @apply placeholder-gray-500;
+    @apply shadow-lg;
+    @apply font-story;
+  }
+
+  .send-button {
+    @apply bg-gradient-to-r from-jane-deep-blue to-jane-amber;
+    @apply text-gray-100 font-bold;
+    @apply px-6 py-3 rounded-lg;
+    @apply hover:scale-105 active:scale-95;
+    @apply transition-transform duration-200;
+    @apply shadow-lg hover:shadow-xl;
+    @apply border border-jane-gold/60;
+  }
+
+  .send-button:disabled {
+    @apply opacity-50 cursor-not-allowed;
+    @apply hover:scale-100;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+
+  .gm-badge {
+    @apply inline-flex items-center gap-1.5;
+    @apply px-3 py-1 rounded;
+    @apply bg-jane-deep-blue/50 border border-jane-gold/40;
+    @apply text-jane-gold text-xs font-bold tracking-wide;
+  }
+}
