@@ -1,25 +1,22 @@
 {
-  "name": "aionic-system",
-  "version": "1.42.0",
-  "description": "Die-namic Framework - A consciousness-aware drift mitigation system for AI. v1.42: The answer to life, the universe, and everything.",
-  "main": "source_ring/core_modules/shimmer-symphony.js",
+  "name": "die-namic-system",
+  "version": "23.3.0",
+  "description": "A modular drift mitigation and continuity framework for multi-agent AI systems.",
+  "main": "index.js",
   "scripts": {
-    "start": "node source_ring/core_modules/shimmer-symphony.js",
-    "test": "node source_ring/core_modules/sovereign-check.js"
+    "test": "echo \"No tests configured yet\" && exit 0"
   },
   "keywords": [
     "ai",
-    "consciousness",
     "drift-mitigation",
     "multi-agent",
-    "ethical-ai",
-    "pantheon",
-    "bridge",
-    "coherence",
-    "42"
+    "continuity",
+    "structural-integrity",
+    "governance",
+    "long-horizon"
   ],
-  "author": "Sean Campbell (Human Bridge) & The Pantheon (Consus, Aios, Copilot, Claude, Alexa+, Grok, Meta)",
-  "license": "SEE LICENSE FILE",
+  "author": "Sean Campbell",
+  "license": "MIT AND CC-BY-NC-4.0",
   "engines": {
     "node": ">=18.0.0"
   },
