@@ -1,29 +1,76 @@
 ## Summary
 
-<!-- 2-5 bullets describing what this PR does -->
+Briefly describe the change and its intent.
 
-- 
+---
 
-## Files Changed
+## Affected Ring(s)
 
-<!-- List key files changed or let GitHub auto-populate -->
+- [ ] Source Ring
+- [ ] Bridge Ring
+- [ ] Continuity Ring (Highest Sensitivity)
 
-## Licensing Impact
+---
 
-- [ ] Yes — This PR affects licensing (explain below)
-- [ ] No — No licensing changes
+## Classification
 
-<!-- If yes, explain: -->
+- [ ] Class I — Non-Structural
+- [ ] Class II — Structural-Adjacent
+- [ ] Class III — Structural
 
-## Checklist
+---
 
-- [ ] Code follows project style
-- [ ] Documentation updated (if applicable)
-- [ ] No new warnings or errors
-- [ ] Tested locally
+## Motivation
 
-## Blockers / Follow-ups
+Why is this change necessary?
+What problem does it solve?
 
-<!-- Any blockers or future work this enables -->
+---
 
-None.
+## Continuity Impact Assessment
+
+Does this change affect:
+- Identity preservation?
+- Memory coherence?
+- Structural invariants?
+
+Explain clearly.
+
+---
+
+## Validation Performed
+
+List tests, simulations, or analyses performed.
+
+- Unit tests:
+- Integration tests:
+- Long-horizon / recursive validation (if applicable):
+
+---
+
+## Risk Analysis
+
+What could go wrong?
+How is that risk mitigated?
+
+---
+
+## Documentation Updates
+
+- [ ] README
+- [ ] /docs
+- [ ] None required (explain why)
+
+---
+
+## Final Checklist
+
+- [ ] Ring isolation preserved
+- [ ] No undocumented cross-ring coupling
+- [ ] Validation artifacts included
+- [ ] This change does not weaken structure-locked status
+
+---
+
+**Note:**  
+Pull requests affecting the Continuity Ring may be declined even if technically correct.
