@@ -1,0 +1,12 @@
+{
+  "bundle_id": "awa.schemas.v2.0.0",
+  "locked": true,
+  "schemas": [
+    "input.schema.json",
+    "transform.schema.json",
+    "output.schema.json",
+    "handoff.schema.json",
+    "rules_registry.schema.json"
+  ],
+  "notes": "Immutable bundle. Publish changes as new version folder."
+}

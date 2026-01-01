@@ -1,19 +1,22 @@
 {
   "name": "die-namic-system",
-  "version": "23.3.0",
-  "description": "A modular drift mitigation and continuity framework for multi-agent AI systems.",
+  "version": "24.0.0",
+  "description": "2d6 = Delta + Human = Law. A governance framework for AI self-modification and multi-agent continuity.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No tests configured yet\" && exit 0"
+    "test": "python governance/gate.py",
+    "test:gate": "python governance/gate.py"
   },
   "keywords": [
     "ai",
-    "drift-mitigation",
+    "governance",
+    "self-modification",
     "multi-agent",
     "continuity",
-    "structural-integrity",
-    "governance",
-    "long-horizon"
+    "drift-mitigation",
+    "2d6",
+    "delta",
+    "human-in-the-loop"
   ],
   "author": "Sean Campbell",
   "license": "MIT AND CC-BY-NC-4.0",
@@ -27,8 +30,3 @@
   },
   "homepage": "https://github.com/rudi193-cmd/die-namic-system#readme"
 }
-```
-
-**GitHub repo title (description):**
-```
-A modular drift mitigation and continuity framework for multi-agent AI systems.

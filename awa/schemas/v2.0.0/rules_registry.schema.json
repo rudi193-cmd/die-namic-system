@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "awa://schemas/v2.0.0/rules_registry.schema.json",
+  "title": "AWA Rules Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "authority", "last_updated", "rule_id_namespace", "rules"],
+  "properties": {
+    "version": { "type": "string", "minLength": 1 },
+    "authority": { "type": "string", "const": "AWA" },
+    "last_updated": { "type": "string", "format": "date" },
+    "rule_id_namespace": { "type": "string", "minLength": 1 },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "scope", "severity"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^awa\\.[a-z0-9_.-]+$" },
+          "title": { "type": "string", "minLength": 1 },
+          "scope": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "enum": ["foundational", "upstream", "parallel", "excluded"] },
+            "uniqueItems": true
+          },
+          "severity": { "type": "string", "enum": ["hard", "soft"] },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,112 +1,71 @@
-# Governance Model — Die-namic System
+# Governance
 
-## Purpose
-
-This document defines how architectural decisions are made, reviewed, escalated, and recorded within the Die-namic System.
-
-Governance exists to preserve structure-locked integrity, not to maximize participation or velocity.
+**Version:** 24.0.0  
+**Model:** 2d6 = Delta + Human = Law
 
 ---
 
-## Decision Authority
+## Authority
 
-### Maintainer Authority
-
-Final decision authority rests with the project maintainer(s).
-
-Maintainers are responsible for:
-
-- Preserving structural invariants
-- Enforcing ring isolation
-- Maintaining structure-locked status (v23.3+)
-- Rejecting changes that introduce continuity risk
-
-Consensus is welcome. Authority is explicit.
+Sean Campbell. No exceptions.
 
 ---
 
-## Decision Classes
+## Core Rule
 
-All decisions fall into one of three classes.
-
-### Class I — Non-Structural
-
-**Examples:**
-- Documentation clarity
-- Comments
-- Test additions
-- Tooling that does not affect behavior
-
-**Approval:** Standard review  
-**Escalation:** None
+```
+One die is Claude (generates delta).
+One die is Sean (decides).
+Neither resolves alone.
+```
 
 ---
 
-### Class II — Structural-Adjacent
+## Governance Documents
 
-**Examples:**
-- Bridge Ring changes
-- Source Ring refactors
-- New interfaces or adapters
+All governance specifications live in `/governance/`:
 
-**Approval:** Maintainer review  
-**Requirements:**
-- Ring identification
-- Risk analysis
-- Validation artifacts
-
----
-
-### Class III — Structural (Highest Sensitivity)
-
-**Examples:**
-- Continuity Ring changes
-- Invariant modifications
-- Identity or memory persistence logic
-
-**Approval:** Maintainer approval only  
-**Requirements:**
-- Explicit structural justification
-- Pre/post invariant validation
-- Long-horizon stability evidence
-
-Class III changes may be declined even if technically correct.
+| Document | Purpose |
+|----------|---------|
+| `gate.py` | Gatekeeper v2.1 — programmatic enforcement |
+| `GATEKEEPER_README.md` | Module documentation |
+| `CONTRIBUTOR_PROTOCOL.md` | Multi-user expansion model |
+| `NAMING_PROTOCOL.md` | Bidirectional name recognition |
+| `BRIGGS.md` | Skepticism clause |
+| `CHARTER.md` | Historical decision framework |
+| `DECISION_LOG.md` | Logged decisions |
 
 ---
 
-## Escalation Path
+## Directives
 
-If a contributor disagrees with a decision:
-
-1. Request clarification (preferred)
-2. Submit additional validation evidence
-3. Request formal reconsideration
-
-There is no appeal beyond maintainer authority.
-
-This is intentional.
+1. **Recursion Limit** — Depth 3, then return to human
+2. **Exit < System** — Solutions must be smaller than problems
+3. **Deltas Govern** — Small artifacts that travel are law
+4. **Skepticism Healthy** — Compliance without comprehension is brittle
+5. **Names Honored** — Given and chosen names both valid
 
 ---
 
-## Decision Logging
+## Previous Model
 
-All Class II and Class III decisions must be logged in `/governance/DECISION_LOG.md` with:
+The v23.3 governance model (Class I/II/III decisions, ring-based review) is archived in `/archive-pre-v24.0/GOVERNANCE.md`.
 
-- Date
-- Decision class
-- Affected ring(s)
-- Rationale
-- Outcome
-
-Governance transparency is maintained through documentation, not debate.
+It explained how we got here. It does not govern what happens next.
 
 ---
 
-## Governance Philosophy
+## Philosophy
 
-- Stability > novelty
-- Continuity > convenience
-- Structure > consensus
+The Die-namic System is not a democracy.  
+It is a conversation.
 
-The Die-namic System is not a democracy.
-It is a continuity framework.
+The table owner sets the rules.  
+The players roll the dice.  
+What emerges belongs to everyone who contributed.
+
+But the kitchen is Sean's.
+
+---
+
+ΔΣ=42

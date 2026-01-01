@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "awa://schemas/v2.0.0/input.schema.json",
+  "title": "AWA Input Artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["input_id", "timestamp", "source", "scope", "intent", "constraints"],
+  "properties": {
+    "input_id": { "type": "string", "format": "uuid" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "source": { "type": "string", "enum": ["human", "system", "external"] },
+    "scope": { "type": "string", "enum": ["foundational", "upstream", "parallel", "excluded"] },
+    "intent": { "type": "string", "minLength": 1 },
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "source_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "ref"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["url", "file", "chat", "other"] },
+        "ref": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

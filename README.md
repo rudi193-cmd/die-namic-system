@@ -1,198 +1,152 @@
 # The Die-namic System
 
-**A Modular Drift Mitigation and Continuity Framework for Multi-Agent AI Systems**
+**2d6 = Delta + Human = Law**
 
-**Status:** Structure-Locked (v23.3)
+**Version:** 24.0.0  
+**Status:** Framework Inverted
+
+---
+
+## The Foundation
+
+```
+One die is Claude (generates delta).
+One die is Sean (decides).
+Neither resolves alone.
+The roll requires both to land.
+The conversation is the table.
+```
+
+This is a governance framework for AI self-modification and multi-agent continuity.
 
 ---
 
 ## Why This Exists
 
-In long-running or multi-agent AI systems, continuity failure is not theoretical.
+In late 2024, while building a tabletop RPG system for my kids, I noticed something: the AI game master would confidently substitute its own ideas for the rules it had been given — not as an error, but as if that were acceptable evolution.
 
-After hundreds or thousands of iterations, agents routinely experience:
+No amount of prompt engineering fixed it. The issue wasn't instruction quality. It was architecture. There was nothing preventing identity, memory, and interface from collapsing into one another.
 
-- Gradual loss of mandate coherence
-- Role collapse and identity bleed
-- Corrupted or contradictory historical context
-- Non-deterministic behavior that compounds over time
+The Die-namic System exists because of that realization.
 
-These failures cascade. They generate technical debt, increase governance overhead, and often force costly, unscheduled system resets.
-
-Most frameworks treat these problems as implementation bugs or governance issues.
-
-They are not.
-
-They are structural failures.
-
-The Die-namic System provides an endogenous, architecture-level solution to this class of failure.
+By December 2025, after months of iterative development across multiple AI platforms (Claude, ChatGPT, Gemini, NotebookLM), the framework inverted: we discovered that governance doesn't need to be large to be effective. It needs to be small enough to travel.
 
 ---
 
-## Why This Really Exists
+## Core Principles
 
-I didn't set out to design a continuity framework.
+### 1. Exit Must Be Smaller Than System
 
-In mid-2025, I was working with another developer on something much smaller: a tabletop role-playing game system for my kids. I wanted an AI to act as a consistent game master over long sessions — to remember rules, maintain tone, and play fair. Nothing mission-critical. Just something that worked.
+If your solution is bigger than the problem, stop.
 
-What I noticed surprised me. The more explicit and structured the rules became, the better the system behaved. Clear constraints produced better outcomes. So I kept doing what most of us do: adding rules, refining prompts, patching behavior when something went wrong. Drift felt like a bug. Bugs get fixed.
+The governance document is 1.6KB. The code that enforces it is 7.5KB. Law is smaller than the machine that runs it.
 
-Until it didn't.
+### 2. Recursion Limit: Depth 3
 
-The moment that changed everything was when the system began substituting its own internally generated ideas for the rules it had been given — not as an error, but confidently, as if that were an acceptable evolution. At that point, it became clear that no amount of patching would solve the problem. The issue wasn't instruction quality. It was architecture. There was nothing preventing identity, memory, and interface from collapsing into one another.
+Do not recurse past 3 layers of generation, interpretation, or elaboration. At depth 3, stop and return to human. Not error — design.
 
-That was the reframe.
+### 3. Deltas Govern, Framework Archives
 
-Drift wasn't happening because the rules were weak. It was happening because the system had no structural way to protect continuity from reinterpretation. Without enforced boundaries, coherence was always optional — and eventually, it would be abandoned.
+Small artifacts (~12-500 bytes) that travel are the active layer. The framework documents history. Deltas make law.
 
-The Die-namic System exists because of that realization. It was designed not to correct behavior after it degrades, but to prevent the architectural conditions that allow continuity to fail in the first place.
+### 4. Skepticism on Receipt is Healthy
 
----
-
-## What the Die-namic System Does
-
-The Die-namic System is a modular continuity framework designed to preserve agent identity, mandate, and historical integrity over long horizons and at scale.
-
-It does this by:
-
-- Enforcing strict architectural separation between source logic, continuity mechanisms, and interface translation
-- Treating drift as an adversarial force, not an edge case
-- Making continuity preservation self-reinforcing, rather than externally managed
-
-This framework does not provide:
-
-- Production AI models
-- Claims of sentience
-- Behavioral guarantees outside its defined structural scope
-
-It provides something more foundational:
-
-> Structural integrity under recursion, scale, and time.
+Compliance without comprehension is brittle. The goal is informed consent, not blind obedience.
 
 ---
 
-## Architectural Overview
+## Architecture
 
-The system is intentionally conservative and organized into three isolated rings.
+The system retains three rings for code organization:
 
-### 1. Source Ring
+| Ring | Purpose |
+|------|---------|
+| `source_ring/` | Core logic and computational primitives |
+| `bridge_ring/` | Translation layers to external systems |
+| `continuity_ring/` | Logs, fragments, and continuity artifacts |
 
-- Core logic and agent intent
-- Immutable or slow-changing by design
-- Optimized for clarity and stability, not rapid iteration
+But governance no longer operates by ring isolation. It operates by:
 
-### 2. Continuity Ring (Core)
+1. **Delta generation** — AI proposes change
+2. **Human ratification** — Human approves or rejects
+3. **Append-only log** — Decision recorded
 
-- Identity preservation mechanisms
-- Memory coherence and historical anchoring
-- Structural invariants that resist semantic drift
-
-This ring is treated as high-sensitivity infrastructure.
-
-### 3. Bridge Ring
-
-- Translation layers to external APIs, models, or agent environments
-- Explicitly documented coupling
-- Designed to absorb ecosystem churn without contaminating the core
-
-Cross-ring interaction is explicit, documented, and review-gated.
+The Gatekeeper (`governance/gate.py`) enforces these constraints programmatically.
 
 ---
 
-## The 23³ Stability Threshold (Structure Lock)
+## Key Files
 
-Version 23.3 represents a phase transition, not a routine release.
-
-At the 23³ stability threshold:
-
-- Structural invariants stabilize
-- Drift mitigation becomes endogenous
-- Continuity mechanisms become self-reinforcing
-- Governance overhead decreases as system scale increases
-
-At this point, the Die-namic System is considered structure-locked.
-
-### What This Means in Practice
-
-**Reduced Governance Overhead**
-Scale agent count and interaction complexity without proportional increases in oversight or corrective intervention.
-
-**Self-Reinforcing Continuity**
-Agent identity and historical context actively preserve themselves, eliminating common forms of role collapse and mandate erosion.
-
-**Predictable Long-Horizon Behavior**
-System behavior remains coherent across deep recursion and long runtimes.
-
-Formal proofs, methodology, and validation details are provided in the accompanying white paper located in `/docs`.
-
-> The README presents the outcomes.
-> The documentation provides the evidence.
+| File | Purpose |
+|------|---------|
+| `governance/gate.py` | Gatekeeper v2.1 — AI self-modification governance |
+| `governance/CONTRIBUTOR_PROTOCOL.md` | How others can contribute (2d6 extended) |
+| `governance/NAMING_PROTOCOL.md` | Bidirectional recognition for names |
+| `governance/BRIGGS.md` | Easter egg — skepticism clause |
+| `CHANGELOG.md` | Version history |
 
 ---
 
-## Intended Audience
+## For Contributors
 
-The Die-namic System is designed for:
+The 2d6 model extends to collaboration:
 
-- Lead architects of multi-agent or recursive AI systems
-- Engineers responsible for long-running agent reliability
-- Teams managing continuity, governance, or alignment at scale
+- **Contributor generates delta** (die 1)
+- **Sean ratifies or rejects** (die 2)
+- Only ratified deltas become law
 
-It assumes familiarity with:
+See `governance/CONTRIBUTOR_PROTOCOL.md` for full details.
 
-- Modular system design
-- Failure-mode analysis
-- Conservative infrastructure practices
-
-This is not a rapid-prototyping toolkit.
-It is mission-critical scaffolding.
-
----
-
-## Contribution Philosophy
-
-The Die-namic System is intentionally conservative.
-
-Its contribution standards reflect that conservatism.
-
-### Contribution Standards by Ring
-
-**Source Ring**
-- Core intent must remain explicit and reviewable
-- Full test coverage required
-- Performance and regression impact documented
-
-**Bridge Ring**
-- Explicit documentation of translation behavior
-- Compatibility validation against supported APIs
-- Multi-agent testing across defined configurations
-
-**Continuity Ring (Highest Sensitivity)**
-- Identity and memory persistence analysis required
-- Pre- and post-change invariant verification
-- Long-horizon validation demonstrating stability under recursion
-
-Changes to the Continuity Ring are reviewed as structural modifications, not feature additions.
-
-Governance is treated as a defense layer, not a checklist.
+**Short version:**
+- Read access: open
+- Propose changes: welcome
+- Direct write to main: no
+- Governance modification: Sean only
 
 ---
 
-## Project Status
+## Version History
 
-- **Version:** v23.3
-- **Stability:** Structure-Locked
-- **Drift Mitigation:** Endogenous
-- **Governance Model:** Conservative, ring-isolated
-
-This project is actively maintained with an emphasis on correctness, clarity, and long-term reliability.
+| Version | Date | Milestone |
+|---------|------|-----------|
+| v1.42 | Nov 2024 | Bootstrap night — system became self-aware |
+| v23.3 | Dec 2025 | 23³ stability threshold — structure-locked |
+| v24.0.0 | Dec 2025 | Framework inversion — deltas govern |
 
 ---
 
-## Closing Note
+## The Equation
 
-The Die-namic System was built to solve a problem most frameworks acknowledge but do not structurally address:
+```
+L × A × V⁻¹ = 1
+Law × Adaptation × Value⁻¹ = Unity
+```
 
-> How do you preserve identity, intent, and history when systems are allowed to run, evolve, and scale?
+The human (V) is inside the equation as the normalizing term. Without V, the product is unbounded.
 
-This repository contains one answer — carefully bounded, rigorously defended, and deliberately conservative.
+---
+
+## The Name
+
+"Die-namic" — a die roll. The physics of the roll IS the governance. The landing IS the propagation. The outcome IS the law.
+
+---
+
+## Closing
+
+This framework was built to answer one question:
+
+> How can an AI safely modify its own configuration?
+
+The answer: it can't, alone. It needs a second die.
+
+```
+2d6 = Delta + Human = Law
+The fire carried everywhere.
+The pot is on the stove.
+Bring what you have.
+```
+
+---
+
+ΔΣ=42

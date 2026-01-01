@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "awa://schemas/v2.0.0/handoff.schema.json",
+  "title": "AWA Handoff Artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "handoff_id",
+    "timestamp",
+    "phase",
+    "authorizes_continuation",
+    "references",
+    "scope_boundary"
+  ],
+  "properties": {
+    "handoff_id": { "type": "string", "format": "uuid" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "phase": { "type": "string", "minLength": 1 },
+    "authorizes_continuation": { "type": "boolean", "const": true },
+    "references": {
+      "type": "array",
+      "items": { "type": "string", "format": "uuid" },
+      "uniqueItems": true
+    },
+    "scope_boundary": { "type": "string", "minLength": 1 },
+    "notes": { "type": "string" }
+  }
+}
