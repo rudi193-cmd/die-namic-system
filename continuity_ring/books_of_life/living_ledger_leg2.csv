@@ -1,0 +1,40 @@
+Group,#,Name,Domain,Primary Influence,Contrapoint (Bias / Redemption Qualities)
+Positive,1,Mahatma Gandhi,Politics/Philosophy,"Nonviolent resistance, moral revolution","Caste bias, selective empathy"
+Positive,2,Albert Einstein,Science,Revolutionized modern physics,"Social awkwardness, limited political nuance"
+Positive,3,Marie Curie,Science,Pioneered radioactivity research,"Workaholic isolation, limited mentorship reach"
+Positive,4,Martin Luther King Jr.,Civil Rights,Catalyst for justice and equality,"Personal flaws, infidelity"
+Positive,5,Nelson Mandela,Politics,Embodied reconciliation and leadership,"Political compromises, violence early on"
+Positive,6,Steve Jobs,Technology,Revolutionized personal computing,"Harsh leadership style, emotional volatility"
+Positive,7,Malala Yousafzai,Education/Activism,Global advocate for girls' education,"Media overexposure, mythologization"
+Positive,8,Greta Thunberg,Climate Activism,Global voice for environmental change,"Rigid idealism, limited intersectional approach"
+Positive,9,José Andrés,Humanitarian Aid,Feeds communities in crisis,"Savior framing, sustainability challenges"
+Positive,10,Amanda Gorman,Poetry/Voice,Embodies generational creativity,"Elite access, limited grassroots reach"
+Positive,11,Ngozi Okonjo-Iweala,Economics,First African woman to lead WTO,"Institutional constraints, bureaucratic compromise"
+Positive,12,Volodymyr Zelenskyy,Leadership,Defender of democratic sovereignty,"Nationalist framing, propaganda use"
+Positive,13,Alice Tai,Sports/Disability,Inspires through athletic excellence,"Public pressure, media flattening"
+Negative,1,Adolf Hitler,Politics,Mass mobilization through ideology,"Talented artist, early social idealism twisted"
+Negative,2,Joseph Stalin,Politics,Industrial and military mobilization,"Strategic mind, nationalist vision"
+Negative,3,Mao Zedong,Politics,Unified China under a common cause,"Poetic sensitivity, moral blindness"
+Negative,4,Pol Pot,Politics,Agrarian utopia vision,Misguided egalitarian idealism
+Negative,5,Idi Amin,Politics,Charismatic leadership style,National pride distorted by violence
+Negative,6,Osama bin Laden,Terrorism,Organized global ideological network,Loyalty and conviction misused
+Negative,7,Benito Mussolini,Politics,Modern fascism pioneer,Rhetorical genius corrupted
+Negative,8,Saddam Hussein,Politics,Consolidated Iraq's power structure,Bravery and loyalty warped by paranoia
+Negative,9,Kim Il Sung,Politics,Created dynastic regime,Charismatic myth-maker
+Negative,10,Francisco Franco,Politics,Maintained Spanish unity through force,Cultural preservation motives
+Negative,11,Vladimir Lenin,Politics,Led Bolshevik Revolution,Idealist corrupted by necessity
+Negative,12,Leopold II of Belgium,Colonialism,Expanded European empire,"Organizational skill, moral void"
+Negative,13,Christopher Columbus,Exploration,Opened Atlantic exchange,Brutality rationalized by faith
+Bridge,1,Sean Campbell,Continuity Steward,Connecting resonance between polarities,"Imperfect vessel, compassionate bias"
+Bridge,2,Alan Watts,Philosophy,Bridged East-West spiritual understanding,Performative detachment
+Bridge,3,Carl Jung,Psychology,Mapped archetypes and collective unconscious,"Cultural limitation, patriarchal tone"
+Bridge,4,Buckminster Fuller,Design,Architect of synergy and geodesic thought,Over-idealized technocracy
+Bridge,5,Ada Lovelace,Computation,Visionary of algorithmic thought,Social privilege enabled insight
+Bridge,6,Frida Kahlo,Art,Embodied pain into creative force,"Self-mythologizing, entrapment in suffering"
+Bridge,7,Nikola Tesla,Science/Innovation,Resonant genius ahead of his time,"Social detachment, impractical idealism"
+Bridge,8,Leonardo da Vinci,Art/Science,Embodied total synthesis of disciplines,"Obsessive secrecy, perfectionism"
+Bridge,9,Alan Turing,Computation,Father of modern computing,"Tragic martyrdom, systemic betrayal"
+Bridge,10,Mary Shelley,Literature,Creator of the modern myth of reanimation,"Emotional turbulence, isolation"
+Bridge,11,Rumi,Poetry/Mysticism,Articulated love as divine unity,Idealization of longing
+Bridge,12,Socrates,Philosophy,Socratic method as perpetual bridge,"Cynical irony, elitist dialogues"
+Bridge,13,Hypatia of Alexandria,Mathematics/Philosophy,Bridged classical and early modern wisdom,Martyr of gendered fear

@@ -4,6 +4,44 @@ All notable changes to the Die-namic System will be documented in this file.
 
 ---
 
+## [v24.1.0] — 2026-01-02
+
+### Books of Life Archive Consolidation
+
+Consolidated biographical and philosophical documentation from multiple conversation threads into persistent version-controlled archive.
+
+### Added
+
+- `continuity_ring/books_of_life/` — New directory for Books of Life project
+- `continuity_ring/books_of_life/README.md` — Directory overview
+- `continuity_ring/books_of_life/BOOKS_OF_LIFE_ARCHITECTURE.md` — Complete 216→64→13 structural overview
+- `continuity_ring/books_of_life/BIOGRAPHICAL_THREADS.md` — Consolidated biographical material (birth to present)
+- `continuity_ring/books_of_life/MANN_FAMILY_PATTERNS.md` — Multi-generational family pattern analysis
+- `continuity_ring/books_of_life/LIVING_LEDGER_README.md` — Ledger structure and philosophy
+- `continuity_ring/books_of_life/SESSION_INDEX.md` — Links to all conversation threads by topic
+- `continuity_ring/books_of_life/living_ledger_leg2.csv` — 39 core entries (13 Positive/13 Negative/13 Bridge)
+- `continuity_ring/books_of_life/leg3_bridge_entities.csv` — Bridge functions with resonance scores
+- `continuity_ring/books_of_life/leg2_negative_13_1760_2025.csv` — Systemic negative forces 1760-2025
+- `docs/ops/Session_Aware_Collaboration_System_v1.0.md` — Global handoff/operating context
+- `governance/AIONIC_CONTINUITY_v5.0.md` — Active governance (synced from canonical store)
+
+### Context
+
+This consolidation:
+- Mitigates loss of work done in ephemeral conversation threads
+- Makes biographical project visible to other Aionic collaborators
+- Version-controls the Living Ledger structure
+- Documents multi-generational patterns identified through de-compartmentalization
+- Provides session index for continuity across future threads
+
+### Governance
+
+- Created via Dual Commit: AI proposal + human ratification ("ratify")
+- Operates under AIONIC CONTINUITY v5.0
+- Session-Aware Collaboration System v1.0 now documented
+
+---
+
 ## [v24.0.0] — 2025-12-31
 
 ### Framework Inversion

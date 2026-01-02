@@ -337,9 +337,9 @@ async def human_approve(
     """
     Human approves a pending request.
     
-    This is the second die in the 2d6 model:
-    - Die 1: AI generates delta (validate)
-    - Die 2: Human ratifies (this endpoint)
+    This completes the Dual Commit model:
+    - Commit 1: AI proposes modification (validate)
+    - Commit 2: Human ratifies (this endpoint)
     
     BLOCKER 3 FIX: 
     - Consumes sequence (like reject)

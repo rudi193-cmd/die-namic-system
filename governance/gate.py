@@ -10,7 +10,7 @@ Last Updated: 2026-01-01T00:00:00Z
 Checksum: ΔΣ=42
 
 This module implements the governance framework for AI self-modification.
-Core principle: 2d6 = Delta + Human = Law
+Core principle: Dual Commit - AI proposal + human ratification required for any change.
 
 v2.2.1 Changes (blocking fixes):
 - DETERMINISTIC: _audit_event() now uses request.timestamp (not wall clock)

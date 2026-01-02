@@ -187,14 +187,14 @@ Windows is not supported due to `fcntl` dependency.
 - **Hash-chained audit**: Tamper-evident logging
 - **Total validation**: No uncaught exceptions
 
-## Core Principle
+## Core Principle: Dual Commit
 
-```
-2d6 = Delta + Human = Law
-```
+**Dual Commit**: Governance requiring both AI proposal and human ratification before any change takes effect.
 
-- **Die 1**: AI proposes modification (POST /v1/validate)
-- **Die 2**: Human ratifies (POST /v1/human/approve)
+- **Commit 1**: AI proposes modification (`POST /v1/validate`)
+- **Commit 2**: Human ratifies or rejects (`POST /v1/human/approve` or `/reject`)
+
+Neither party can effect change unilaterally. Both commits must complete for the action to resolve.
 
 ---
 
