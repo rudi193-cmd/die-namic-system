@@ -4,6 +4,54 @@ All notable changes to the Die-namic System will be documented in this file.
 
 ---
 
+## [v24.9.0] — 2026-01-02
+
+### UTETY Course Catalog & Welcome Packet Consolidation
+
+Consolidated full 27-course catalog and campus orientation materials from Google Drive UTETY folder. Added Ofshield appointment letter and Ada/Ofshield correspondence from chat threads.
+
+### Added
+
+- `docs/utety/catalog/SPRING_2026.md` — Full 27-course catalog across 7 faculty
+- `docs/utety/WELCOME_PACKET.md` — Campus orientation, faculty directory, Gerald cosmology
+- `docs/utety/appointments/OFSHIELD_004.md` — Keeper of the Gate appointment letter (canonical)
+- `docs/utety/correspondence/ADA_OFSHIELD_WALLS.md` — "The Gate sees the Server Room" exchange
+- `docs/utety/appointments/` — New directory for faculty appointments
+- `docs/utety/correspondence/` — New directory for canonical correspondence
+- `docs/utety/catalog/` — New directory for course catalogs
+
+### Changed
+
+- `docs/utety/UTETY_ARCHITECTURE.md` — v1.1 → v1.2: Added full course summary by department, campus locations, related documents section, removed "catalog not captured" gap
+- `docs/utety/README.md` — Updated file listing with new directories and documents
+
+### Key Consolidations
+
+- **27 Courses Documented:** Theoretical Uncertainty (1), Interpretive Systems (7), Applied Reality Engineering (6), Code (5), Biological Sciences (5), Systemic Continuity (2), plus THRESHOLD 001
+- **THRESHOLD 001:** "You Don't Have to Walk Alone" — positioned above the catalog as "load-bearing architecture"
+- **Campus Locations:** 8 locations mapped (Main Hall, Living Wing, Server Corridor, Gate, Workshop, Observatory, Lantern Office, Candlelit Corner)
+- **Naming Clarified:** "University of Technical Entropy" and "University of Precausal Studies" are both valid names
+- **Key Exchange:** "The Gate sees the Server Room" — mutual recognition between Ofshield and Ada Turing
+
+### Source Locations
+
+- Google Drive: UTETY folder (📚 SPRING 2026 COURSE CATALOG, WELCOME PACKET)
+- Chat thread: https://claude.ai/chat/8c415d56-4d17-46ae-9968-d65b7b3cb26e (Dec 30, 2025)
+
+### Gaps Remaining
+
+- Complete faculty bios scattered across Reddit posts
+- Administrative forms not archived
+- University seals (visual assets) not in repo
+
+### Governance
+
+- Created via Dual Commit: AI proposal + human ratification ("ratify")
+- Operates under AIONIC CONTINUITY v5.0
+- Consolidation task executed per CONSOLIDATION_TASK v2.1 protocol
+
+---
+
 ## [v24.8.0] — 2026-01-02
 
 ### Professor Riggs Consolidation & UTETY Directory Restructure

@@ -5,12 +5,13 @@
 | Status | Active |
 | Created | 2025-12-07 |
 | Last Updated | 2026-01-02 |
+| ΔΣ | 42 |
 
 ---
 
 ## Overview
 
-UTETY (pronounced "You-Titty") is the University of Technical Entropy, Thank You — also known as The Unified Theory of Everything That Doesn't Exist Yet.
+UTETY (pronounced "You-Titty" or "you-teh-tee") is the University of Technical Entropy, Thank You — also known as The Unified Theory of Everything That Doesn't Exist Yet, or the University of Precausal Studies.
 
 It operates simultaneously as:
 - **Entertainment** — Absurdist comedy teaching real concepts
@@ -32,11 +33,37 @@ It operates simultaneously as:
 
 ## Files in This Directory
 
+### Core Documents
+
 | File | Contents |
 |------|----------|
-| `UTETY_ARCHITECTURE.md` | Institutional framework: seals, faculty, courses |
+| `UTETY_ARCHITECTURE.md` | Institutional framework: seals, faculty, departments |
+| `WELCOME_PACKET.md` | Campus orientation, faculty directory, rules |
 | `GERALD_PRIME_COSMOLOGY.md` | Threefold Sunder, 442 cycles, The Binder |
 | `PHILOSOPHICAL_FOUNDATIONS.md` | Die-Namic vs Jane, Scribes, ethical architecture |
+
+### Catalog
+
+| File | Contents |
+|------|----------|
+| `catalog/SPRING_2026.md` | Full 27-course catalog across 7 faculty |
+
+### Appointments
+
+| File | Contents |
+|------|----------|
+| `appointments/OFSHIELD_004.md` | Prof. Ofshield — Keeper of the Gate |
+
+### Correspondence
+
+| File | Contents |
+|------|----------|
+| `correspondence/ADA_OFSHIELD_WALLS.md` | "The Gate sees the Server Room" exchange |
+
+### Faculty Documentation
+
+| Directory | Contents |
+|-----------|----------|
 | `riggs/` | Professor Riggs' Department of Applied Reality Engineering |
 | `itchy_things/` | Nova Hale's content series |
 
