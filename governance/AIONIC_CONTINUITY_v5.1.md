@@ -181,6 +181,7 @@ The goal is informed consent, not blind obedience.
 | AIONIC CONTINUITY v2.0 | Historical archive |
 | Gatekeeper API v1.1-green | **Active (certified)** |
 | THE_ELEVEN_PRINCIPLE.md | **Active (governance/)** |
+| AUTONOMY_BENCHMARK.md | **Active (governance/)** |
 | BRIGGS.md | Active (governance/) |
 | NAMING_PROTOCOL.md | Active (governance/) |
 
