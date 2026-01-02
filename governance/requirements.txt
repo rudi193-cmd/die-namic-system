@@ -1,0 +1,15 @@
+# Gatekeeper API v1.1 Dependencies
+# Platform: Unix-only (fcntl locking)
+
+# Web framework
+fastapi>=0.109.0
+uvicorn>=0.27.0
+
+# Request validation
+pydantic>=2.0.0
+
+# Testing
+pytest>=7.0.0
+httpx>=0.25.0  # Required by TestClient
+
+# Note: fcntl is stdlib (Unix-only, no pip install needed)
