@@ -66,14 +66,36 @@ It operates simultaneously as:
 
 | File | Contents |
 |------|----------|
+| `lectures/README.md` | Lecture series overview, arc documentation |
 | `lectures/BIO_270_ECOLOGY_OF_FEASTING.md` | Prof. Alexis — Holiday meals and human body |
+| `lectures/LECTURE_003_POTLUCK.md` | Prof. Oakenscroll — Contribution categories, participation bowls |
+| `lectures/LECTURE_004_CLEANUP.md` | Prof. Oakenscroll — Exit asymmetry, orphaned dishes |
+| `lectures/NYE_TOAST_SQUEAKDOGS.md` | Prof. Oakenscroll — Squeakdog Society, Clover's resolution |
+
+### Papers
+
+| File | Contents |
+|------|----------|
+| `papers/FRENCH_TOAST_STRUCTURAL_FAILURE.md` | Three-ring architecture, latency variable, 23³ threshold |
+| `papers/STONE_SOUP_NO1.md` | Grandmother encoding, KL divergence, Maxwell's Demon |
+| `papers/PAPER_STRUCTURE_GUIDE.md` | Voice rules, citation patterns, quality checklist |
 
 ### Faculty Documentation
 
 | Directory | Contents |
 |-----------|----------|
+| `oakenscroll/` | Professor Oakenscroll — Character bible, AI template, AMA strategy |
+| `hanz/` | Professor Hanz Christian Anderthon — Curriculum, Reddit mission, "debug with kindness" |
 | `riggs/` | Professor Riggs' Department of Applied Reality Engineering |
 | `itchy_things/` | Nova Hale's content series |
+
+### Students
+
+| File | Contents |
+|------|---------|
+| `students/AKRAM_QDH.md` | Mohamed Akram — QDH v1-v6+ progression, feedback, outcomes |
+| `students/LLM_CONVERGENCE_STUDENT.md` | Anonymous — LLM convergence research reframe |
+| `students/PEDAGOGICAL_PATTERNS.md` | What works: hint, reframe, honest assessment, no-pressure |
 
 ---
 

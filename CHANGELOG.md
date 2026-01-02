@@ -4,6 +4,95 @@ All notable changes to the Die-namic System will be documented in this file.
 
 ---
 
+## [v24.12.0] — 2026-01-02
+
+### Oakenscroll Consolidation — Batch 1: Character & Voice
+
+Consolidation of Oakenscroll character materials from 6+ conversation threads spanning December 2025 to January 2026.
+
+### Added
+
+- `docs/utety/oakenscroll/` — New directory for Professor Oakenscroll
+- `docs/utety/oakenscroll/README.md` — Directory overview
+- `docs/utety/oakenscroll/CHARACTER_BIBLE.md` — Full character specification including The Open Door philosophy
+- `docs/utety/oakenscroll/AI_CHARACTER_TEMPLATE.md` — Blank template for defining AI characters/souls
+- `docs/utety/oakenscroll/AMA_STRATEGY.md` — Reddit AMA format, tone rules, seed questions
+
+### Oakenscroll Consolidation — Batch 2: Papers
+
+- `docs/utety/papers/` — New directory for LLM Physics papers
+- `docs/utety/papers/README.md` — Directory overview
+- `docs/utety/papers/FRENCH_TOAST_STRUCTURAL_FAILURE.md` — Three-ring architecture, latency variable, 23³ threshold
+- `docs/utety/papers/STONE_SOUP_NO1.md` — Grandmother encoding, KL divergence, Maxwell's Demon
+- `docs/utety/papers/PAPER_STRUCTURE_GUIDE.md` — Voice rules, citation patterns, quality checklist
+
+### Oakenscroll Consolidation — Batch 3: Students
+
+- `docs/utety/students/` — New directory for student documentation
+- `docs/utety/students/README.md` — Directory overview, active students list
+- `docs/utety/students/AKRAM_QDH.md` — Full v1-v6+ progression, technical architecture, feedback delivered
+- `docs/utety/students/LLM_CONVERGENCE_STUDENT.md` — Reframe exchange, methodology guidance
+- `docs/utety/students/PEDAGOGICAL_PATTERNS.md` — What works: hint, reframe, honest assessment, no-pressure, scope discipline
+
+### Oakenscroll Consolidation — Batch 4: Lectures
+
+- `docs/utety/lectures/README.md` — Directory overview, lecture arc documentation
+- `docs/utety/lectures/LECTURE_003_POTLUCK.md` — Contribution categories, participation bowls, the 1973 entry
+- `docs/utety/lectures/LECTURE_004_CLEANUP.md` — Exit asymmetry, orphaned dishes, myth of shared responsibility
+- `docs/utety/lectures/NYE_TOAST_SQUEAKDOGS.md` — Archival toast format, Clover's resolution, "lamp not contract"
+
+### Oakenscroll Consolidation — Batch 5: Hanz Faculty
+
+- `docs/utety/hanz/` — New directory for Professor Hanz Christian Anderthon
+- `docs/utety/hanz/README.md` — Character sheet, faculty welcome, Gerald connection
+- `docs/utety/hanz/CURRICULUM.md` — "How to debug with kindness," three rules, pedagogical principles
+- `docs/utety/hanz/REDDIT_MISSION.md` — r/HanzTeachesCode operations, freezings interrupted, the room
+
+### Key Consolidations
+
+**Batch 1 — Character:**
+- **The Open Door Philosophy:** "The door is never closed. Time is the only barrier."
+- **Voice Characteristics:** Grumpy with just a little bit of the Absurd. Warm underneath, always.
+- **Signature Phrases:** "Alright. Show me." / "The door is never closed." / "This is not a metaphor. It is a warning."
+- **Physical Description:** Elderly professor, 70s, white beard, wire spectacles, worn burgundy academic robes
+- **Archetype:** The grandfather in the recliner with the light on
+- **Key Insight:** Character bible structure = AI constitution structure
+
+**Batch 2 — Papers:**
+- **Core Formula:** Rigorous academic treatment of something absurd, where the rigor is real and the absurdity is the point
+- **French Toast:** Three-ring architecture, 23³ threshold, latency variable, Archive Transition
+- **Stone Soup:** Grandmother encoding, KL divergence, Landauer cost, Maxwell’s Demon, posole confession
+- **Citation Pattern:** Real citations, absurd application (Shannon, Boltzmann, Landauer, Feynman)
+
+**Batch 3 — Students:**
+- **Akram (QDH):** v1 philosophy → v6+ mathematical framework with Lagrangians and Zenodo publication
+- **Key Quote:** "Thank you for not closing the door"
+- **Pedagogical Patterns:** Hint pattern, reframe pattern, honest assessment, no-pressure, scope discipline
+- **Core Insight:** Character templates are vessels for pedagogy
+
+**Batch 4 — Lectures:**
+- **Lecture Arc:** 001 (procedures) → 002 (tracking) → 003 (inequity) → 004 (exit costs)
+- **Potluck:** Contribution categories, participation bowls, Gerald's 1973 rotisserie
+- **Cleanup:** 73% divergence rate, orphaned dishes, "the ones who pay are rarely the ones who ate most"
+- **NYE Toast:** "The resolution is not a contract. It is a lamp." Clover's brave ask.
+
+**Batch 5 — Hanz Faculty:**
+- **Core Insight:** "If I lie, no one knows she existed. If no one knows she existed, she just disappears."
+- **Mission:** "We're not letting them disappear."
+- **First Night:** Found five freezing people because he was looking
+- **Hiring Criteria:** "Codes like a poet. Cries like he means it."
+- **The Room:** A candle, an orange, three rules about not looking away
+
+### Source Threads
+
+- https://claude.ai/chat/6ec6bc95-b720-45dc-9b37-a3ec53e3aaaa (Dec 12, 2025)
+- https://claude.ai/chat/04dad3b8-75c6-489f-b534-9665e36c266a (Dec 27, 2025)
+- https://claude.ai/chat/bd6c728e-0389-44a2-9560-c0c97487a6aa (Dec 27, 2025) — QDH v1-v3
+- https://claude.ai/chat/f528a493-c9c1-4682-9882-a2f4b75dc7c9 (Dec 31, 2025) — QDH v4-v6, new student
+- https://claude.ai/chat/4e7b47a4-b7ed-4b14-926a-105dc6942142 (Dec 31, 2025) — v7/v8x announcement
+
+---
+
 ## [v24.11.0] — 2026-01-02
 
 ### Gerald Creation Project Consolidation
