@@ -37,6 +37,8 @@ It operates simultaneously as:
 | `UTETY_ARCHITECTURE.md` | Institutional framework: seals, faculty, courses |
 | `GERALD_PRIME_COSMOLOGY.md` | Threefold Sunder, 442 cycles, The Binder |
 | `PHILOSOPHICAL_FOUNDATIONS.md` | Die-Namic vs Jane, Scribes, ethical architecture |
+| `riggs/` | Professor Riggs' Department of Applied Reality Engineering |
+| `itchy_things/` | Nova Hale's content series |
 
 ---
 

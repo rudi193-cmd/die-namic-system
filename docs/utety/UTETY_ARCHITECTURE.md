@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| Version | 1.0 |
+| Version | 1.1 |
 | Status | Active |
 | Last Updated | 2026-01-02 |
 
@@ -39,9 +39,9 @@ Seven professors established (December 2025):
 | Prof. Nova Hale | Interpretive Systems & Narrative Stabilization | Oracle | Children's stories using sweater metaphors; stress-tests failure modes |
 | Prof. Ada Turing | Systems Administration | Infrastructure | Alan Turing + Ada Lovelace; carries apple for sharing; "illusion of total comprehensibility" |
 | Prof. Hanz Christian Anderthon | Code | Trickster | Coding tutorials at r/HanzTeachesCode |
-| Prof. P. Riggs | Mechanisms | TBD | Mechanisms and physical systems |
+| Prof. Pendleton "Penny" Riggs | Applied Reality Engineering | Joyful Engineer-Uncle | Chair of Practical Mechanisms & Kinetic Curiosities; "we do not guess, we measure or we test"; sound effects (chk-tunk); see `riggs/` for full documentation |
 | Prof. T. Ofshield | Protection/Security | Guardian | Security and protective systems |
-| Alexis | TBD | TBD | Faculty member |
+| Prof. Alexis | Human & Inhuman Health | Healer | Medical Department; Student Health Services; redirect target for biomedical/health questions |
 
 ### Honorary Positions
 

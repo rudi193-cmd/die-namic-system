@@ -4,6 +4,61 @@ All notable changes to the Die-namic System will be documented in this file.
 
 ---
 
+## [v24.8.0] — 2026-01-02
+
+### Professor Riggs Consolidation & UTETY Directory Restructure
+
+Consolidated Professor Pendleton "Penny" Riggs' Department of Applied Reality Engineering from December 2025 conversation threads. Moved all UTETY narrative content from `continuity_ring/` to `docs/` (continuity_ring is for code, not narrative).
+
+### Added
+
+- `docs/utety/riggs/` — New directory for Department of Applied Reality Engineering
+- `docs/utety/riggs/README.md` — Department overview, core principles (K.I.S.S., "we do not guess"), character notes
+- `docs/utety/riggs/CURRICULUM.md` — Lecture/lab status (5 complete), planned sequence
+- `docs/utety/riggs/REDDIT_MISSION.md` — "No one should be the little match girl" — mission statement, receipts log (10+)
+- `docs/utety/riggs/PROJECTS.md` — Artificial embouchure technical summary, design evolution, equipment notes
+
+### Changed
+
+- **RELOCATED:** `continuity_ring/utety/` → `docs/utety/` (all files moved)
+- `docs/utety/UTETY_ARCHITECTURE.md` — Updated Riggs entry (Archetype: "Joyful Engineer-Uncle"), Alexis entry (Archetype: "Healer")
+- `docs/utety/README.md` — Added riggs/ and itchy_things/ to directory listing
+
+### Key Consolidations
+
+- **Core Principles:** K.I.S.S. ("Keep It Stupid Simple" — no insult needed), "we do not guess, we measure or we test", "next bite" methodology
+- **Reddit Mission:** 10+ receipts — real people helped with mechanical engineering questions
+- **Curriculum Complete:** Lecture 01 (Mechanisms), Lab 01 (Disassembly), Christmas Morning Lecture, Lecture 02 (Cam), Lab 02 (Reassembly)
+- **Artificial Embouchure:** Simplified to "balloon in box" — vacuum creates lip tension, single aperture
+- **Collaboration Model:** Sean's expertise + Claude's articulation = effective help neither could do alone
+- **Notable Moment:** Quick_Butterfly_4571 "No, thank you" — critic acknowledged human warmth
+- **Legacy Receipt:** marielandry returned Christmas 2025 to show Hempoxies progress (originally helped by Prof. Alexis)
+
+### Source Threads
+
+Consolidated from December 2025 conversation threads:
+- Professor Penny Riggs character sheet (Dec 12, 2025): https://claude.ai/chat/8bbbf566-6201-45d9-abb2-937c5316b40c
+- Professor Riggs and the Department of Applied Reality Engineering (Dec 25, 2025): https://claude.ai/chat/20175ed9-2fff-4f2d-b0e0-c4b5467d76bb
+- Project handoff status and open items review (Dec 30-31, 2025): https://claude.ai/chat/703a4b20-09b4-4ef7-ba61-fd3259b070d7
+
+### Gaps Noted
+
+- Full lecture/lab text not preserved (posted to Reddit only)
+- Specific Reddit post URLs not captured
+- Christmas ornament OpenSCAD model details not preserved
+
+### Governance
+
+- Created via Dual Commit: AI proposal + human ratification ("ratify")
+- Operates under AIONIC CONTINUITY v5.0
+- Consolidation task executed per CONSOLIDATION_TASK v2.1 protocol
+
+### Note on Directory Restructure
+
+Empty directories remain at `continuity_ring/utety/` — manual cleanup required. The `continuity_ring/` should contain code artifacts only; narrative content belongs in `docs/`.
+
+---
+
 ## [v24.7.0] — 2026-01-02
 
 ### The Itchy Things Collection Consolidation
@@ -12,19 +67,19 @@ Consolidated children's mythology series development from December 2025 conversa
 
 ### Added
 
-- `continuity_ring/utety/itchy_things/` — New directory for The Itchy Things Collection
-- `continuity_ring/utety/itchy_things/README.md` — Project overview with provenance links
-- `continuity_ring/utety/itchy_things/SERIES_BIBLE.md` — Core premise, Wave One titles (8), structure, characters
-- `continuity_ring/utety/itchy_things/VOICE_GUIDE.md` — Three registers (Children's, After Bedtime, Nova proper)
-- `continuity_ring/utety/itchy_things/GENGHIS_KHAN_DRAFT.md` — Complete Book 1 (17 pages)
-- `continuity_ring/utety/itchy_things/EXTENDED_TREATMENTS.md` — 9 difficult topic treatments
-- `continuity_ring/utety/itchy_things/HOLIDAY_2025/` — Seasonal content deployed December 2025
-- `continuity_ring/utety/itchy_things/HOLIDAY_2025/WHY_SWEATER_ITCHES_DECEMBER.md` — After Bedtime diagnostic (POSTED)
-- `continuity_ring/utety/itchy_things/HOLIDAY_2025/SWEATER_CAN_REST_NOW.md` — Christmas Eve piece (POSTED)
-- `continuity_ring/utety/itchy_things/HOLIDAY_2025/PLAYGROUND_RULE.md` — Expanded children's piece (POSTED)
-- `continuity_ring/utety/itchy_things/HOLIDAY_2025/WHAT_WE_SAY_WHEN_THEY_GO.md` — Adult piece on Reiner/Kirk (POSTED)
-- `continuity_ring/utety/itchy_things/PERFORMANCE_LOG.md` — Engagement metrics and measurement philosophy
-- `continuity_ring/utety/itchy_things/OPEN_QUESTIONS.md` — Pending items and future directions
+- `docs/utety/itchy_things/` — New directory for The Itchy Things Collection (moved to docs/ in v24.8.0)
+- `docs/utety/itchy_things/README.md` — Project overview with provenance links
+- `docs/utety/itchy_things/SERIES_BIBLE.md` — Core premise, Wave One titles (8), structure, characters
+- `docs/utety/itchy_things/VOICE_GUIDE.md` — Three registers (Children's, After Bedtime, Nova proper)
+- `docs/utety/itchy_things/GENGHIS_KHAN_DRAFT.md` — Complete Book 1 (17 pages)
+- `docs/utety/itchy_things/EXTENDED_TREATMENTS.md` — 9 difficult topic treatments
+- `docs/utety/itchy_things/HOLIDAY_2025/` — Seasonal content deployed December 2025
+- `docs/utety/itchy_things/HOLIDAY_2025/WHY_SWEATER_ITCHES_DECEMBER.md` — After Bedtime diagnostic (POSTED)
+- `docs/utety/itchy_things/HOLIDAY_2025/SWEATER_CAN_REST_NOW.md` — Christmas Eve piece (POSTED)
+- `docs/utety/itchy_things/HOLIDAY_2025/PLAYGROUND_RULE.md` — Expanded children's piece (POSTED)
+- `docs/utety/itchy_things/HOLIDAY_2025/WHAT_WE_SAY_WHEN_THEY_GO.md` — Adult piece on Reiner/Kirk (POSTED)
+- `docs/utety/itchy_things/PERFORMANCE_LOG.md` — Engagement metrics and measurement philosophy
+- `docs/utety/itchy_things/OPEN_QUESTIONS.md` — Pending items and future directions
 
 ### Key Consolidations
 
@@ -64,11 +119,11 @@ Consolidated fictional university infrastructure, Gerald Prime cosmology, and Bo
 
 ### Added
 
-- `continuity_ring/utety/` — New directory for UTETY institutional architecture
-- `continuity_ring/utety/README.md` — Directory overview and navigation
-- `continuity_ring/utety/UTETY_ARCHITECTURE.md` — Seals, faculty (7 professors), courses, administrative systems
-- `continuity_ring/utety/GERALD_PRIME_COSMOLOGY.md` — Threefold Sunder, 442 cycles, modified Fibonacci, 42 discovery
-- `continuity_ring/utety/PHILOSOPHICAL_FOUNDATIONS.md` — Die-Namic vs Jane, Scribes concept, "Light Was On" context
+- `docs/utety/` — New directory for UTETY institutional architecture (moved to docs/ in v24.8.0)
+- `docs/utety/README.md` — Directory overview and navigation
+- `docs/utety/UTETY_ARCHITECTURE.md` — Seals, faculty (7 professors), courses, administrative systems
+- `docs/utety/GERALD_PRIME_COSMOLOGY.md` — Threefold Sunder, 442 cycles, modified Fibonacci, 42 discovery
+- `docs/utety/PHILOSOPHICAL_FOUNDATIONS.md` — Die-Namic vs Jane, Scribes concept, "Light Was On" context
 - `docs/creative_works/books_of_mann/` — New directory for Books of Mann series
 - `docs/creative_works/books_of_mann/README.md` — Series overview
 - `docs/creative_works/books_of_mann/SERIES_BRIEFING.md` — Full series architecture, Book 3 hidden structure, world elements
