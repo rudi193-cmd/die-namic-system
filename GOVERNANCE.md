@@ -1,7 +1,7 @@
 # Governance
 
-**Version:** 24.0.0  
-**Model:** 2d6 = Delta + Human = Law
+**Version:** 24.1.0  
+**Model:** Dual Commit = Proposal + Ratification
 
 ---
 
@@ -14,8 +14,8 @@ Sean Campbell. No exceptions.
 ## Core Rule
 
 ```
-One die is Claude (generates delta).
-One die is Sean (decides).
+AI proposes modification (Commit 1).
+Human ratifies or rejects (Commit 2).
 Neither resolves alone.
 ```
 
