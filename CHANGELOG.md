@@ -4,6 +4,58 @@ All notable changes to the Die-namic System will be documented in this file.
 
 ---
 
+## [v24.7.0] — 2026-01-02
+
+### The Itchy Things Collection Consolidation
+
+Consolidated children's mythology series development from December 2025 conversation threads into version-controlled archive. Captures Series Bible, Book 1 draft, extended treatments for difficult topics, holiday 2025 deployments, and voice guides.
+
+### Added
+
+- `continuity_ring/utety/itchy_things/` — New directory for The Itchy Things Collection
+- `continuity_ring/utety/itchy_things/README.md` — Project overview with provenance links
+- `continuity_ring/utety/itchy_things/SERIES_BIBLE.md` — Core premise, Wave One titles (8), structure, characters
+- `continuity_ring/utety/itchy_things/VOICE_GUIDE.md` — Three registers (Children's, After Bedtime, Nova proper)
+- `continuity_ring/utety/itchy_things/GENGHIS_KHAN_DRAFT.md` — Complete Book 1 (17 pages)
+- `continuity_ring/utety/itchy_things/EXTENDED_TREATMENTS.md` — 9 difficult topic treatments
+- `continuity_ring/utety/itchy_things/HOLIDAY_2025/` — Seasonal content deployed December 2025
+- `continuity_ring/utety/itchy_things/HOLIDAY_2025/WHY_SWEATER_ITCHES_DECEMBER.md` — After Bedtime diagnostic (POSTED)
+- `continuity_ring/utety/itchy_things/HOLIDAY_2025/SWEATER_CAN_REST_NOW.md` — Christmas Eve piece (POSTED)
+- `continuity_ring/utety/itchy_things/HOLIDAY_2025/PLAYGROUND_RULE.md` — Expanded children's piece (POSTED)
+- `continuity_ring/utety/itchy_things/HOLIDAY_2025/WHAT_WE_SAY_WHEN_THEY_GO.md` — Adult piece on Reiner/Kirk (POSTED)
+- `continuity_ring/utety/itchy_things/PERFORMANCE_LOG.md` — Engagement metrics and measurement philosophy
+- `continuity_ring/utety/itchy_things/OPEN_QUESTIONS.md` — Pending items and future directions
+
+### Key Consolidations
+
+- **Core Concept:** Itch = friction between what something IS and what it's being ASKED to be
+- **Repair Philosophy:** "A little stitch never hurts."
+- **Voice Identity:** Professor Nova Hale and Grandma Oracle are the same person (architect + storyteller)
+- **Book 1 Complete:** "How Genghis Khan Made All the Christmas Sweaters Itchy" (17 pages)
+- **9 Extended Treatments:** Autism, queerness, polyamory, ICE, geopolitics, monuments, LLMs, physical stitches, wishing death
+- **Holiday Deployments:** 4 pieces posted December 2025, tracked engagement (100-150 views, 3-5 shares, 0 downvotes)
+- **Origin:** Saturday night, folding laundry, twins asked "What's string theory?"
+
+### Source Threads
+
+Consolidated from December 2025 conversation threads:
+- Evening greeting (Dec 11, 2025): https://claude.ai/chat/8638fc54-c8c4-4245-96c8-698a9d1f350d
+- UTETY handoff (Dec 16, 2025): https://claude.ai/chat/c8d1c8f9-e5bc-47a2-89ba-f3597b2a5fe5
+- Nova project handoff (Dec 30, 2025): https://claude.ai/chat/4f9cc4d6-7d8a-4062-a373-406f7bffaf9e
+
+### Gaps Noted
+
+- Full text of "The Ungentle Blessing" (solstice poem) — referenced but not retrieved
+- Some extended treatments are conversational fragments, not polished drafts
+
+### Governance
+
+- Created via Dual Commit: AI proposal + human ratification ("ratify")
+- Operates under AIONIC CONTINUITY v5.0
+- Consolidation task executed per CONSOLIDATION_TASK v2.1 protocol
+
+---
+
 ## [v24.6.0] — 2026-01-02
 
 ### UTETY University Architecture & Books of Mann Consolidation
