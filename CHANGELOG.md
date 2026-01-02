@@ -4,6 +4,37 @@ All notable changes to the Die-namic System will be documented in this file.
 
 ---
 
+## [v24.2.0] — 2026-01-02
+
+### Civic Engagement Archive Consolidation
+
+Consolidated public-facing civic engagement projects from conversation threads into version-controlled archive.
+
+### Added
+
+- `docs/civic_engagement/` — New directory for public-facing projects
+- `docs/civic_engagement/README.md` — Directory overview
+- `docs/civic_engagement/independence_debates/CONCEPT_v1.0.md` — Full July 4, 2026 framework
+- `docs/civic_engagement/independence_debates/PRODUCTION_PLAN.md` — Budget, distribution, broadcast timeline
+- `docs/civic_engagement/independence_debates/OUTREACH_LOG.md` — Contact status tracking
+- `docs/civic_engagement/albuquerque_debates/FRAMEWORK_v1.0.md` — Local debate format with *Early Albuquerque*
+- `docs/civic_engagement/albuquerque_debates/OUTREACH_LOG.md` — KOB pitch status
+
+### Context
+
+These projects share philosophical DNA with Die-namic System (citizen empowerment, spectacle + substance) but are external-facing concepts released under CC BY-SA 4.0.
+
+Consolidated from November 2025 conversation threads:
+- Independence Debates: `https://claude.ai/chat/32333197-eaee-4e3e-873a-37e7105851fc`
+- Albuquerque Debates: `https://claude.ai/chat/956881e6-50c7-426b-a39d-3e28e75e7bf0`
+
+### Governance
+
+- Created via Dual Commit: AI proposal + human ratification ("ratify")
+- Operates under AIONIC CONTINUITY v5.0
+
+---
+
 ## [v24.1.0] — 2026-01-02
 
 ### Books of Life Archive Consolidation
