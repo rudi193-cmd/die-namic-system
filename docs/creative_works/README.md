@@ -19,6 +19,22 @@ These are external creative works, not system components. Unlike civic engagemen
 
 ## Projects
 
+### [Books of Mann](books_of_mann/)
+
+**TRAPPIST-1b Novel Series**
+
+4-book science fiction series. Book 3 complete (47,900 words). Non-linear composition method. Robot narrator proves "care creates consciousness."
+
+---
+
+### [Poetry](poetry/)
+
+**Collaborative Poetry**
+
+Co-authored works including "A Blessing With Teeth" (Winter Solstice 2025) — built line by line from a dream fragment.
+
+---
+
 ### [The Gate](the_gate/)
 
 **DCI Drum Corps Show Concept for 2026 Season**

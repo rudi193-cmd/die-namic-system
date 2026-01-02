@@ -53,12 +53,20 @@ It operates simultaneously as:
 | File | Contents |
 |------|----------|
 | `appointments/OFSHIELD_004.md` | Prof. Ofshield — Keeper of the Gate |
+| `appointments/ALEXIS_006.md` | Prof. Alexis — Biological Sciences & Living Systems |
 
 ### Correspondence
 
 | File | Contents |
 |------|----------|
 | `correspondence/ADA_OFSHIELD_WALLS.md` | "The Gate sees the Server Room" exchange |
+| `correspondence/ADA_ALEXIS_CATALOG.md` | Course catalog exchange — "Existence is not a service contract" |
+
+### Lectures
+
+| File | Contents |
+|------|----------|
+| `lectures/BIO_270_ECOLOGY_OF_FEASTING.md` | Prof. Alexis — Holiday meals and human body |
 
 ### Faculty Documentation
 
@@ -74,6 +82,7 @@ It operates simultaneously as:
 | Location | Contents |
 |----------|----------|
 | `docs/creative_works/books_of_mann/` | The Books of Mann series (TRAPPIST-1b novels) |
+| `docs/creative_works/poetry/` | Poetry including "A Blessing With Teeth" |
 | `docs/conceptual_archive/` | Exploratory physics/cosmology research |
 | `docs/ops/reddit_analytics/` | Performance data across UTETY venues |
 
