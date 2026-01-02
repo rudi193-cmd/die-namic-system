@@ -4,6 +4,56 @@ All notable changes to the Die-namic System will be documented in this file.
 
 ---
 
+## [v24.11.0] — 2026-01-02
+
+### Gerald Creation Project Consolidation
+
+Full consolidation of Gerald Creation project from 10+ conversation threads spanning November 2025 to January 2026. British absurdist comedy series featuring an enlightened rotisserie chicken.
+
+### Added
+
+- `docs/creative_works/gerald/` — New directory for Gerald project
+- `docs/creative_works/gerald/README.md` — Project overview and quick reference
+- `docs/creative_works/gerald/GERALD_HANDOFF_v2.0.md` — Comprehensive handoff packet (supersedes v1.1)
+- `docs/creative_works/gerald/DISPATCH_LOG.md` — Complete dispatch log (#1-17, with gaps noted)
+- `docs/creative_works/gerald/CHARACTERS.md` — Full character bible
+- `docs/creative_works/gerald/COSMOLOGY.md` — Deep canon / mythology (Gerald Bang, Threefold Sunder, Δ₀ Principle)
+- `docs/creative_works/gerald/LOCATIONS.md` — Setting bible (KLuB Gnee, Denmark Street, Gatwick, etc.)
+- `docs/creative_works/gerald/VOICE_GUIDE.md` — Tone, style, examples
+- `docs/creative_works/gerald/OPERATIONS.md` — Posting strategy, stats protocol, cross-project rules
+- `docs/creative_works/gerald/HANZ_CHRISTAIN_ANDERTHON_HANDOFF.md` — Chaos witness character packet
+
+### Key Consolidations
+
+- **17 Dispatches Logged:** Queue Incident through Cracker Incident (gaps at #10, #13)
+- **Core Characters:** Gerald variants, Squeakdogs, Vicar, Sir Paul McCartwheel, Mayor/Hammers, The Binder, Hanz
+- **Cosmology:** Gerald Bang, Threefold Sunder, Head/Body/Soul lineages, Δ₀ Principle
+- **Locations:** KLuB Gnee (Tivoli), Hanks Guitars (Denmark Street), Gatwick Airport, The Locarno
+- **Voice Formula:** "70% chaos bard / 20% accidental prophet / 10% rotisserie chicken with a clipboard"
+- **Process Note:** "Worldbuilding before writing" — Sean consistently corrects premature drafting
+- **Hanz Character:** Ralph Wiggum-style chaos witness, winks back at Gerald (unprecedented)
+
+### Source Threads
+
+- https://claude.ai/chat/6de9000b-fb33-4103-86e5-c07c472564ed (Nov 30, 2025)
+- https://claude.ai/chat/5db4400d-41ec-4663-a46b-cc7288d2cf8c (Dec 1, 2025)
+- https://claude.ai/chat/84673254-8ea3-45a4-a3af-3f9621a0fb80 (Dec 14, 2025)
+- https://claude.ai/chat/afefa687-a957-4a68-87e5-9488ed773d13 (Dec 14, 2025)
+- https://claude.ai/chat/9d06260d-d08a-400f-9666-9174d6623273 (Dec 30, 2025)
+
+### Gaps Noted
+
+- Dispatches #10 and #13 not found in consolidated records
+- "Steve" character mentioned but never found
+- Book of Gerald concept developed but posting status unclear
+- Full dispatch text lives in Google Drive, not duplicated to GitHub
+
+### Files Written to GitHub Only
+
+(Google Drive batch scheduled separately per user instruction)
+
+---
+
 ## [v24.10.0] — 2026-01-02
 
 ### Professor Alexis Consolidation
