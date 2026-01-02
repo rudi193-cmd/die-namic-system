@@ -27,26 +27,28 @@
 
 | Item | Low | High | Notes |
 |------|-----|------|-------|
-| The Hut (final production) | $850 | $1,300 | PVC frame + fabric covering |
-| Phoenix Flag (60-yard silk) | $830 | $1,600 | Lightweight silk, gradient dye |
-| Center Podium | $150 | $260 | May exist in inventory |
+| The Hut (production) | $850 | $1,300 | PVC + canvas, walking mechanism |
+| Phoenix Flag (production) | $830 | $1,600 | 60-yard silk, gradient dyed |
+| Center DM Podium | $150 | $260 | May exist in inventory |
 
 ### Costumes ($6,690 – $11,310)
 
 | Item | Qty | Low | High | Notes |
 |------|-----|-----|------|-------|
-| Guard transformation costumes | 32 | $4,960 | $8,000 | Full quick-change sets |
+| Brass breakaway jackets | 64 | $4,800 | $9,600 | Snap tape, structured shoulders |
 | Brass underlayers | 64 | $960 | $1,600 | Black athletic shirts |
-| Balaclavas | 64 | $320 | $960 | Black, breathable |
-| Brass outer jackets | 64 | $450 | $750 | IF corps needs new; otherwise $0 |
+| Balaclavas | 64 | $320 | $960 | Black, moisture-wicking |
+| Guard transformation costumes | 32 | $610 | $1,150 | Quick-change Slavic layered |
 
-**Note:** If corps already has suitable white jackets with snap tape modification, jacket cost drops significantly.
+*Note: Guard costumes may be partially covered by existing guard budget*
 
 ### Music Licensing ($3,000 – $8,000)
 
 | Item | Low | High | Notes |
 |------|-----|------|-------|
-| Custom arrangement commission | $3,000 | $8,000 | Mussorgsky/Ravel public domain; arrangement is the cost |
+| Custom arrangement commission | $3,000 | $8,000 | Arranger TBD |
+
+*Mussorgsky/Ravel works are public domain; licensing is for custom arrangement only*
 
 ### Drill Instruction ($10,000 – $15,000)
 
@@ -54,172 +56,161 @@
 |--------|-------|------|
 | Full-season partnership | 170-240 | $10,000-$15,000 |
 | Consultation + key camps | 80-120 | $6,000-$10,000 |
-| Remote only | 40-60 | $3,000-$5,000 |
+| Remote consultation only | 40-60 | $3,000-$5,000 |
 
-**Recommended:** Full-season partnership for first year.
+*Budget assumes full-season partnership (Option A)*
 
 ### Prototypes ($2,350 – $3,900)
 
-| Item | Low | High | Notes |
-|------|-----|------|-------|
-| Hut prototype (3 phases) | $950 | $1,500 | Small → full → animated |
-| Phoenix prototype (2 phases) | $500 | $900 | Quarter → half scale |
-| Guard costume prototype | $900 | $1,500 | Single + 5-unit test set |
-
-### Contingency (10%)
-
-Standard contingency for unexpected costs, modifications, or replacements.
+| Item | Low | High |
+|------|-----|------|
+| Hut prototype (3 phases) | $950 | $1,500 |
+| Phoenix flag prototype (2 phases) | $500 | $900 |
+| Guard costume prototype (5-set) | $900 | $1,500 |
 
 ---
 
 ## Cost Per Member
 
-| Corps Size | Low Estimate | High Estimate |
-|------------|--------------|---------------|
-| 140 members | $188/member | $325/member |
-| 150 members | $175/member | $303/member |
-| 165 members | $159/member | $276/member |
+**Assuming 140 corps members:**
 
-**Industry Comparison:** Typical DCI show costs range $150-$400 per member. "The Gate" is within normal range.
+| Estimate | Total | Per Member |
+|----------|-------|------------|
+| Low | $26,257 | $188 |
+| High | $45,507 | $325 |
+
+**Industry Comparison:**
+- Typical DCI show production: $200-$400 per member
+- "The Gate" at low estimate: **$188** (below average)
+- "The Gate" at high estimate: **$325** (at average)
 
 ---
 
 ## Cost-Saving Strategies
 
-### 1. Existing Uniform Modification
-If corps already has white jackets:
-- Add snap tape closure: $15-$25/jacket
-- Total: $960-$1,600 instead of $4,800-$9,600
-- **Savings: $3,840-$8,000**
+### Already Built In
 
-### 2. Phased Prototype Approach
-Build prototypes in phases, get GO/NO-GO approval at each stage:
-- Small-scale Hut: $50-$100 (proof of concept)
-- If approved → full-scale: $300-$500
-- If approved → animated: $600-$900
+1. **PVC + Canvas Hut** — Cheaper than fiberglass/metal, lighter, easier to transport
+2. **Lightweight Silk Phoenix** — Single large flag vs. multiple complex flags
+3. **Snap Tape Quick-Change** — No expensive costume engineering
+4. **Public Domain Music** — No performance royalties, only arrangement fee
 
-**Benefit:** Don't commit to full production until design is validated.
+### Additional Savings Options
 
-### 3. Local Fabrication
-Albuquerque creative network builds prototypes at lower cost than national vendors:
-- Direct relationship (no markup)
-- Faster iteration
-- Personal accountability
+| Strategy | Potential Savings |
+|----------|-------------------|
+| Use existing brass jacket inventory (modify) | $2,000-$4,000 |
+| Guard sews own transformation costumes | $1,500-$3,000 |
+| Reduce drill instruction to Option B | $4,000-$5,000 |
+| Simpler Phoenix (solid color vs. gradient) | $200-$400 |
 
-### 4. Guard Costume Prioritization
-If budget is tight:
-- Female guard: Full transformation (higher visual impact)
-- Male guard: Simplified quick-change (lower cost)
+### Sponsorship Potential
+
+| Partner Type | Potential |
+|--------------|-----------|
+| Local fabric stores (Phoenix silk) | In-kind donation |
+| Costume shops (guard transformation) | Discount pricing |
+| PVC suppliers (Hut frame) | Materials donation |
 
 ---
 
 ## Implementation Timeline
 
-### Phase 1: Design & Approval (January – February)
+### Phase 1: Design Finalization (January – February)
 
-| Week | Activity |
-|------|----------|
-| 1-2 | Staff review of pitch package |
-| 3-4 | Call/meeting to discuss |
-| 5-6 | GO/NO-GO decision |
-| 7-8 | Contract negotiation |
+| Task | Deadline | Owner |
+|------|----------|-------|
+| Arranger selection | Jan 15 | Music staff |
+| Drill design kickoff | Jan 20 | Visual staff + Sean |
+| Costume design approval | Feb 1 | Design team |
+| Prototype funding approved | Feb 15 | Board/ED |
 
-### Phase 2: Prototypes (February – April)
+### Phase 2: Prototype Development (February – March)
 
-| Week | Activity |
-|------|----------|
-| 1-4 | Small-scale Hut prototype |
-| 5-8 | Full-scale Hut + quarter-scale Phoenix |
-| 9-12 | Guard costume prototype |
-| 13-14 | Prototype review, final approval |
+| Task | Deadline | Owner |
+|------|----------|-------|
+| Hut small-scale model | Feb 28 | Albuquerque team |
+| Phoenix quarter-scale test | Mar 10 | Albuquerque team |
+| Guard costume prototype | Mar 15 | Costume coordinator |
+| GO/NO-GO decision | Mar 20 | Board/ED |
 
-### Phase 3: Production (April – June)
+### Phase 3: Production (March – May)
 
-| Week | Activity |
-|------|----------|
-| 1-4 | Final Hut construction |
-| 5-8 | Full Phoenix flag production |
-| 9-12 | Guard costume production |
-| Throughout | Brass underlayer/balaclava procurement |
+| Task | Deadline | Owner |
+|------|----------|-------|
+| Full-scale Hut construction | Apr 15 | Props team |
+| Phoenix flag production | Apr 30 | Props team |
+| Brass jackets ordered | Apr 1 | Costume coordinator |
+| Guard costumes production | May 15 | Costume coordinator |
 
-### Phase 4: Integration (June – August)
+### Phase 4: Spring Training (April – May)
 
-| Week | Activity |
-|------|----------|
-| 1-4 | Props integration at summer camps |
-| 5-8 | Costume integration, quick-change drilling |
-| 9-12 | Full show run-throughs |
-| Finals week | Final polish, transformation perfection |
+| Task | Deadline | Owner |
+|------|----------|-------|
+| Stillness training begins | Apr (spring camp) | Sean |
+| Kata basics introduced | Apr (spring camp) | Sean |
+| Curved drill fundamentals | May (spring camp) | Visual staff |
 
----
+### Phase 5: Summer Season (June – August)
 
-## Logistics
+| Task | Deadline | Owner |
+|------|----------|-------|
+| Full drill cleaning | June-July | Visual staff + Sean |
+| Interleaved grid mastery | July | Sean |
+| Transformation ritual perfection | July-Aug | Sean |
+| Finals-only elements locked | Aug 1 | Design team |
 
-### Props Transport
+### Phase 6: Finals Week (August 4-8)
 
-| Item | Packed Size | Weight | Transport Method |
-|------|-------------|--------|------------------|
-| The Hut | 4-5' bundle + 2'×3' fabric roll | ~30 lbs | Equipment truck |
-| Phoenix Flag | 3'×4' rolled | ~15 lbs | Equipment truck |
-| Center Podium | 2'×2'×1' | ~20 lbs | Equipment truck |
-
-All props fit in standard equipment truck. No special vehicles required.
-
-### Costume Logistics
-
-| Item | Storage | Notes |
-|------|---------|-------|
-| Brass jackets | Standard uniform storage | Hang or fold |
-| Guard costumes | Garment bags | Quick-change sets stay together |
-| Underlayers | Member personal | Each member responsible |
-| Balaclavas | Member personal | Stored in uniform bag |
-
-### Field Setup
-
-| Element | Setup Time | Personnel |
-|---------|------------|-----------|
-| The Hut | 10-15 min | 2 people |
-| Phoenix staging | 5 min | 2 people |
-| Center Podium | 2 min | 1 person |
-
-**Total pre-show setup:** 15-20 minutes (standard for DCI)
+| Task | Date | Owner |
+|------|------|-------|
+| First full Finals run | Aug 5 | Full staff |
+| Transformation ritual polish | Aug 6 | Sean |
+| Final dress rehearsal | Aug 7 | Full staff |
+| **Championship Finals** | **Aug 8** | — |
 
 ---
 
 ## Risk Mitigation
 
-| Risk | Mitigation |
-|------|------------|
-| Prototype failure | Phased approach; GO/NO-GO at each stage |
-| Budget overrun | 10% contingency; cost-saving options available |
-| Weather (Phoenix flag) | Backup plan for high-wind shows |
-| Quick-change failure | Rehearse obsessively; backup closures |
-| Member injury (stillness) | Proper training; sustainable posture |
+### Risk 1: Prototype Fails
+**Mitigation:** GO/NO-GO decision at March 20. If prototypes don't work, pivot to traditional show elements.
+
+### Risk 2: Budget Overrun
+**Mitigation:** 10% contingency built in. Cost-saving options identified. Can scale down elements.
+
+### Risk 3: Execution Issues
+**Mitigation:** Dedicated drill instruction. Stillness and kata taught separately from regular drill.
+
+### Risk 4: Dog Unavailable (Season Shows)
+**Mitigation:** Dog gag is enhancement, not requirement. Show works without it. Alternative exit available.
 
 ---
 
-## Payment Schedule (Proposed)
+## Payment Schedule (Drill Instruction)
 
-| Milestone | Amount | Timing |
-|-----------|--------|--------|
-| Contract signing | 20% | Upon agreement |
-| Prototype approval | 30% | April |
-| Production complete | 30% | June |
-| Finals week | 20% | August |
+**Full-Season Partnership ($10,000-$15,000):**
 
-**All terms negotiable if agreed upon in writing.**
+| Milestone | Payment | Timing |
+|-----------|---------|--------|
+| Contract signed | 25% | January |
+| Spring camp complete | 25% | May |
+| Mid-season checkpoint | 25% | July |
+| Finals week complete | 25% | August |
+
+*Terms negotiable if agreed upon in writing.*
 
 ---
 
 ## Summary
 
-| Metric | Value |
-|--------|-------|
-| Total Budget | $26,257 – $45,507 |
-| Cost Per Member | $159 – $325 |
-| Industry Comparison | Within normal range |
-| Timeline | 8 months (Jan – Aug) |
-| Risk Level | Moderate (mitigated by phased approach) |
+| Question | Answer |
+|----------|--------|
+| Total cost | $26,257 – $45,507 |
+| Cost per member | $188 – $325 |
+| Industry comparison | At or below average |
+| Timeline | Jan – Aug 2026 |
+| Key decision point | Mar 20 (GO/NO-GO) |
 
 ---
 
@@ -227,9 +218,4 @@ All props fit in standard equipment truck. No special vehicles required.
 
 Sean Campbell
 Music Educator & Drill Instructor
-Albuquerque, New Mexico
 Rudi193@gmail.com | (505) 489-6266
-
----
-
-*"Bold design doesn't have to break the budget."*

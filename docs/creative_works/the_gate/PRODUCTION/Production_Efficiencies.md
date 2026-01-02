@@ -1,231 +1,229 @@
 # Production Efficiencies
 
 **"THE GATE"**
-*Living Document — Costume Mechanics & Practical Solutions*
+*Living Document — Costume Mechanics & Logistics*
 
 ---
 
-**Status:** Living document — updated as solutions are developed
-
+**Status:** Living Document
 **Last Updated:** 2026-01-02
 
 ---
 
-## Costume Transformation Mechanics
+## Costume Quick-Change Mechanics
 
 ### Brass Jacket Removal
 
-**Problem:** 64 members must remove jackets in 17 counts (approximately 10-12 seconds)
+**Current Design:**
+- Snap tape front closure (full length)
+- Structured shoulders (Slavic ceremonial style)
+- Lightweight fabric (waxed cotton or similar)
 
-**Solution: Snap Tape Front Closure**
-- Single pull-down motion releases entire front
-- No buttons, no zippers
-- Practiced until automatic
+**Release Sequence:**
+1. Hands to front closure (counts 18-20)
+2. Single downward motion releases snap tape (counts 21-23)
+3. Shoulders roll back, jacket slides (counts 24-26)
+4. Jacket clears body (counts 27-30)
+5. Jacket held for placement (counts 31-34)
 
-**Snap Tape Specifications:**
-- Heavy-duty snap tape (size 20 or larger)
-- Spaced every 2-3 inches
-- Reinforced at stress points (chest, waist)
-- Tested for 50+ cycles before season
+**Open Questions:**
+- [ ] Snap tape gauge (lighter = easier release, heavier = more secure)
+- [ ] Collar attachment (does collar release with front, or separate?)
+- [ ] Cuff situation (fitted cuffs vs. loose?)
 
-**Backup Closure:**
-- Velcro strip behind snap tape
-- If snap tape fails, velcro holds
-- Silent release (no ripping sound)
+### Jacket Placement
 
----
+**Current Design:**
+- Jacket laid flat at feet
+- Squared, structured shoulders ("horns") pointing outward
+- Creates spine/vertebrae pattern when all 64 are down
 
-### Jacket Placement Visual
+**Open Questions:**
+- [ ] Placement precision: How exact does positioning need to be?
+- [ ] Wind considerations: Do jackets need weighted hems?
+- [ ] Retrieval: Do jackets stay through exit, or collected post-show?
 
-**Problem:** Dropped jackets must create intentional visual pattern, not look like laundry
+### Guard Transformation
 
-**Solution: Structured Shoulders**
-- "Johnny Newman style" — Slavic ceremonial silhouette
-- Structured shoulder pads that hold shape when laid flat
-- When jacket on ground: shoulders create "horns" pointing outward
-- 64 jackets × 2 shoulders = 128 radiating points
-- From above: looks like vertebral column/spine
+**Female Guard:**
+- Villager over-top: Snap tape release at spine
+- Pull off, DROP ON FIELD
+- Transformation skirt: Vertical snap tape accordion release
 
-**Placement Training:**
-- Counts 35-38 of kata: jacket placement
-- Members trained to square jacket at feet
-- Shoulders oriented outward
-- Practice until placement is instinctive
+**Male Guard:**
+- Villager trousers + tunic: Tear-away via snap tape
+- DROP ON FIELD
+- Reveals Hungarian formal dress
 
----
-
-### Guard Quick-Change
-
-**Female Guard Transformation:**
-
-**Layer 1 (Baba Yaga - outer):**
-- Plain villager over-top
-- Snap tape release at spine (single pull)
-- DROP ON FIELD (becomes part of memorial)
-
-**Layer 2 (Great Gate - revealed):**
-- Transformation skirt with vertical snap tape accordion
-- Release reveals vibrant Slavic folk dress
-- Reds, whites, cobalt blues
-
-**Male Guard Transformation:**
-
-**Layer 1 (Baba Yaga - outer):**
-- Plain villager trousers + simple tunic
-- Tear-away via snap tape at sides
-
-**Layer 2 (Great Gate - revealed):**
-- Hungarian formal dress
-- Braided/embroidered trousers + vest
+**Open Questions:**
+- [ ] Where do guard members hide transformed costume? (Worn underneath? Pouches?)
+- [ ] How do dropped villager garments interact with brass jackets visually?
+- [ ] Timing map: Who transforms first (spark)? Who transforms last (seal)?
 
 ---
 
 ## Uniform Drop Concept
 
-### The Memorial
+### The Vision
 
-~96 garments remain on field after transformation:
-- 64 brass jackets
-- ~32 guard outer layers
+~96 garments on the field at the end of the show:
+- 64 brass jackets (white, structured)
+- ~32 guard over-layers (earth tones)
 
-**Thematic Meaning:**
-- Worker solidarity memorial
-- The ones who came before
-- What we shed to become what we're crossing into
+**Thematic meaning:** Worker solidarity memorial — the corps sheds what they were to become what they're crossing into.
 
-### Field Arrangement Options
+### Spatial Arrangement
 
 **Option A: Scattered Organic**
-- Garments lie where dropped
-- Natural, unplanned look
-- Risk: could look messy
+- Garments fall where members stand during transformation
+- Creates organic, "aftermath" look
+- Easier to execute (no precise placement)
 
 **Option B: Collected/Shaped**
-- Placement creates intentional pattern
-- Requires precise training
-- Cleaner visual
+- Garments arranged in specific pattern
+- Creates visual design element
+- Requires more precise choreography
 
-**Option C: Ritual Piles**
-- Guard collects brass jackets during Great Gate
-- Creates deliberate memorial piles
-- Most theatrical, most complex
+**Option C: Piled Ritual**
+- Garments gathered to specific location
+- Creates focal point (altar, memorial)
+- Requires additional movement after removal
 
-**Current Preference:** Option B — trained placement during kata creates pattern without additional choreography.
+**Current Leaning:** Option A with precision elements — scattered but with intentional "horns out" orientation for jackets.
 
----
-
-## Open Questions
-
-### 1. Brass Reveal: What's Underneath?
-
-**Options:**
-- White shirts (simple, clean contrast)
-- Embroidered vests (Slavic detail)
-- Simple black undershirts (total blackout with balaclavas)
-
-**Current Direction:** All-black (long-sleeve athletic + balaclavas) for maximum contrast
-
-**Unresolved:** Does any accent color appear? Gold trim? Embroidered detail?
-
-### 2. DM Costume: Static or Participates?
-
-**Options:**
-- DM remains in full whites throughout (never transforms)
-- DM removes jacket with corps but keeps hat
-- DM does modified transformation
-
-**Current Direction:** DM stays in full whites — the only face visible, the anchor point
-
-**Unresolved:** Does DM remove any element before final exit?
-
-### 3. Retrieval Timing
-
-**Options:**
-- Dropped garments stay through exit (retrieved post-show)
-- Guard collects during Great Gate (part of choreography)
-- Props crew retrieves during applause
-
-**Current Direction:** Stay through exit — retrieved post-show only
-
-**Unresolved:** Any insurance/liability concerns with garments on field during march-off?
-
-### 4. Weather Contingency
-
-**Problem:** Snap tape less reliable in rain/humidity
-
-**Options:**
-- Backup velcro layer
-- Weather-specific closure testing
-- Rain show modification (simplified transformation?)
-
-**Unresolved:** Full rain contingency plan needed
+### Open Questions
+- [ ] Field arrangement pattern finalized?
+- [ ] Do garments stay through entire exit sequence?
+- [ ] Who collects garments post-show? (Props crew? Members?)
+- [ ] Storage during exit? (Left on field until corps clears?)
 
 ---
 
-## Prototype Testing Checklist
+## Hut Mechanics
 
-### Snap Tape Reliability
-- [ ] Test 50+ open/close cycles
-- [ ] Test in humidity (spray bottle simulation)
-- [ ] Test at performance speed
-- [ ] Test with sweaty hands
-- [ ] Test with gloves (if applicable)
+### Walking Mechanism
 
-### Jacket Placement
-- [ ] Structured shoulders hold shape on turf
-- [ ] Shoulder "horns" visible from press box
-- [ ] Placement timing achievable in 4 counts
-- [ ] Pattern recognizable from above
+**Current Design:**
+- Da Vinci walking machine concept
+- Two performers inside animate legs
+- Uses performer weight, not motors
 
-### Guard Quick-Change
-- [ ] Female transformation achievable in 8-10 counts
-- [ ] Male transformation achievable in 8-10 counts
-- [ ] Staggered timing looks organic (not synchronized)
-- [ ] Dropped layers don't tangle feet
+**Open Questions:**
+- [ ] How do performers enter/exit Hut during show?
+- [ ] Visibility for performers inside (mesh panels? Viewing slots?)
+- [ ] Communication between Hut performers and DM/staff?
 
-### Balaclava
-- [ ] Breathable during performance
-- [ ] Doesn't fog glasses (if applicable)
-- [ ] Pulls from pocket cleanly
-- [ ] On in 2-3 counts
+### Transformation to Gate Backdrop
+
+**Current Design:**
+- Hut "unrolls" into full Great Gate silk backdrop
+- Large silk, full-span, dramatic
+
+**Open Questions:**
+- [ ] Is this a mechanical transformation or manual unfurling?
+- [ ] Who operates the unfurling? (Hut performers? Props crew? Guard?)
+- [ ] Timing relative to stillness/transformation ritual?
 
 ---
 
-## Cost Optimization Notes
+## DM Costume
 
-### If Budget Tight:
+### Current Assumption
+- DM remains in full whites throughout
+- Only face visible during stillness (everyone else in balaclavas)
+- Creates visual focal point
 
-**Priority 1:** Snap tape modification on existing jackets ($15-$25/jacket)
-**Priority 2:** Guard quick-change costumes (highest visual impact)
-**Priority 3:** Underlayers + balaclavas (relatively cheap)
-**Priority 4:** New brass jackets (only if existing unsuitable)
-
-### Vendor Options:
-
-**Local (Albuquerque):**
-- Johnny's network for quick-change expertise
-- Local seamstress for modifications
-- Faster iteration, lower cost
-
-**National:**
-- Band Shoppe, Stanbury, etc.
-- Higher cost, longer lead time
-- May be necessary for full production run
+### Open Questions
+- [ ] Does DM participate in any shedding? (Hat removal at exit — yes. Jacket? No?)
+- [ ] DM balaclava: Does DM have one but not use it? Or not have one at all?
+- [ ] Hat placement at 10-yard line: Same hat worn all show, or ceremonial replacement?
 
 ---
 
-## Document History
+## Brass Reveal
 
-| Date | Update |
-|------|--------|
-| 2025-11-XX | Initial version |
-| 2025-12-XX | Added guard transformation details |
-| 2026-01-02 | Consolidated into repo; added open questions |
+### What's Underneath?
+
+When brass removes white jackets, what do they reveal?
+
+**Option A: Plain Black**
+- Black long-sleeve athletic shirts
+- Black balaclavas
+- Total anonymity — faceless, uniform
+
+**Option B: Embroidered Vests**
+- Black base with subtle embroidery
+- Slavic-inspired patterns
+- More visual interest, but more expensive
+
+**Option C: Simple Undershirts**
+- Basic black t-shirts or tanks
+- Balaclavas for face
+- Cheapest, most anonymous
+
+**Current Leaning:** Option A (black athletic shirts + balaclavas) — anonymous, affordable, creates stark contrast.
+
+### Open Questions
+- [ ] Final decision on underlayer aesthetic?
+- [ ] Balaclava material (cotton? moisture-wicking? mesh for breathing?)
+- [ ] Do all 64 brass look identical, or any variation?
 
 ---
 
-*This is a living document. Updates made as solutions are developed and tested.*
+## Phoenix Flag Logistics
+
+### Manipulation Sequence
+
+1. **Start Position:** Bundled at back of formation, held by 6-10 guard
+2. **Release:** Guard releases, flag begins to unfurl
+3. **Travel:** Flag travels over corps (front to back or back to front?)
+4. **Collapse:** Flag settles at front of formation
+5. **Exit:** DM/Handler interacts with collapsed silk
+
+### Open Questions
+- [ ] Direction of travel: Front-to-back or back-to-front?
+- [ ] How many guard members needed for manipulation?
+- [ ] Does flag "die" (collapse naturally) or is it "killed" (pulled down)?
+- [ ] Wind contingency: What if wind catches it wrong?
 
 ---
 
-ΔΣ=42
+## Stillness Training
+
+### Physical Requirements
+
+42 measures of motionless standing requires:
+- Sustainable posture (no drift)
+- Controlled breathing (no visible chest movement)
+- Fixed eye focus (looking at center, not wandering)
+- Balanced weight distribution
+
+### Training Approach (Monte)
+
+1. **Posture drills:** Finding sustainable alignment
+2. **Breath work:** Diaphragmatic breathing, invisible expansion
+3. **Eye training:** Soft focus, peripheral awareness
+4. **Endurance building:** Gradually increasing hold times
+
+### Open Questions
+- [ ] How much time allocated in spring camps for stillness training?
+- [ ] Integration with regular visual rehearsal or separate track?
+- [ ] Assessment criteria: How do we know when it's "clean enough"?
+
+---
+
+## Action Items
+
+| Item | Owner | Status |
+|------|-------|--------|
+| Snap tape gauge testing | Johnny | Pending |
+| Jacket placement precision spec | Visual staff | Pending |
+| Guard transformation timing map | Guard staff | Pending |
+| Hut entry/exit design | Props team | Pending |
+| Underlayer final decision | Design team | Pending |
+| Phoenix direction of travel | Visual staff | Pending |
+| Stillness training allocation | Sean + Staff | Pending |
+
+---
+
+*This is a living document. Update as decisions are made.*

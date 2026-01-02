@@ -1,312 +1,262 @@
 # Prototype Plan
 
 **"THE GATE"**
-*Build Schedule & Specifications*
+*Pre-Production Testing & Development*
 
 ---
 
 ## Overview
 
-All major props and costumes go through phased prototype development before full production commitment. This de-risks the project and ensures designs work in practice, not just on paper.
+Before corps commits to full production, prototypes allow testing of critical elements. The Albuquerque creative team will build and test these prototypes, providing proof-of-concept before significant budget allocation.
+
+**Total Prototype Budget:** $2,350 – $3,900
 
 ---
 
-## The Hut (Baba Yaga's Dwelling)
+## The Hut
+
+### Purpose
+Test structure, weight, durability, walking mechanism, and visual impact.
 
 ### Phase 1: Small-Scale Model (1:4)
 
-**Purpose:** Test structure, joints, covering concept
-
-**Specifications:**
-- Height: 18-24 inches
-- Materials: Dowels or thin PVC, fabric scraps
-- Joints: Test connection methods
-- Covering: Test drape and texture
-
-**Deliverables:**
-- Physical model
-- Photos from multiple angles
-- Notes on structural issues
-
 **Timeline:** 2-3 weeks
 **Cost:** $50-$100
-**GO/NO-GO:** Does basic structure work?
 
----
+**Objectives:**
+- Test structural integrity of PVC frame
+- Experiment with joint connections
+- Test canvas/fabric draping
+- Validate Da Vinci walking concept at scale
+
+**Deliverables:**
+- Working 1:4 scale model
+- Video of walking mechanism
+- Notes on structural modifications needed
 
 ### Phase 2: Full-Scale Non-Animated
 
-**Purpose:** Test size, weight, visual impact at actual scale
-
-**Specifications:**
-- Height: 6-8 feet
-- Materials: Full PVC frame, actual fabric covering
-- No walking mechanism yet
-- Collapsible for transport testing
-
-**Deliverables:**
-- Full-scale static Hut
-- Transport/storage test
-- Field visibility test (if possible)
-- Weight measurement
-
 **Timeline:** 3-4 weeks
 **Cost:** $300-$500
-**GO/NO-GO:** Does scale feel right? Is weight manageable?
 
----
+**Objectives:**
+- Test actual size (6-8 feet tall, 4-6 feet wide)
+- Verify weight is manageable for two performers
+- Test visibility for performers inside
+- Assess visual impact at field scale
+
+**Deliverables:**
+- Full-scale static structure
+- Weight measurements
+- Performer feedback on interior experience
+- Photos/video at distance (simulating audience view)
 
 ### Phase 3: Full-Scale Animated
 
-**Purpose:** Test Da Vinci walking mechanism
-
-**Specifications:**
-- Add stilt-leg mechanism
-- Two-person operation test
-- Walking animation via performer weight
-- Full 3-4 foot height extension
-
-**Deliverables:**
-- Working walking mechanism
-- Video of animation in action
-- Performer feedback on operation
-- Safety assessment
-
 **Timeline:** 4-6 weeks
 **Cost:** $600-$900
-**GO/NO-GO:** Does the mechanism work reliably? Safe?
 
----
+**Objectives:**
+- Integrate walking mechanism
+- Test performer training requirements
+- Verify stability during movement
+- Test transformation to Gate backdrop (if applicable)
 
-### Hut Total
+**Deliverables:**
+- Fully functional walking Hut
+- Training documentation
+- Video of movement sequences
+- GO/NO-GO recommendation
 
-| Phase | Timeline | Cost |
-|-------|----------|------|
-| 1. Small model | 2-3 weeks | $50-$100 |
-| 2. Full static | 3-4 weeks | $300-$500 |
-| 3. Full animated | 4-6 weeks | $600-$900 |
-| **TOTAL** | 9-13 weeks | **$950-$1,500** |
-
-**Final Production Cost:** $850-$1,300 (after prototype learnings)
+**Total Hut Prototype:** $950-$1,500
 
 ---
 
 ## Phoenix Flag
 
+### Purpose
+Test fabric weight, flow characteristics, color impact, and manipulation requirements.
+
 ### Phase 1: Quarter-Scale (15 yards)
 
-**Purpose:** Test fabric choice, flow characteristics, color
+**Timeline:** 2 weeks
+**Cost:** $100-$200
 
-**Specifications:**
-- Width: 15 yards (45 feet)
-- Material: Test silk vs. synthetic options
-- Color: Gradient test (red → orange → gold)
-- Edge treatment: Test weighted hem options
+**Objectives:**
+- Test fabric weight and drape
+- Experiment with gradient dying
+- Assess flow characteristics
+- Determine edge treatment needs
 
 **Deliverables:**
-- Quarter-scale flag
-- Flow test video (indoor/outdoor)
-- Color visibility assessment
-- Fabric weight comparison
-
-**Timeline:** 2-3 weeks
-**Cost:** $100-$200
-**GO/NO-GO:** Does fabric flow correctly? Colors read from distance?
-
----
+- 15-yard test flag
+- Color samples (fire gradient vs. earth tones)
+- Flow video
+- Notes on fabric selection
 
 ### Phase 2: Half-Scale (30 yards)
 
-**Purpose:** Test full manipulation mechanics
-
-**Specifications:**
-- Width: 30 yards (90 feet)
-- Full gradient color
-- Reinforced edges with loops/grommets
-- Weighted hem finalized
-
-**Deliverables:**
-- Half-scale flag
-- Full manipulation test (release → travel → collapse)
-- Personnel requirement confirmation
-- Timing measurement
-
 **Timeline:** 3-4 weeks
 **Cost:** $400-$700
-**GO/NO-GO:** Does manipulation work? Timing achievable?
 
----
+**Objectives:**
+- Test manipulation with multiple handlers
+- Verify release and travel mechanics
+- Assess collapse behavior
+- Test wind resistance
 
-### Phoenix Total
+**Deliverables:**
+- 30-yard functional flag
+- Manipulation video with 3-5 handlers
+- Wind testing results
+- Personnel requirements finalized
 
-| Phase | Timeline | Cost |
-|-------|----------|------|
-| 1. Quarter-scale | 2-3 weeks | $100-$200 |
-| 2. Half-scale | 3-4 weeks | $400-$700 |
-| **TOTAL** | 5-7 weeks | **$500-$900** |
-
-**Final Production Cost:** $830-$1,600 (full 60-yard flag)
+**Total Phoenix Prototype:** $500-$900
 
 ---
 
 ## Guard Costumes
 
-### Phase 1: Single Costume Prototype
+### Purpose
+Test quick-change mechanics, timing, visual impact of transformation.
 
-**Purpose:** Test quick-change mechanics on one complete set
+### Single Costume Prototype
 
-**Specifications:**
-- Female transformation costume (most complex)
-- Full snap tape system
-- Both layers functional
-- Timed transformation test
-
-**Deliverables:**
-- Complete transformation costume
-- Video of quick-change at performance speed
-- Durability test (10+ changes)
-- Comfort feedback
-
-**Timeline:** 3-4 weeks
+**Timeline:** 2-3 weeks
 **Cost:** $150-$250
-**GO/NO-GO:** Does transformation work reliably in time available?
 
----
-
-### Phase 2: Five-Costume Sample Set
-
-**Purpose:** Test at small scale before full production
-
-**Specifications:**
-- 3 female, 2 male costumes
-- Full transformation capability
-- Test staggered timing visual
-- Field test if possible
+**Objectives:**
+- Test snap tape release at spine
+- Verify tear-away construction holds during performance
+- Time the transformation sequence
+- Assess visual impact of revealed costume
 
 **Deliverables:**
-- 5 complete costumes
-- Group transformation video
-- Refinement notes
-- Final specifications for production run
+- One complete transformation costume (female)
+- Video of quick-change sequence
+- Timing data
+- Modifications needed
 
-**Timeline:** 4-5 weeks
-**Cost:** $600-$1,000
-**GO/NO-GO:** Ready for full production order?
+### Five-Costume Sample Set
 
----
+**Timeline:** 3-4 weeks (after single prototype)
+**Cost:** $750-$1,250
 
-### Costume Total
+**Objectives:**
+- Test multiple performers in sequence
+- Verify staggered timing looks organic
+- Assess color palette at scale
+- Test male version construction
 
-| Phase | Timeline | Cost |
-|-------|----------|------|
-| 1. Single prototype | 3-4 weeks | $150-$250 |
-| 2. Five-costume set | 4-5 weeks | $600-$1,000 |
-| **TOTAL** | 7-9 weeks | **$750-$1,250** |
+**Deliverables:**
+- 3 female + 2 male transformation costumes
+- Staggered transformation video
+- Color recommendations
+- Production specification document
 
-**Final Production Cost:** $4,960-$8,000 (32 full costumes)
-
----
-
-## Brass Underlayers & Balaclavas
-
-### Testing Required
-
-**Underlayers:**
-- Moisture-wicking test (performance conditions)
-- Color consistency (all-black, no variations)
-- Fit range (sizes S-XXL)
-- Vendor comparison
-
-**Balaclavas:**
-- Breathability test
-- Visibility test (performer can see)
-- Glasses compatibility (no fogging)
-- Pull-from-pocket speed test
-
-**Timeline:** 2-3 weeks (concurrent with other prototypes)
-**Cost:** $50-$100 (sample purchases for testing)
+**Total Guard Prototype:** $900-$1,500
 
 ---
 
-## Master Timeline
+## Brass Jacket Prototype
 
-### February
+### Purpose
+Test snap tape release, jacket placement, visual of "horns out" pattern.
 
-| Week | Activity |
+### Not Separately Budgeted
+
+**Rationale:**
+- Many corps have existing jacket inventory
+- Modification (adding snap tape) may be sufficient
+- Single prototype can be built from existing jacket + modifications
+
+**If Needed:** $100-$200 for single prototype jacket with snap tape front closure.
+
+---
+
+## Testing Protocol
+
+### Each Prototype Phase Includes:
+
+1. **Build documentation** — Materials list, construction notes, time required
+2. **Functional testing** — Does it work as designed?
+3. **Stress testing** — What breaks? Where are the weak points?
+4. **Video documentation** — Multiple angles, distance shots
+5. **Performer feedback** — Comfort, visibility, confidence
+6. **Cost analysis** — Actual vs. estimated costs
+7. **GO/NO-GO recommendation** — Proceed or pivot?
+
+### Decision Points
+
+| Date | Decision |
 |------|----------|
-| 1-2 | Hut Phase 1 (small model) |
-| 3-4 | Phoenix Phase 1 (quarter-scale) |
-
-### March
-
-| Week | Activity |
-|------|----------|
-| 1-2 | Hut Phase 2 (full static) |
-| 3-4 | Phoenix Phase 2 (half-scale) |
-| 3-4 | Costume Phase 1 (single prototype) |
-
-### April
-
-| Week | Activity |
-|------|----------|
-| 1-3 | Hut Phase 3 (animated) |
-| 2-4 | Costume Phase 2 (five-set) |
-| 4 | **PROTOTYPE REVIEW — FINAL GO/NO-GO** |
+| Feb 28 | Hut Phase 1 complete — proceed to Phase 2? |
+| Mar 10 | Phoenix Phase 1 complete — proceed to Phase 2? |
+| Mar 15 | Guard single prototype complete — proceed to 5-set? |
+| **Mar 20** | **MASTER GO/NO-GO** — All prototypes reviewed |
 
 ---
 
 ## Budget Summary
 
-| Item | Prototype Cost |
-|------|----------------|
-| The Hut | $950-$1,500 |
-| Phoenix Flag | $500-$900 |
-| Guard Costumes | $750-$1,250 |
-| Underlayer/Balaclava Testing | $50-$100 |
-| Contingency (10%) | $100-$150 |
-| **TOTAL PROTOTYPE BUDGET** | **$2,350-$3,900** |
+| Item | Low | High |
+|------|-----|------|
+| Hut (3 phases) | $950 | $1,500 |
+| Phoenix (2 phases) | $500 | $900 |
+| Guard (single + 5-set) | $900 | $1,500 |
+| **TOTAL** | **$2,350** | **$3,900** |
 
 ---
 
-## Decision Points
-
-### After Each Phase
-
-1. Review deliverables
-2. Identify issues
-3. Decide: proceed / modify / abandon
-4. Document learnings
-
-### Final GO/NO-GO (End of April)
-
-**Criteria for GO:**
-- All prototypes function reliably
-- Timing achievable
-- Costs within budget
-- Safety confirmed
-- Corps partnership secured
-
-**If NO-GO:**
-- Identify specific blockers
-- Determine if solvable
-- Adjust timeline or scope
-- Communicate transparently with corps
-
----
-
-## Responsibility
+## Team Assignments
 
 | Prototype | Lead | Support |
 |-----------|------|---------|
-| The Hut | Sean + local fabricator | Monte (animation testing) |
-| Phoenix Flag | Caitlin (color) + fabricator | Guard captain (manipulation) |
-| Guard Costumes | Johnny | Sean |
-| Underlayers | Sean | Corps equipment manager |
+| Hut | Sean + Props volunteer | Monte (testing) |
+| Phoenix | Caitlin (color) | Guard staff (manipulation) |
+| Guard Costumes | Johnny | Caitlin (color consultation) |
 
 ---
 
-*Prototypes de-risk the project. We don't commit to full production until we know it works.*
+## Risk Mitigation
+
+### If Hut Prototype Fails
+- **Pivot:** Static Hut (no walking mechanism)
+- **Pivot:** Simpler backdrop-only structure
+- **Cost saved:** $300-$600 (no animated mechanism)
+
+### If Phoenix Prototype Fails
+- **Pivot:** Smaller flags (traditional guard work)
+- **Pivot:** Multiple medium flags instead of single large
+- **Cost saved:** $200-$400
+
+### If Guard Costume Fails
+- **Pivot:** Simpler transformation (layer removal only, no tear-away)
+- **Pivot:** Section-by-section transformation (not full guard)
+- **Cost saved:** $1,000-$2,000
 
 ---
 
-ΔΣ=42
+## Success Criteria
+
+### Hut
+- [ ] Two performers can animate walking mechanism
+- [ ] Structure survives 10+ rehearsals without failure
+- [ ] Weight under 30 lbs total
+- [ ] Assembly under 15 minutes
+
+### Phoenix
+- [ ] Travels 60 yards smoothly
+- [ ] Collapses predictably (not tangling)
+- [ ] Visible gradient from 50+ yards
+- [ ] Manageable by 6-10 guard members
+
+### Guard Costumes
+- [ ] Quick-change under 10 seconds
+- [ ] No visible snap tape from 20+ yards
+- [ ] Costume survives 20+ changes without failure
+- [ ] Colors read clearly against turf
+
+---
+
+*Prototypes built by Albuquerque creative network. Contact Sean Campbell for coordination.*

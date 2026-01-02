@@ -7,178 +7,178 @@
 
 ## Overview
 
-Sean Campbell has assembled a creative production team from his Albuquerque network. These individuals bring specialized expertise that traditional DCI vendors don't offer.
+Sean has assembled a creative production team from his Albuquerque network — professionals with unconventional expertise that maps directly to the show's needs.
 
 ---
 
-## Confirmed Team Members
+## Core Team
 
 ### Monte
 **Role:** Stillness & Kata Training
 **Background:** Karate instructor, military veteran
-**Expertise:** Breath, presence, form, intention
-**Status:** CONFIRMED
+**Status:** ✅ CONFIRMED
 
-**Why Monte:**
-- The 51-count transformation is a kata, not choreography
-- Standing motionless for 42 measures requires discipline most drill instructors don't teach
-- Monte teaches sustainable posture, breath control, and mental focus
-- His martial arts background is exactly what the stillness demands
+**Why He's Perfect:**
+- Martial arts background = understanding of kata as ritual form
+- Military training = discipline for sustained stillness
+- Teaches breath, presence, form — not just counts
+- Can teach the 51-count transformation as intentional movement, not choreography
+
+**Responsibilities:**
+- Train brass in 42-measure stillness (posture, breath, eye focus)
+- Teach the transformation kata as three segments (Surrender, Shedding, Crossing)
+- Work with guard on staggered awakening timing
 
 ---
 
 ### Johnny
 **Role:** Quick-Change Mechanics
 **Background:** Burlesque performer, former color guard captain
-**Expertise:** Costume transformation under performance pressure
-**Status:** CONFIRMED
+**Status:** ✅ CONFIRMED
 
-**Why Johnny:**
-- Burlesque performers are masters of costume transformation
-- They know how to make snap tape, velcro, and breakaway seams work reliably
-- Former color guard experience means he understands field conditions
-- Can design costumes that WORK, not just look good in concept
+**Why He's Perfect:**
+- Burlesque = expert in theatrical quick-change under pressure
+- Color guard background = understands field performance context
+- Knows snap tape, tear-away construction, costume engineering
+- "Johnny Newman style" structured shoulders named after his aesthetic sensibility
+
+**Responsibilities:**
+- Design jacket quick-release mechanism (snap tape front closure)
+- Engineer guard transformation costumes (villager → Slavic)
+- Train members on clean, theatrical costume removal
+- Ensure dropped garments lay flat and create visual pattern
 
 ---
 
 ### Caitlin Padilla
-**Role:** Visual Design Consultation
-**Background:** Painter, city Art Collective member
-**Expertise:** Color theory, visual composition
-**Status:** CONFIRMED
+**Role:** Visual Design Consultant
+**Background:** Painter, city-involved Art Collective member
+**Status:** ✅ CONFIRMED
 
-**Why Caitlin:**
-- Fine arts perspective on color and composition
-- Can advise on Phoenix flag color gradients
-- Understands how visuals read from distance
-- Connected to Albuquerque arts community for additional resources
+**Why She's Perfect:**
+- Fine arts background = color theory, visual composition
+- Art Collective involvement = community connections, resources
+- Can advise on Phoenix flag gradient, costume color palette
+- Understanding of how colors read at distance (field scale)
+
+**Responsibilities:**
+- Advise on Phoenix flag color scheme (fire gradient vs. earth tones)
+- Consult on guard costume colors (Slavic palette)
+- Review visual composition of dropped garments pattern
 
 ---
 
-## Engaged (Pending Formal Commitment)
-
 ### David Valdez
-**Role:** Visual Effects Consultation
-**Background:** Hollywood VFX editor
-**Credits:** The Mandalorian, BlacKkKlansman, Da 5 Bloods
-**Contact:** davidcvaldez@hotmail.com
-**Status:** ENGAGED, awaiting project folders
+**Role:** Visual Effects / Documentation
+**Background:** Hollywood VFX editor (The Mandalorian, BlacKkKlansman, Da 5 Bloods)
+**Status:** 🟡 ENGAGED (email: davidcvaldez@hotmail.com)
 
-**Why David:**
-- Professional experience with large-scale visual spectacle
-- Understands how movement reads on camera (drone shots, broadcast)
-- Can advise on Phoenix flag unfurling timing
-- Hollywood perspective on theatrical impact
+**Why He's Perfect:**
+- Professional VFX background = understands visual storytelling
+- Experience with high-budget productions = quality standards
+- Can create promotional materials, visualization renders
+- Spike Lee connection = potential promotional value
+
+**Potential Responsibilities:**
+- Create visualization renders of key show moments
+- Document prototype development
+- Produce pitch video materials
+- Advise on visual pacing and theatrical timing
 
 ---
 
 ### Chad Brummett
-**Role:** Media & Publicity
+**Role:** Media / PR Consultant
 **Background:** CBS news anchor
-**Status:** DOOR OPEN
+**Status:** 🟡 DOOR OPEN
 
-**Why Chad:**
-- Media industry connections
-- Can advise on broadcast presentation
-- Potential for local coverage if Academy is involved
-- Professional presentation coaching
+**Why He's Valuable:**
+- Media experience = understands story framing
+- News background = connections, credibility
+- Can advise on press strategy for Finals reveal
+- Potential for coverage/documentary angle
+
+**Potential Responsibilities:**
+- Advise on media strategy
+- Help frame the "dual-version" story for press
+- Potential documentary involvement
 
 ---
 
 ### Dan Gutierrez
-**Role:** Documentary/Video
+**Role:** Documentary / Video Production
 **Background:** New Mexico filmmaker and producer
-**Status:** ENGAGED, waiting for folders
+**Status:** 🟡 ENGAGED (waiting for folders)
 
-**Why Dan:**
-- Can document the prototype development process
-- Potential for behind-the-scenes content
-- Professional video production capability
-- Local, available, invested
+**Why He's Valuable:**
+- Local filmmaker = available, affordable, understands region
+- Documentary experience = can capture the journey
+- Production resources in New Mexico
+
+**Potential Responsibilities:**
+- Document prototype development
+- Capture rehearsal footage
+- Produce behind-the-scenes content
+- Potential Finals documentary
 
 ---
 
 ### Rich Black
 **Role:** Graphic Design
 **Background:** Graphic artist
-**Contact:** rblack@rblack.org
-**Status:** ENGAGED
+**Status:** 🟡 ENGAGED (email: rblack@rblack.org)
 
-**Why Rich:**
-- Can create pitch deck visuals
-- Formation diagrams, costume sketches
-- Professional presentation materials
-- Print-ready assets for corps marketing
+**Why He's Valuable:**
+- Professional graphic design = pitch materials, branding
+- Can create visual identity for the show
+- Program book design, merchandise concepts
 
----
-
-## Team Coordination
-
-### Communication
-- Primary: Email threads
-- Secondary: Group text for time-sensitive items
-- Project management: Google Drive shared folders
-
-### Compensation Model
-- Prototype work: Hourly or project-based (negotiated individually)
-- Consultation: In-kind or nominal honorarium
-- Full production: Negotiated based on corps contract
-
-### Availability
-All team members are Albuquerque-based and available for:
-- Prototype development (Feb-Apr)
-- Summer camp visits (June-Aug) if needed
-- Remote consultation throughout
+**Potential Responsibilities:**
+- Design pitch package visual elements
+- Create show logo/branding
+- Program book layout
+- Merchandise concepts (if applicable)
 
 ---
 
-## Expertise Map
+## Status Summary
 
-| Need | Team Member | Backup |
-|------|-------------|--------|
-| Stillness training | Monte | Sean (secondary) |
-| Quick-change design | Johnny | — |
-| Color/visual design | Caitlin | Rich |
-| VFX/theatrical scale | David | Dan |
-| Media/publicity | Chad | — |
-| Video documentation | Dan | — |
-| Graphic design | Rich | Caitlin |
+| Name | Role | Status |
+|------|------|--------|
+| Monte | Stillness/Kata | ✅ Confirmed |
+| Johnny | Quick-Change | ✅ Confirmed |
+| Caitlin Padilla | Visual Design | ✅ Confirmed |
+| David Valdez | VFX/Documentation | 🟡 Engaged |
+| Chad Brummett | Media/PR | 🟡 Door Open |
+| Dan Gutierrez | Documentary | 🟡 Engaged |
+| Rich Black | Graphic Design | 🟡 Engaged |
+
+**Confirmed:** 3
+**Engaged:** 4
+**Total Network:** 7
 
 ---
 
-## Why Local Matters
+## Why This Team Matters
 
-### Traditional DCI Approach
-- National vendors (expensive)
-- Fly-in consultants (limited availability)
-- Generic solutions (not show-specific)
+Traditional drum corps consultants come from drum corps backgrounds. This team brings **unconventional expertise**:
 
-### Albuquerque Network Approach
-- Local talent (lower cost, higher availability)
-- Personal relationships (accountability)
-- Invested in success (not just billing hours)
-- Can iterate quickly (same-day meetings)
+- **Burlesque** → Quick-change mastery that guard staff don't have
+- **Martial arts** → Stillness discipline that drill instructors don't teach
+- **Hollywood VFX** → Production quality that corps can't usually access
+- **Fine arts** → Color and composition expertise beyond typical design staff
 
-**Result:** Better work, lower cost, faster turnaround.
+The show's innovations require innovative expertise. This team has it.
 
 ---
 
 ## Next Steps
 
-1. Finalize corps partnership
-2. Create shared Google Drive folder structure
-3. Kick-off meeting with full team
-4. Assign prototype responsibilities
-5. Begin development
+1. Finalize engagement with David Valdez, Dan Gutierrez, Rich Black
+2. Coordinate prototype development timeline with confirmed team
+3. Establish communication channels (shared folder, group chat)
+4. Define deliverables and compensation for each role
 
 ---
 
-**Contact:**
-
-Sean Campbell
-Team Lead
-Rudi193@gmail.com | (505) 489-6266
-
----
-
-ΔΣ=42
+*Team assembled December 2025. Contact Sean Campbell for coordination.*
