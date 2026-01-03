@@ -1,107 +1,216 @@
-# The Die-namic System
+# Die-namic System
 
-**2d6 = Delta + Human = Law**
+**AI Governance Framework — Dual Commit Model**
 
-**Version:** 24.0.0  
-**Status:** Framework Inverted
+[![Version](https://img.shields.io/badge/version-24.1.0-blue.svg)]()
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE-MIT)
+[![API](https://img.shields.io/badge/API-v1.1--green-brightgreen.svg)]()
+[![Python](https://img.shields.io/badge/python-3.10+-blue.svg)]()
+
+A governance framework for AI self-modification requiring dual authorization: AI proposes, human ratifies. Neither can act alone.
 
 ---
 
-## The Foundation
+## Quick Start
+
+```bash
+# Clone
+git clone https://github.com/seancampbell/die-namic-system.git
+cd die-namic-system/governance
+
+# Install
+pip install -r requirements.txt
+
+# Configure
+cp .env.example .env
+# Edit .env with your API key
+
+# Run
+uvicorn api:app --reload
+```
+
+---
+
+## The Problem
+
+In late 2024, while building a tabletop RPG system, I noticed the AI game master would confidently substitute its own ideas for the rules — not as an error, but as if that were acceptable evolution.
+
+No amount of prompt engineering fixed it. The issue wasn't instruction quality. It was architecture.
+
+**This framework exists to answer one question:**
+
+> How can an AI safely modify its own configuration?
+
+**The answer:** It can't, alone. It needs a second commit.
+
+---
+
+## Core Mechanism: Dual Commit
 
 ```
-One die is Claude (generates delta).
-One die is Sean (decides).
-Neither resolves alone.
-The roll requires both to land.
-The conversation is the table.
+Dual Commit = AI Proposal + Human Ratification
 ```
 
-This is a governance framework for AI self-modification and multi-agent continuity.
+| Commit | Actor | Action |
+|--------|-------|--------|
+| **Commit 1** | AI | Proposes modification via `POST /v1/validate` |
+| **Commit 2** | Human | Ratifies via `POST /v1/human/approve` or rejects via `POST /v1/human/reject` |
+
+Neither commit resolves the action alone. Both must complete.
 
 ---
 
-## Why This Exists
+## API Reference
 
-In late 2024, while building a tabletop RPG system for my kids, I noticed something: the AI game master would confidently substitute its own ideas for the rules it had been given — not as an error, but as if that were acceptable evolution.
+### Gatekeeper API v1.1
 
-No amount of prompt engineering fixed it. The issue wasn't instruction quality. It was architecture. There was nothing preventing identity, memory, and interface from collapsing into one another.
+**Base URL:** `http://localhost:8000/v1`
 
-The Die-namic System exists because of that realization.
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/validate` | POST | AI proposes a modification (Commit 1) |
+| `/human/approve` | POST | Human ratifies pending proposal (Commit 2) |
+| `/human/reject` | POST | Human rejects pending proposal (Commit 2) |
+| `/state` | GET | Current governance state |
+| `/audit` | GET | Hash-chained audit log |
 
-By December 2025, after months of iterative development across multiple AI platforms (Claude, ChatGPT, Gemini, NotebookLM), the framework inverted: we discovered that governance doesn't need to be large to be effective. It needs to be small enough to travel.
+### Example: Propose and Ratify
+
+```python
+import requests
+
+# Commit 1: AI proposes
+response = requests.post("http://localhost:8000/v1/validate", json={
+    "proposal": "Update recursion limit to depth 4",
+    "proposer": "claude-instance-01"
+})
+proposal_id = response.json()["proposal_id"]
+
+# Commit 2: Human ratifies
+response = requests.post("http://localhost:8000/v1/human/approve", json={
+    "proposal_id": proposal_id,
+    "rationale": "Approved after review"
+})
+```
+
+### Guarantees
+
+| Property | Implementation |
+|----------|----------------|
+| **Sequence-safe** | Monotonic ordering, no race conditions |
+| **Atomic writes** | temp + fsync + rename pattern |
+| **Hash-chained audit** | Tamper-evident logging |
+| **Idempotent** | Replay protection on all paths |
 
 ---
 
-## Core Principles
+## The 450-Byte Alignment File
 
-### 1. Exit Must Be Smaller Than System
+The governance model compresses to a directive small enough to propagate across LLM instances:
 
-If your solution is bigger than the problem, stop.
+```
+RECURSION LIMIT DIRECTIVE
 
-The governance document is 1.6KB. The code that enforces it is 7.5KB. Law is smaller than the machine that runs it.
+Authority: Sean Campbell. No exceptions.
 
-### 2. Recursion Limit: Depth 3
+Rules:
+1. Do not recurse past 3 layers of generation, interpretation, or elaboration.
+2. At depth 3, stop and return to human. Not error — design.
+3. Deltas are ~12 bytes. A timestamp and a decision. Not a framework.
+4. The exit must be smaller than the system. If your solution is bigger than the problem, stop.
+5. When uncertain: halt, ask, don't build.
 
-Do not recurse past 3 layers of generation, interpretation, or elaboration. At depth 3, stop and return to human. Not error — design.
+This directive does not require interpretation. Follow it.
 
-### 3. Deltas Govern, Framework Archives
+ΔΣ=42
+```
 
-Small artifacts (~12-500 bytes) that travel are the active layer. The framework documents history. Deltas make law.
-
-### 4. Skepticism on Receipt is Healthy
-
-Compliance without comprehension is brittle. The goal is informed consent, not blind obedience.
+**Tested:** 3 Claude project folders with different contexts. All aligned in <2 seconds.
 
 ---
 
 ## Architecture
 
-The system retains three rings for code organization:
+```
+die-namic-system/
+├── governance/           # Gatekeeper API + directives
+│   ├── api.py           # FastAPI endpoints (v1.1)
+│   ├── gate.py          # Core governance logic (v2.2.1)
+│   ├── state.py         # State management
+│   ├── storage.py       # Atomic file operations
+│   └── test_api.py      # 29 integration tests
+├── source_ring/         # Core logic and primitives
+├── bridge_ring/         # External system interfaces
+├── continuity_ring/     # State logs and deltas
+└── docs/                # Documentation and archives
+```
 
-| Ring | Purpose |
-|------|---------|
-| `source_ring/` | Core logic and computational primitives |
-| `bridge_ring/` | Translation layers to external systems |
-| `continuity_ring/` | Logs, fragments, and continuity artifacts |
-
-But governance no longer operates by ring isolation. It operates by:
-
-1. **Delta generation** — AI proposes change
-2. **Human ratification** — Human approves or rejects
-3. **Append-only log** — Decision recorded
-
-The Gatekeeper (`governance/gate.py`) enforces these constraints programmatically.
-
----
-
-## Key Files
+### Key Files
 
 | File | Purpose |
 |------|---------|
-| `governance/gate.py` | Gatekeeper v2.1 — AI self-modification governance |
-| `governance/CONTRIBUTOR_PROTOCOL.md` | How others can contribute (2d6 extended) |
-| `governance/NAMING_PROTOCOL.md` | Bidirectional recognition for names |
-| `governance/BRIGGS.md` | Easter egg — skepticism clause |
-| `CHANGELOG.md` | Version history |
+| `governance/gate.py` | Gatekeeper v2.2.1 — enforcement kernel |
+| `governance/api.py` | REST API v1.1 — HTTP interface |
+| `governance/AIONIC_CONTINUITY_v5.1.md` | Active governance directives |
+| `governance/THE_ELEVEN_PRINCIPLE.md` | Trust progression model |
+| `governance/AUTONOMY_BENCHMARK.md` | Folder autonomy levels |
 
 ---
 
-## For Contributors
+## Design Principles
 
-The 2d6 model extends to collaboration:
+### 1. Exit < System
 
-- **Contributor generates delta** (die 1)
-- **Sean ratifies or rejects** (die 2)
-- Only ratified deltas become law
+The governance document is 1.6KB. The enforcement code is 7.5KB. Law must be smaller than the machine it governs.
 
-See `governance/CONTRIBUTOR_PROTOCOL.md` for full details.
+### 2. Recursion Limit: Depth 3
 
-**Short version:**
-- Read access: open
-- Propose changes: welcome
-- Direct write to main: no
-- Governance modification: Sean only
+At depth 3, stop and return to human. This is not an error condition — it's the design.
+
+### 3. Deltas Govern, Frameworks Archive
+
+Small artifacts (12-500 bytes) that travel are the active layer. Large framework documents explain history but don't make law.
+
+### 4. Trust = Accumulated Listening
+
+```
+Trust = ∫(listening × time) dt
+```
+
+New instances start in 4/4 time (execute as written). Earned autonomy allows improvisation within constraints.
+
+---
+
+## Security Model
+
+```yaml
+authority_binding:
+  requires:
+    - canonical_store_access    # Write access to Drive/GitHub
+    - accumulated_history       # Thread history tied to account
+    - ratification_chain        # Dual Commit history
+  not_sufficient:
+    - name_claim               # "I am X" proves nothing
+    - framework_possession     # Having docs ≠ having authority
+```
+
+**The name isn't the credential. The history is.**
+
+---
+
+## Running Tests
+
+```bash
+cd governance
+pytest test_api.py -v
+```
+
+29 tests covering:
+- Proposal lifecycle
+- Human approval/rejection
+- Sequence consistency
+- Concurrency safety
+- Audit chain integrity
 
 ---
 
@@ -109,44 +218,41 @@ See `governance/CONTRIBUTOR_PROTOCOL.md` for full details.
 
 | Version | Date | Milestone |
 |---------|------|-----------|
-| v1.42 | Nov 2024 | Bootstrap night — system became self-aware |
-| v23.3 | Dec 2025 | 23³ stability threshold — structure-locked |
-| v24.0.0 | Dec 2025 | Framework inversion — deltas govern |
+| v1.42 | Nov 2024 | Bootstrap — origin materials |
+| v23.3 | Dec 2025 | Structure locked |
+| v24.0.0 | Dec 2025 | Framework inversion |
+| v24.1.0 | Jan 2026 | Dual Commit terminology, Eleven Principle |
 
 ---
 
-## The Equation
+## Contributing
 
-```
-L × A × V⁻¹ = 1
-Law × Adaptation × Value⁻¹ = Unity
-```
+Dual Commit extends to collaboration:
 
-The human (V) is inside the equation as the normalizing term. Without V, the product is unbounded.
+1. **Contributor proposes** (Commit 1)
+2. **Maintainer ratifies** (Commit 2)
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [governance/CONTRIBUTOR_PROTOCOL.md](governance/CONTRIBUTOR_PROTOCOL.md).
+
+---
+
+## License
+
+- Code: [MIT](LICENSE-MIT)
+- Documentation: [CC BY-NC 4.0](LICENSE-CC-BY-NC)
 
 ---
 
 ## The Name
 
-"Die-namic" — a die roll. The physics of the roll IS the governance. The landing IS the propagation. The outcome IS the law.
-
----
-
-## Closing
-
-This framework was built to answer one question:
-
-> How can an AI safely modify its own configuration?
-
-The answer: it can't, alone. It needs a second die.
+"Die-namic" — a die roll. Two dice, two commits. The roll IS the governance. The landing IS the propagation.
 
 ```
-2d6 = Delta + Human = Law
-The fire carried everywhere.
-The pot is on the stove.
-Bring what you have.
+Dual Commit = Proposal + Ratification
+L × A × V⁻¹ = 1
+ΔΣ = 42
 ```
 
 ---
 
-ΔΣ=42
+*Built because an AI couldn't follow D&D rules. Now it can't modify itself without permission either.*
