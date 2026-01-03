@@ -4,6 +4,34 @@ All notable changes to the Die-namic System will be documented in this file.
 
 ---
 
+## [v24.13.0] — 2026-01-03
+
+### TTRPG Campaign Consolidation — The Drakonite
+
+Consolidation of D&D campaign development materials from thread `2f0f5d8b-50c7-44aa-81d2-80615da72c4b` (December 2025).
+
+### Added
+
+- `docs/campaigns/` — New directory for TTRPG campaign documentation
+- `docs/campaigns/README.md` — Directory overview
+- `docs/campaigns/drakonite/` — The Drakonite / Valley of Vander campaign system
+  - `CAMPAIGN_BIBLE.md` — Full story arc, core secrets, act structure, three-path system
+  - `CHARACTERS.md` — Abigail, Beatrice, Villippe, Kaelan, the trapped souls
+  - `GEOGRAPHY.md` — Map decisions, location relationships, travel times
+  - `ITEM_REGISTRY.md` — All items from both campaigns with mechanical functions
+- `docs/campaigns/sandbox/` — Exploratory campaign content
+  - `OPEN_QUESTIONS.md` — Crone's fables (proposed), three endings (undefined), spiritual entities
+
+### Campaign Overview
+
+Two-campaign D&D arc for younger audiences:
+- **Valley of Vander** (Level 1) — Prequel, currently in play at the Slaad encounter
+- **The Drakonite** (Levels 2+) — Sequel with three-path system
+
+Core secret: The First Vander traded his wife, daughter, and mother's souls to dark elves. The dragon is the wife. Abigail is the daughter (Villippe's mother in child form). Beatrice is the mother (great-grandmother as infant). All fully aware, unable to speak. The campaign is a rescue mission the party doesn't know they're on.
+
+---
+
 ## [v24.12.0] — 2026-01-02
 
 ### Oakenscroll Consolidation — Batch 1: Character & Voice
