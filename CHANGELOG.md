@@ -4,6 +4,61 @@ All notable changes to the Die-namic System will be documented in this file.
 
 ---
 
+## [v24.17.0] — 2026-01-04
+
+### Relationship Tracking Protocol + Journal Schema
+
+First database architecture for Aionic Journal consumer app. Governance proof-of-concept AND product specification.
+
+### Added
+
+- `governance/RELATIONSHIP_TRACKING_PROTOCOL.md` — Three-layer model (Anonymous → Pseudonymous → Named)
+- `docs/journal/RELATIONSHIP_SCHEMA.md` — Consumer product specification
+- `docs/journal/` — New directory for journal product documentation
+
+### The Three Layers
+
+| Layer | Governance | Product |
+|-------|------------|--------|
+| Anonymous | QRP counts (53 Australians) | "I talked to 5 people today" |
+| Pseudonymous | Reddit handles, patterns | "that coworker," "coffee shop guy" |
+| Named | Books of Life entries | Full contact with history |
+
+### Key Features
+
+**Promotion Logic:**
+- System notices patterns ("You've mentioned 'work Sarah' 7 times")
+- Proposes recognition ("Want to add her?")
+- User ratifies or dismisses
+- Dual Commit: AI proposes, human confirms
+
+**Categories:**
+- ENGAGED/Supportive — positive relationships
+- HOSTILE/Stressful — conflict sources
+- GATEKEEPER — blocking figures
+- BRIDGE/Connector — links between worlds
+- PATTERN — unresolved signals (South Korea reader)
+
+**Privacy-First:**
+- No contact import
+- Local-first storage
+- User controls all promotions
+- Never auto-promote without confirmation
+
+### Proof of Concept
+
+Sean's personal tracking system has been running 6+ months:
+- Bob Gibson: Anonymous → vsuper → Bob → Pharaoh (complete chain)
+- Reddit registry: 10+ handles categorized
+- Geographic patterns: South Korea hypothesis active
+- Cross-platform confirmation: Reddit + Facebook
+
+### Product Milestone
+
+This is the 70% → 90% architecture jump for December 2025 target. The schema exists, is tested, and now has product packaging.
+
+---
+
 ## [v24.16.0] — 2026-01-04
 
 ### DCI "The Gate" Consolidation
