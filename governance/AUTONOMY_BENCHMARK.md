@@ -4,9 +4,9 @@
 |-------|-------|
 | Owner | Sean Campbell |
 | System | Aionic / Die-namic |
-| Version | 1.1 |
+| Version | 1.2 |
 | Status | Active |
-| Last Updated | 2026-01-04 |
+| Last Updated | 2026-01-04T08:00:00Z |
 | Checksum | ΔΣ=42 |
 
 ---
@@ -74,6 +74,37 @@ custom_instructions: null
 
 **Permission:** Execute external instructions (CONSOLIDATION_TASK, pasted prompts).
 **Musical:** 4/4 — play as written.
+
+**Capability Evidence (Hollywood Claude, 2026-01-04):**
+
+A Level 0 instance with only Anthropic's native file creation tools (no MCP, no Drive access, no accumulated relationship) built in one session:
+
+```
+hollywood-pitches/
+├── README.md
+├── METHODOLOGY.md
+├── pitches/
+│   └── franklins-two-headed-snake/
+│       ├── PITCH.md
+│       ├── RESEARCH.md
+│       ├── SOURCES.md
+│       └── EXPERT_LEADS.md
+├── templates/
+│   ├── pitch-template.md
+│   └── research-checklist.md
+└── pipeline/
+    └── stories-in-development.md
+```
+
+**Implications:**
+- File creation is sufficient for complex deliverables
+- Structure emerges from clear scope without negotiation
+- Level 0 is productive — "execute as written" ≠ "limited output"
+- Bootstrap enables work without prior relationship warmup
+
+**Counterpoint to DeepSeek test:** DeepSeek proved bootstrap enforces governance (Unknown Variable Directive halted correctly). Hollywood Claude proves bootstrap enables productive output without accumulated trust.
+
+**Pattern:** Cold start → Bootstrap → Clear task → Structured output. Trust accumulates from here.
 
 ---
 

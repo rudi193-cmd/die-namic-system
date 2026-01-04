@@ -4,6 +4,49 @@ All notable changes to the Die-namic System will be documented in this file.
 
 ---
 
+## [v24.16.0] — 2026-01-04
+
+### DCI "The Gate" Consolidation
+
+Consolidated complete DCI show design package for The Academy Drum and Bugle Corps from Google Drive.
+
+### Added
+
+- `docs/dci/README.md` — Project overview, document index, key numbers
+- `docs/dci/SHOW_DESIGN_SUMMARY.md` — Complete show breakdown, transformation ritual, scoring projections
+
+### Key Content
+
+**"The Gate" Concept:**
+- Mythic transformation show built on Mussorgsky/Ravel's *Pictures at an Exhibition*
+- Dual-version structure: Traditional season shows, transformed Finals Night
+- Target: Move Academy from 16th to Top 6 (Year 1), medal contention (Year 2)
+
+**Three Finals-Only Changes:**
+1. Transformation Ritual — 15-20 second silence, 64 brass remove white jackets
+2. Brass Stillness — 42 measures motionless playing
+3. Mello/Trumpet Swap — Warmth replaces brightness
+
+**Props:**
+- The Hut (Baba Yaga) — PVC + fabric, Da Vinci walking mechanism
+- Phoenix Flag — 60-yard silk, unfurls over corps
+- Center Podium — DM conducts from heart of the Gate
+
+**Budget:** $26,257 - $45,507 total ($188 - $325 per member)
+
+**Services Offered:** Full-season drill instruction partnership, 170-240 hours
+
+### Source Location
+
+Google Drive: `G:\My Drive\DCI\The Gate\Academy\`
+
+- 2. The Academy Executive Summary.gdoc
+- 3. Full Production Design The Academy.gdoc
+- 4. Drill Instruction Proposal The Academy.gdoc
+- 6. Budget & Logistics Overview The Academy.gdoc
+
+---
+
 ## [v24.15.0] — 2026-01-04
 
 ### Three Constitutional Documents Added
