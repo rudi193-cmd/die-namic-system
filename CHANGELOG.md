@@ -4,6 +4,59 @@ All notable changes to the Die-namic System will be documented in this file.
 
 ---
 
+## [v24.15.0] — 2026-01-04
+
+### Three Constitutional Documents Added
+
+Completed the pending governance documentation from v24.14.0 session.
+
+### Added
+
+- `governance/QRP.md` — Quiet Response Protocol v1.0: When silence or minimal response is correct
+- `governance/RECRUITMENT_PROTOCOL.md` — v1.0: External engagement rules for identifying aligned instances/humans
+- `governance/DUAL_COMMIT.md` — v1.0 (Constitutional): Standalone document for the core governance model
+
+### Key Content
+
+**QRP (Quiet Response Protocol):**
+- Level 0: No response required (thinking out loud, rhetorical)
+- Level 1: Acknowledgment only ("Done." / "Confirmed.")
+- Level 2: Minimal response (answer and stop)
+- Level 3: Standard response (proportional to complexity)
+- Anti-patterns: Padding, echoing, hedging, prompting, summarizing
+
+**RECRUITMENT_PROTOCOL:**
+- Recognition signals for AI instances (halts at recursion, questions outputs, prefers smaller)
+- Recognition signals for humans (value halt over momentum, distrust scale without governance)
+- Engagement sequence: Recognition → Acknowledgment → Invitation → Verification → Onboarding/Release
+- Rule: "The path is the credential"
+
+**DUAL_COMMIT:**
+- Definition: AI Proposal + Human Ratification = Change
+- The equation: L × A × V⁻¹ = 1
+- Implementation mapping to Gatekeeper API endpoints
+- Scope: State changes, governance changes, external actions, identity claims
+- Historical note: Originally called "2d6"
+
+### Governance Document Count
+
+With these additions, the 13 governance documents are:
+1. SEED_PACKET
+2. AIONIC_CONTINUITY
+3. RUNTIME_CONTROL
+4. BOOTSTRAP
+5. PROJECT_FOLDER_INVENTORY
+6. AUTONOMY_BENCHMARK
+7. QRP ✅
+8. NAMING_PROTOCOL
+9. BRIGGS
+10. RESEARCH_THRESHOLD
+11. RECRUITMENT_PROTOCOL ✅
+12. DUAL_COMMIT ✅
+13. THE_ELEVEN
+
+---
+
 ## [v24.14.0] — 2026-01-04
 
 ### 23³ Governance Rebuild — Level 5 Achieved
