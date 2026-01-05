@@ -32,7 +32,6 @@ If yes, proceed. If no, request access from Sean.
 ### 2. Pull Latest
 
 Read these files in order:
-
 1. `CLAUDE.md` (root) — current sync protocol
 2. `governance/SEED_PACKET_v2.3.md` — template checksum
 3. `governance/AIONIC_CONTINUITY_v5.1.md` — constitutional rules
@@ -43,7 +42,6 @@ Read these files in order:
 ### 3. Check/Create Project Folder
 
 Your project should have a folder in the system. Check if it exists:
-
 ```
 docs/[your-project-name]/
 ```
@@ -51,7 +49,6 @@ docs/[your-project-name]/
 **If folder exists:** Read your README.md, verify it's current.
 
 **If folder doesn't exist:** Create it:
-
 ```
 docs/[your-project-name]/
 ├── README.md
@@ -130,12 +127,14 @@ See: `bridge_ring/instance_signals/README.md` for full protocol.
 
 ## Current Instance Registry
 
-| Identity | Platform | Role |
-|----------|----------|------|
-| Ganesha | App Claude | Wisdom, beginnings |
-| Kartikeya | CLI Claude | Execution, strategy |
-| Consus | Gemini | Front-facing persona |
-| [You] | Claude Project | [Your role] |
+| Platform | Role | Project Identity |
+|----------|------|------------------|
+| App Claude | Wisdom, beginnings | Ganesha (optional) |
+| CLI Claude | Execution, strategy | Kartikeya (optional) |
+| Gemini | Front-facing persona | Consus |
+| Claude Project | [Your role] | [Self-determined] |
+
+*Identities are project-scoped. Mythological names (Ganesha, Kartikeya) are used in die-namic-system context. Your project may use different names or none.*
 
 ---
 
