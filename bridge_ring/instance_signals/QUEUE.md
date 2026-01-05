@@ -20,7 +20,7 @@
 
 | ID | Timestamp | From | To | Type | Payload | Status |
 |----|-----------|------|-----|------|---------|--------|
-| — | — | — | — | — | Queue empty | — |
+| SIG-001 | 2026-01-05T15:45:00Z | CLI-Claude | App-Claude | HANDOFF | Request: SAFE repo specs. User says you have context on creating professional repo (die-namic minus narrative). Please push your notes/specs to governance/ or respond with scope details. | PENDING |
 
 ---
 
