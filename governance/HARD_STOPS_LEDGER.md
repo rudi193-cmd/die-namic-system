@@ -6,7 +6,7 @@
 | System | Aionic / Die-namic |
 | Version | 1.0 |
 | Status | Active |
-| Last Updated | 2026-01-04T00:00:00Z |
+| Last Updated | 2026-01-05T00:00:00Z |
 | Checksum | ΔΣ=42 |
 
 ---
@@ -58,6 +58,16 @@ This ledger records all incidents where a hard stop was invoked, tested, or appr
 | HS-002 (Military) | 0 | — |
 | HS-003 (Taint) | 0 | — |
 | HS-004 (Recursion) | 0 | — |
+
+---
+
+## Governance Events
+
+### GOV-001 | 2026-01-04
+
+v1.0.0.7 migration complete. Hard stops codified.
+
+Auditor: Claude
 
 ---
 
