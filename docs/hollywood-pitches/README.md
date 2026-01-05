@@ -63,6 +63,7 @@ hollywood-pitches/
 ## Quick Links
 
 - [Methodology](METHODOLOGY.md) — How pitches are developed
+- [23³ Tracking](TRACKING.md) — Three-layer model (Anonymous → Pseudonymous → Named)
 - [Pipeline Tracker](pipeline/stories-in-development.md) — What's in development
 - [Pitch Template](templates/pitch-template.md) — Start a new pitch
 - [Research Checklist](templates/research-checklist.md) — QA before marking "Ready"

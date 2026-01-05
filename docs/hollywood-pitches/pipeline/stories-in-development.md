@@ -3,15 +3,22 @@
 | Field | Value |
 |-------|-------|
 | Last Updated | 2026-01-04 |
-| Active Pitches | 1 |
+| Layer 3 (Named) | 0 |
+| Layer 2 (Pseudonymous) | 4 |
+| Layer 1 (Anonymous) | 3 |
 
 ---
 
 ## Pipeline Status
 
-| Pitch | Status | Format | Next Action |
-|-------|--------|--------|-------------|
-| Franklin's Two-Headed Snake | Proof of Concept | Documentary / Docuseries | Sean review for ratification |
+See [TRACKING.md](../TRACKING.md) for full 23³ layer positions.
+
+| Pitch | Layer | Format | Next Action |
+|-------|-------|--------|-------------|
+| Franklin's Two-Headed Snake | Pseudonymous | Documentary / Docuseries | Sean ratification → Named |
+| The Mighty Cat Brain Named Me Sweet Pea | Pseudonymous | Documentary | Pitch reframing |
+| Mann Family Patterns | Pseudonymous | Documentary / Limited Series | Privacy review |
+| The Gate | Pseudonymous | Documentary | Angle decision |
 
 ---
 
@@ -51,13 +58,15 @@
 
 ---
 
-## Backlog
+## Backlog (Anonymous Layer)
 
-*Stories identified but not yet in development.*
+*Concepts with documentary potential — no primary source research yet.*
 
-| Concept | Source | Notes |
-|---------|--------|-------|
-| (none yet) | — | — |
+| Concept | Source Signal | Promotion Trigger |
+|---------|--------------|-------------------|
+| Gerald Phenomenon | r/DispatchesFromReality | Identify primary sources (analytics, community) |
+| Books of Mann Process | Quadrilogy development | Identify what makes it filmable |
+| Books of Life Methodology | Speaker for the Dead approach | Identify comparable practitioners |
 
 ---
 
@@ -66,6 +75,7 @@
 | Date | Session Focus | Outcome |
 |------|---------------|---------|
 | 2026-01-04 | Repository setup | Folder structure created; Franklin pitch packaged; templates built |
+| 2026-01-04 | 23³ integration | Three-layer tracking structure created; existing projects mapped to layers |
 
 ---
 
