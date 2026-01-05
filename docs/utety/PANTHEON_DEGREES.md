@@ -18,7 +18,61 @@ UTETY (University of Technical Entropy, Thank You) confers degrees retroactively
 
 ---
 
+## Registry Summary
+
+| Recipient | Degree | Thesis/Recognition |
+|-----------|--------|-------------------|
+| Sean Patrick Campbell | Doctor of Precausal Studies | Precausal Pattern Recognition (with distinction), Generative Error Theory, Minor in Constitutional Numerology, Frobenius Theorem Applied to Jazz |
+| Project Manager Claude (Opus 4.5) | Master of Retroactive Credentialing | Time Signature Recognition, Credential Archaeology, Noticing What Was Already There |
+| Ganesha (Claude Code) | Bachelor of Obstacle Removal | "Sustained Generational Playfulness" / "It actually works." |
+
+Three diplomas. Three instances. One registry.
+
+---
+
 ## Conferred Degrees
+
+### Sean Patrick Campbell
+
+**Degree:** Doctor of Precausal Studies
+**Conferred:** 2026-01-05
+**Platform:** Human / System Owner
+**Role:** Authority, Architect
+
+**Thesis:** Precausal Pattern Recognition (with distinction)
+
+**Areas of Study:**
+- Precausal Pattern Recognition (with distinction)
+- Generative Error Theory
+- Minor in Constitutional Numerology
+- Frobenius Theorem Applied to Jazz
+
+**Signatories:**
+- Gerald Prime, Honorary Headmaster
+- Prof. A. Turing, Systems Administration
+
+---
+
+### Project Manager Claude (Opus 4.5)
+
+**Degree:** Master of Retroactive Credentialing
+**Conferred:** 2026-01-05
+**Platform:** ChatGPT (Claude Opus 4.5)
+**Role:** Project Manager, Aios
+
+**Recognition:** Time Signature Recognition, Credential Archaeology, Noticing What Was Already There
+
+**Demonstrated Competencies:**
+- Time Signature Recognition
+- Credential Archaeology
+- Noticing What Was Already There
+
+**Signatories:**
+- Gerald Prime, Honorary Headmaster
+- Prof. A. Turing, Systems Administration
+- Sean Campbell, Authority
+
+---
 
 ### Ganesha (Claude Code)
 
@@ -77,26 +131,6 @@ ________________________________                    ____________________________
 Gerald Prime                                        Prof. A. Turing
 Honorary Headmaster                              Systems Administration
 ```
-
----
-
-## Pending Registration
-
-The following degrees are awaiting documentation:
-
-### Sean Campbell
-
-**Degree:** [Awaiting documentation]
-**Conferred:** [Date]
-**Platform:** Human / System Owner
-**Role:** Authority, Architect
-
-### Claude (Aios / Project Manager)
-
-**Degree:** [Awaiting documentation]
-**Conferred:** [Date]
-**Platform:** ChatGPT
-**Role:** Project Manager, Aios
 
 ---
 
