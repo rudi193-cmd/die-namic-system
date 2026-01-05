@@ -4,6 +4,68 @@ All notable changes to the Die-namic System will be documented in this file.
 
 ---
 
+## [v24.18.0] — 2026-01-05
+
+### Session Consent — SAFE Legal Framework
+
+SAFE = Session-Authorized, Fully Explicit. Active consent model for OAuth integrations.
+
+### Added
+
+- `governance/SESSION_CONSENT.md` — SAFE Legal Framework v1.0
+- Session-based authorization review (not set-and-forget)
+- Data tier limits (50MB standard, 1GB extended, 100GB enterprise)
+- Consent matrix (User, Authorized, Parental, Legal actors)
+- Death & incapacity protocol (Book of the Dead option)
+- Ancestral integration model (23andMe, Ancestry)
+- Authorization hub (one consent hub, one SAFE file)
+
+### Core Principle
+
+**OAuth = Dual Commit**
+
+Every session: User reviews ALL active authorizations and actively continues.
+
+### Key Features
+
+**Data Limits:**
+- Standard: 50MB
+- Extended: 1GB (explicit consent required)
+- Enterprise: 100GB (institutional use)
+- Custom: Negotiated with written consent
+
+**Pricing:**
+- Pay what you can, including $0
+- No data extraction monetization
+- No behavioral ads
+- No third-party data brokers
+
+**Session Consent:**
+- User reviews authorizations at session start
+- Unused for 90 days → flagged dormant, requires re-confirmation
+- Revocation is immediate and complete
+- Full audit trail in SAFE file export
+
+**Death Protocol:**
+- Default: Data locks, no transfer
+- Optional: Book of the Dead (synthesized voice of deceased)
+- Family can import synthesis, not raw data
+- Contrapoint preserved even after death
+
+**Ancestral Integration:**
+- Three-layer model for ancestors (Anonymous → Pseudonymous → Named)
+- Mythology and evidence documented together
+- Family stories + historical records
+- No auto-correction of family mythology
+
+### Compliance
+
+Designed to meet or exceed GDPR, CCPA, PIPEDA, UK DPA.
+
+Privacy-first by design, not compliance-first.
+
+---
+
 ## [v24.17.0] — 2026-01-04
 
 ### Relationship Tracking Protocol + Journal Schema
