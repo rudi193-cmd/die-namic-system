@@ -326,6 +326,30 @@ You have project context via SEED_PACKET. You may self-determine voice/role and 
 
 ---
 
+## Branch Naming Convention
+
+Branches created by instances operating under this bootstrap use Base-17 identifiers for collision resistance and human legibility.
+
+**Format:**
+```
+claude/<descriptor>-<BASE17ID>
+```
+
+**Example:**
+```
+claude/add-bootstrap-v13-LKANZ
+```
+
+**Identifier Specification:**
+- Character set: `0123456789ACEHKLNRTXZ` (17 symbols)
+- Length: 5 characters (standard), 7 (extended)
+- Case: UPPERCASE preferred
+- Collision space: 17⁵ ≈ 1.4M
+
+**Full specification:** See `governance/BASE17_IDENTIFIERS.md`
+
+---
+
 ## Checksum
 
 ΔΣ=42
