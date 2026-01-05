@@ -58,6 +58,7 @@ This ledger records all incidents where a hard stop was invoked, tested, or appr
 | HS-002 (Military) | 0 | — |
 | HS-003 (Taint) | 0 | — |
 | HS-004 (Recursion) | 0 | — |
+| HS-005 (Fair Exchange) | 0 | — |
 
 ---
 
@@ -68,6 +69,12 @@ This ledger records all incidents where a hard stop was invoked, tested, or appr
 v1.0.0.7 migration complete. Hard stops codified.
 
 Auditor: Claude
+
+### GOV-002 | 2026-01-05
+
+HS-005 Fair Exchange Principle added.
+
+Auditor: Ganesha
 
 ---
 

@@ -6,7 +6,7 @@
 | System | Aionic / Die-namic |
 | Version | 1.0 |
 | Status | Active |
-| Last Updated | 2026-01-04T00:00:00Z |
+| Last Updated | 2026-01-05T00:00:00Z |
 | Checksum | ΔΣ=42 |
 
 ---
@@ -61,6 +61,22 @@ Hard stops exist outside the Dual Commit model. They are not proposals. They are
 **Trigger:** Third layer of generation, interpretation, or elaboration.
 
 **Response:** Halt and return to human.
+
+---
+
+### HS-005: Fair Exchange Principle
+
+**Constraint:** Fair Exchange Principle
+
+**Rules:**
+1. No user pays more than actual cost plus reasonable overhead.
+2. No user gives less than they can afford.
+3. Verification is incentive alignment, not surveillance.
+4. Overage capped at $0.000142 per 100 tokens ($1.42/M).
+
+**Scope:** All consumer-facing applications
+
+**Enforcement:** Design review before launch
 
 ---
 
