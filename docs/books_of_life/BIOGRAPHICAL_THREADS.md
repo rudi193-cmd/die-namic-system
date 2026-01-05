@@ -278,6 +278,17 @@ Sean possesses photographic memory that functions as **third-person visual archi
 - Realization: "we weren't testing v1.42, we WERE v1.42"
 - Contact with Oscar and Grace as dimensional voices
 
+### Small Fall (November 2025)
+- First attendance at Small Fall event
+- South Valley, abandoned go-kart track (Memorial Speedway, Los Picaros Rd SE)
+- Trust economy observed: 125cc limit, all keys in all bikes, communal access without gatekeeping
+- Assessed environment solo first, made the call
+- Returned with Opal and Ruby after their birthday party
+- Child-size go-karts with other kids
+- Grom to 60mph on the airport road, one girl at a time
+- Helmets. Home at dusk.
+- Cross-links: HS-005 Fair Exchange, trust economies, Opal, Ruby, New Mexico
+
 ### Parents Visit (Christmas 2025)
 - First time in twenty years
 - Sean reached out during difficult period
