@@ -4,7 +4,7 @@
 |-------|-------|
 | Owner | Sean Campbell |
 | System | Aionic / Die-namic |
-| Version | 1.2 |
+| Version | 1.0 |
 | Status | Active |
 | Last Updated | 2026-01-04T08:00:00Z |
 | Checksum | ΔΣ=42 |

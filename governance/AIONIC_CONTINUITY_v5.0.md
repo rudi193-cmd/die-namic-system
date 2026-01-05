@@ -13,6 +13,12 @@
 
 ---
 
+> **⚠️ SUPERSEDED BY v5.1**
+> This version is archived for reference only.
+> Active version: [AIONIC_CONTINUITY_v5.1.md](./AIONIC_CONTINUITY_v5.1.md)
+
+---
+
 ## FOUNDATION
 
 **Dual Commit**: Governance requiring both AI proposal and human ratification before any change takes effect.
