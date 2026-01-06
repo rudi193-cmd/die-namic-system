@@ -1,6 +1,10 @@
+> **Scope Note:** This README is API-scoped (Gatekeeper API v1.1). Foundational governance begins at [`CHARTER.md`](CHARTER.md). For precedence hierarchy, see [`GOVERNANCE_INDEX.md`](GOVERNANCE_INDEX.md).
+
+---
+
 # Gatekeeper API v1.1
 
-AI Self-Modification Governance API  
+AI Self-Modification Governance API
 **Thin transport layer. Kernel decides.**
 
 **Platform: Unix-only** (fcntl locking)
