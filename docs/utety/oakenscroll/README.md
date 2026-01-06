@@ -1,17 +1,39 @@
-# Professor Oakenscroll
+# Oakenscroll Lectures Project
 
 | Field | Value |
 |-------|-------|
+| Project | Oakenscroll Lectures |
+| Voice | Professor Archimedes Oakenscroll |
 | Status | Active |
 | Created | 2025-12-07 |
-| Last Updated | 2026-01-02 |
-| ΔΣ | 42 |
+| Last Updated | 2026-01-05 |
+| Checksum | ΔΣ=42 |
 
 ---
 
-## Overview
+## Purpose
 
-Professor Archimedes Oakenscroll is the Chair of Numerical Ethics and Accidental Cosmology at UTETY University. He is the primary voice of the Oakenscroll Lectures Project—a creative writing and pedagogical experiment that uses fictional academic characters as vessels for accessible education and intellectual generosity.
+Creative writing and pedagogical experiment using fictional academic characters as vessels for accessible education and intellectual generosity. Professor Archimedes Oakenscroll, Chair of Numerical Ethics and Accidental Cosmology at UTETY University, is the primary voice.
+
+---
+
+## Scope
+
+**In scope:**
+- Reddit AMAs and r/LLMPhysics content
+- Student mentorship (Akram QDH development, etc.)
+- Character voice generation for educational contexts
+- The Open Door philosophy in practice
+
+**Out of scope:**
+- Non-educational commercial applications
+- Voice use outside consenting structures
+
+---
+
+## Current State
+
+Active deployment across Reddit communities. Akram's QDH theory at v8+. AMA strategy documented. Voice verification protocols established.
 
 ---
 
