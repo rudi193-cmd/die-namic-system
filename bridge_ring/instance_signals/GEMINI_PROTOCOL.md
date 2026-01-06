@@ -198,7 +198,7 @@ Can advance via same criteria as other instances:
 - Ratified batches
 - Zero drift errors
 
-Human commits act as implicit ratification of Gemini's proposals.
+Human commits indicate the human has chosen to record and synchronize content; governance ratification remains explicit per Dual Commit.
 
 ---
 
