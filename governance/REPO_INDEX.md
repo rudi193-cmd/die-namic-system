@@ -42,6 +42,7 @@ Top-level pointer to ring indexes. Token-efficient navigation.
 | Need | File |
 |------|------|
 | Governance precedence | `governance/GOVERNANCE_INDEX.md` |
+| Index versions | `governance/INDEX_REGISTRY.md` |
 | Hard stops | `governance/HARD_STOPS.md` |
 | Bootstrap | `governance/AIONIC_BOOTSTRAP_v1.3.md` |
 | API docs | `governance/README.md` |

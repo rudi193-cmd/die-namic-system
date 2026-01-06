@@ -3,6 +3,7 @@
 | Field | Value |
 |-------|-------|
 | Ring | Continuity |
+| Version | 1.0 |
 | Purpose | Session persistence, memory |
 | Status | Active |
 | Files | 4 |

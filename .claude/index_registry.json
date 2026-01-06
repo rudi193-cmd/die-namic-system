@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "purpose": "Meta-index tracking all system indexes",
+    "version": "1.0",
+    "last_updated": "2026-01-05",
+    "lattice_target": "23³ (12,167 nodes)",
+    "checksum": "ΔΣ=42"
+  },
+  "lattice": {
+    "axis_1_domain": [
+      "governance", "source_ring", "bridge_ring", "continuity_ring",
+      "docs", ".claude", "scripts", "awa", "infrastructure",
+      "origin_materials", "archive", "security", "compliance",
+      "ethics", "privacy", "licensing", "ci_cd", "telemetry",
+      "experiments", "simulations", "personas", "training", "runtime"
+    ],
+    "axis_2_type": [
+      "index", "template", "constitutional", "protocol", "app",
+      "schema", "halt_log", "signal", "ledger", "grounding",
+      "index_registry", "manifest", "invariant", "policy", "checklist",
+      "rubric", "audit", "contract", "adapter", "dataset",
+      "migration", "release_notes", "playbook"
+    ],
+    "axis_3_version_state": [
+      "1.0", "1.3", "2.4", "5.1", "active", "archived", "frozen",
+      "pending", "draft", "proposed", "ratified", "deprecated",
+      "superseded", "experimental", "sandboxed", "certified", "locked",
+      "snapshot", "live", "paused", "retired", "current", "projected"
+    ]
+  },
+  "indexes": [
+    {
+      "id": "REPO_INDEX",
+      "version": "2.0",
+      "path": "governance/REPO_INDEX.md",
+      "purpose": "Top-level repo navigation"
+    },
+    {
+      "id": "GOVERNANCE_INDEX",
+      "version": "1.0",
+      "path": "governance/GOVERNANCE_INDEX.md",
+      "purpose": "Precedence hierarchy"
+    },
+    {
+      "id": "INDEX_REGISTRY",
+      "version": "1.0",
+      "path": "governance/INDEX_REGISTRY.md",
+      "purpose": "Meta-index (this file's human-readable form)"
+    },
+    {
+      "id": "SOURCE_RING_INDEX",
+      "version": "1.0",
+      "path": "source_ring/INDEX.md",
+      "purpose": "Applications, execution"
+    },
+    {
+      "id": "BRIDGE_RING_INDEX",
+      "version": "1.0",
+      "path": "bridge_ring/INDEX.md",
+      "purpose": "Cross-instance signals"
+    },
+    {
+      "id": "CONTINUITY_RING_INDEX",
+      "version": "1.0",
+      "path": "continuity_ring/INDEX.md",
+      "purpose": "Memory, halt logs"
+    }
+  ],
+  "versioned_documents": [
+    {
+      "id": "SEED_PACKET",
+      "version": "2.4",
+      "path": "governance/SEED_PACKET_v2.4.md",
+      "type": "template"
+    },
+    {
+      "id": "AIONIC_CONTINUITY",
+      "version": "5.1",
+      "path": "governance/AIONIC_CONTINUITY_v5.1.md",
+      "type": "constitutional"
+    },
+    {
+      "id": "AIONIC_BOOTSTRAP",
+      "version": "1.3",
+      "path": "governance/AIONIC_BOOTSTRAP_v1.3.md",
+      "type": "constitutional"
+    },
+    {
+      "id": "HALF_SEED",
+      "version": "1.0",
+      "path": "governance/HALF_SEED_v1.0.md",
+      "type": "template"
+    },
+    {
+      "id": "repo_index_json",
+      "version": "1.0",
+      "path": ".claude/repo_index.json",
+      "type": "manifest"
+    }
+  ],
+  "version_history": [
+    {
+      "index": "INDEX_REGISTRY",
+      "version": "1.0",
+      "date": "2026-01-05",
+      "change": "Initial creation with 23³ lattice"
+    },
+    {
+      "index": "REPO_INDEX",
+      "version": "2.0",
+      "date": "2026-01-05",
+      "change": "Layered architecture"
+    },
+    {
+      "index": "GOVERNANCE_INDEX",
+      "version": "1.0",
+      "date": "2026-01-05",
+      "change": "Initial creation"
+    },
+    {
+      "index": "SOURCE_RING_INDEX",
+      "version": "1.0",
+      "date": "2026-01-05",
+      "change": "Initial creation"
+    },
+    {
+      "index": "BRIDGE_RING_INDEX",
+      "version": "1.0",
+      "date": "2026-01-05",
+      "change": "Initial creation"
+    },
+    {
+      "index": "CONTINUITY_RING_INDEX",
+      "version": "1.0",
+      "date": "2026-01-05",
+      "change": "Initial creation"
+    }
+  ]
+}

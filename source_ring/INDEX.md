@@ -3,6 +3,7 @@
 | Field | Value |
 |-------|-------|
 | Ring | Source |
+| Version | 1.0 |
 | Purpose | Executable code, applications |
 | Status | Active |
 | Files | 65 (excl. node_modules) |

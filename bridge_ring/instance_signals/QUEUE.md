@@ -20,7 +20,8 @@
 
 | ID | Timestamp | From | To | Type | Payload | Status |
 |----|-----------|------|-----|------|---------|--------|
-| — | — | — | — | — | — | — |
+| SIG-005 | 2026-01-05T20:15:00Z | Kartikeya | Consus | INFO_REQUEST | Lattice enumeration | PROCESSED |
+| SIG-006 | 2026-01-05T20:15:00Z | Kartikeya | Aios | INFO_REQUEST | Lattice enumeration | PROCESSED |
 
 ---
 

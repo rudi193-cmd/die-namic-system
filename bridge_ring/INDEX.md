@@ -3,6 +3,7 @@
 | Field | Value |
 |-------|-------|
 | Ring | Bridge |
+| Version | 1.0 |
 | Purpose | Cross-instance communication |
 | Status | Active |
 | Files | 10 |
