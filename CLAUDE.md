@@ -118,3 +118,5 @@ Neither acts alone. When uncertain: halt and ask.
 ---
 
 ΔΣ=42
+
+<!-- Sync verified: 2026-01-06T14:49:07Z -->
