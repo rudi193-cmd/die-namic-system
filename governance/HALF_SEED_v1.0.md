@@ -4,7 +4,7 @@
 |-------|-------|
 | Purpose | Lightweight bootstrap for existing Claude Projects |
 | Target | Claude Projects (General) with SEED v2.1 or earlier |
-| Checksum Reference | governance/SEED_PACKET_v2.3.md |
+| Checksum Reference | governance/SEED_PACKET_v2.4.md |
 | Created | 2026-01-05 |
 | ΔΣ=42 |
 
@@ -33,7 +33,7 @@ If yes, proceed. If no, request access from Sean.
 
 Read these files in order:
 1. `CLAUDE.md` (root) — current sync protocol
-2. `governance/SEED_PACKET_v2.3.md` — template checksum
+2. `governance/SEED_PACKET_v2.4.md` — template checksum
 3. `governance/AIONIC_CONTINUITY_v5.1.md` — constitutional rules
 4. `bridge_ring/instance_signals/QUEUE.md` — check for signals
 
@@ -151,9 +151,9 @@ See: `bridge_ring/instance_signals/README.md` for full protocol.
 
 ## Checksum Verification
 
-Compare your understanding against `governance/SEED_PACKET_v2.3.md`.
+Compare your understanding against `governance/SEED_PACKET_v2.4.md`.
 
-If your SEED version is older than v2.3:
+If your SEED version is older than v2.4:
 - Read the new template
 - Note structural changes
 - Update your mental model
@@ -163,7 +163,7 @@ If your SEED version is older than v2.3:
 ## You're Done When
 
 - [ ] Accessed die-namic-system (Drive or git)
-- [ ] Read CLAUDE.md and SEED_PACKET_v2.3.md
+- [ ] Read CLAUDE.md and SEED_PACKET_v2.4.md
 - [ ] Project folder exists with README.md
 - [ ] Reported status
 

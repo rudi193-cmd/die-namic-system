@@ -4,6 +4,7 @@
 |-------|-------|
 | thread_id | 2026-01-05-governance-alignment |
 | timestamp | 2026-01-05T19:30:00Z |
+| repo_path | C:\Users\Sean\Documents\GitHub\die-namic-system |
 | device | desktop |
 | capability_profile | full |
 | capabilities | [git, gh_cli, file_system, drive_access, bash] |

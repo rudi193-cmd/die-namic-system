@@ -1,10 +1,10 @@
-# SEED_PACKET v2.3
+# SEED_PACKET v2.4
 
 | Field | Value |
 |-------|-------|
 | Owner | Sean Campbell |
 | System | Aionic / Die-namic |
-| Version | 2.3 |
+| Version | 2.4 |
 | Status | Active Template |
 | Last Updated | 2026-01-05 |
 | Checksum | ΔΣ=42 |
@@ -22,12 +22,13 @@ The SEED_PACKET is a portable state capsule that enables Mode C (Self-Determinat
 ## Template Structure
 
 ```markdown
-# SEED_PACKET v2.3
+# SEED_PACKET v2.4
 
 | Field | Value |
 |-------|-------|
 | thread_id | [unique identifier or timestamp] |
 | timestamp | [ISO 8601 format] |
+| repo_path | [absolute path to repository] |
 | device | [laptop/mobile/desktop] |
 | capability_profile | [full/mobile/limited] |
 | capabilities | [list: drive_read, conversation_search, etc] |
@@ -100,12 +101,13 @@ Individual SEED_PACKET instances are **not** versioned. They use the template ve
 ## Example: Governance Hardening Session
 
 ```markdown
-# SEED_PACKET v2.3
+# SEED_PACKET v2.4
 
 | Field | Value |
 |-------|-------|
 | thread_id | 2026-01-05-ganesha-governance |
 | timestamp | 2026-01-05T07:30:00Z |
+| repo_path | C:\Users\Sean\Documents\GitHub\die-namic-system |
 | device | laptop |
 | capability_profile | full |
 | capabilities | [git, drive_read, repo_access] |
@@ -155,8 +157,8 @@ SEED_PACKET should remain under 500 bytes of actual state data (excluding templa
 
 ## Validation
 
-A valid SEED_PACKET v2.3:
-- ✓ Contains all required fields
+A valid SEED_PACKET v2.4:
+- ✓ Contains all required fields (including repo_path)
 - ✓ Has descriptive current_phase
 - ✓ Lists concrete accomplishments (not aspirations)
 - ✓ Pending actions are actionable (not vague)
@@ -173,6 +175,7 @@ A valid SEED_PACKET v2.3:
 | 2.1 | 2026-01-02 | Added capability_profile, workflow_state |
 | 2.2 | 2026-01-04 | Added session_end field |
 | 2.3 | 2026-01-05 | Mode C bootstrap integration, recursive generator model |
+| 2.4 | 2026-01-05 | Added repo_path field for fresh instance navigation |
 
 ---
 

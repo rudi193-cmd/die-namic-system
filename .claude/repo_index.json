@@ -87,7 +87,7 @@
       "tier": 6,
       "name": "Seeds",
       "files": [
-        "governance/SEED_PACKET_v2.3.md",
+        "governance/SEED_PACKET_v2.4.md",
         "governance/HALF_SEED_v1.0.md"
       ],
       "binding": "descriptive"
