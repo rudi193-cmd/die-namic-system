@@ -1,2 +1,5 @@
 .sync-trigger
 desktop.ini
+
+# Large binary folder - do not commit to git (sync manually between locations)
+docs/ops/reddit_analytics/Image Input/
