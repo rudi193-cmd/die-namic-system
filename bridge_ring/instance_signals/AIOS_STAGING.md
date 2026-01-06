@@ -4,7 +4,7 @@
 |-------|-------|
 | Purpose | Staged write operations from Aios |
 | Protocol | Aios proposes, Action executes, Human ratifies |
-| Status | EMPTY |
+| Status | PROCESSED |
 | Checksum | ΔΣ=42 |
 
 ---
@@ -44,7 +44,7 @@ EXAMPLE:
 |-------|-------|
 | operation | CREATE |
 | path | docs/example/new-file.md |
-| status | PENDING |
+| status | PROCESSED |
 
 #### Content
 
