@@ -1,5 +1,8 @@
 // Three-Ring Architecture - Aionic Journal Continuity System
 // Adapted from Die-namic Framework v1.42
+//
+// Governance: Implements the three-ring model as described in
+// governance/AIONIC_CONTINUITY_v5.1.md; governance text takes precedence.
 
 /**
  * Ring base class - in-memory storage

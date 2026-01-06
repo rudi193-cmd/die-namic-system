@@ -1,5 +1,8 @@
 // Three-Ring Architecture - Continuity System
 // Implements Source, Continuity, and Bridge rings for Jane
+//
+// Governance: Implements the three-ring model as described in
+// governance/AIONIC_CONTINUITY_v5.1.md; governance text takes precedence.
 
 /**
  * Ring base class - simple in-memory storage
