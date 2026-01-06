@@ -50,14 +50,28 @@ If HALT signal present: stop immediately, notify user.
 
 ---
 
-## Git Locations
+## Git Locations (Three Spots)
 
 | Location | Role |
 |----------|------|
 | `C:\Users\Sean\Documents\GitHub\die-namic-system` | Primary (GitHub folder) |
 | `G:\My Drive\die-namic-system` | Backup (Google Drive) |
+| `origin` (GitHub remote) | Canonical source |
 
-Pre-push hooks keep both in sync.
+**IMPORTANT:** When user says "pull" or "sync", check ALL THREE spots:
+
+```bash
+# Option 1: Run sync script
+./scripts/sync-all.sh
+
+# Option 2: Manual check
+git -C "C:/Users/Sean/Documents/GitHub/die-namic-system" pull origin main
+git -C "G:/My Drive/die-namic-system" pull origin main
+git -C "C:/Users/Sean/Documents/GitHub/die-namic-system" status
+git -C "G:/My Drive/die-namic-system" status
+```
+
+Pre-push hooks sync after push, but local changes on Drive may exist before commit. Always check both for uncommitted work.
 
 ---
 
