@@ -145,6 +145,10 @@ die-namic-system/
 └── docs/                # Documentation and archives
 ```
 
+**Full structure:** See [governance/REPO_INDEX.md](governance/REPO_INDEX.md) or [.claude/repo_index.json](.claude/repo_index.json)
+
+**Governance scope:** See [governance/CHARTER.md](governance/CHARTER.md)
+
 ### Key Files
 
 | File | Purpose |

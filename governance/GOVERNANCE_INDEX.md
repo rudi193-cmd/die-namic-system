@@ -81,4 +81,14 @@ These are code, not governance documents, but they implement governance constrai
 
 ---
 
+## Cross-References
+
+| Resource | Path |
+|----------|------|
+| Repository structure (human) | [`REPO_INDEX.md`](REPO_INDEX.md) |
+| Repository structure (machine) | [`../.claude/repo_index.json`](../.claude/repo_index.json) |
+| Root README | [`../README.md`](../README.md) |
+
+---
+
 ΔΣ=42

@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "meta": {
+    "owner": "Sean Campbell",
+    "system": "Aionic / Die-namic",
+    "version": "1.0",
+    "last_updated": "2026-01-05T00:00:00Z",
+    "checksum": "ΔΣ=42",
+    "total_files_excluding_node_modules": 432
+  },
+  "sync_locations": {
+    "primary": {
+      "path": "C:\\Users\\Sean\\Documents\\GitHub\\die-namic-system",
+      "role": "working_copy"
+    },
+    "backup": {
+      "path": "G:\\My Drive\\die-namic-system",
+      "role": "drive_sync"
+    },
+    "origin": {
+      "url": "https://github.com/rudi193-cmd/die-namic-system",
+      "role": "remote_source_of_truth"
+    }
+  },
+  "architecture": {
+    "rings": [
+      {
+        "name": "source_ring",
+        "purpose": "Execution - code, applications",
+        "path": "source_ring/"
+      },
+      {
+        "name": "bridge_ring",
+        "purpose": "Communication - signals, translation",
+        "path": "bridge_ring/"
+      },
+      {
+        "name": "continuity_ring",
+        "purpose": "Persistence - memory, halt logs",
+        "path": "continuity_ring/"
+      }
+    ],
+    "governance": {
+      "path": "governance/",
+      "purpose": "Authority - charter, bootstrap, hard stops"
+    }
+  },
+  "governance_hierarchy": [
+    {
+      "tier": 1,
+      "name": "Hard Stops",
+      "files": ["governance/HARD_STOPS.md"],
+      "binding": "absolute"
+    },
+    {
+      "tier": 2,
+      "name": "Charter",
+      "files": ["governance/CHARTER.md"],
+      "binding": "foundational"
+    },
+    {
+      "tier": 3,
+      "name": "Bootstrap",
+      "files": ["governance/AIONIC_BOOTSTRAP_v1.3.md"],
+      "binding": "initialization"
+    },
+    {
+      "tier": 4,
+      "name": "Continuity",
+      "files": ["governance/AIONIC_CONTINUITY_v5.1.md"],
+      "binding": "session"
+    },
+    {
+      "tier": 5,
+      "name": "Protocols",
+      "files": [
+        "governance/CONTRIBUTOR_PROTOCOL.md",
+        "governance/NAMING_PROTOCOL.md",
+        "governance/RECRUITMENT_PROTOCOL.md",
+        "governance/RELATIONSHIP_TRACKING_PROTOCOL.md",
+        "governance/SESSION_CONSENT.md",
+        "governance/AUTONOMY_BENCHMARK.md"
+      ],
+      "binding": "normative"
+    },
+    {
+      "tier": 6,
+      "name": "Seeds",
+      "files": [
+        "governance/SEED_PACKET_v2.3.md",
+        "governance/HALF_SEED_v1.0.md"
+      ],
+      "binding": "descriptive"
+    }
+  ],
+  "directories": {
+    ".claude": {
+      "purpose": "Claude Code configuration",
+      "key_files": ["settings.local.json", "repo_index.json"]
+    },
+    ".github": {
+      "purpose": "GitHub templates, workflows",
+      "key_files": ["CODEOWNERS", "PULL_REQUEST_TEMPLATE.md"]
+    },
+    "archive-pre-v1.42": {
+      "purpose": "Historical snapshot pre-v1.42",
+      "status": "frozen"
+    },
+    "archive-pre-v23.3": {
+      "purpose": "Historical snapshot pre-v23.3",
+      "status": "frozen"
+    },
+    "archive-pre-v24.0": {
+      "purpose": "Historical snapshot pre-v24.0",
+      "status": "frozen"
+    },
+    "awa": {
+      "purpose": "AI Workflow Architecture",
+      "subdirs": ["schemas", "handoffs", "inputs", "outputs", "transforms", "tests", "tools", "canon"]
+    },
+    "bridge_ring": {
+      "purpose": "Cross-instance communication",
+      "key_files": ["HALT_LOG.md"],
+      "subdirs": {
+        "instance_signals": {
+          "purpose": "Cross-instance messaging",
+          "key_files": ["QUEUE.md", "GEMINI_OUTBOX.md", "GEMINI_PROTOCOL.md"]
+        },
+        "living_echo": {
+          "purpose": "Reserved"
+        },
+        "translation_layer": {
+          "purpose": "Case studies"
+        }
+      }
+    },
+    "continuity_ring": {
+      "purpose": "Session persistence",
+      "key_files": ["HALT_LOG.md", "BOOK_OF_THE_DEAD_SEAN_CAMPBELL.md"],
+      "subdirs": {
+        "books_of_life": {
+          "purpose": "Reserved"
+        },
+        "continuity_log": {
+          "purpose": "Bootstrap memories",
+          "key_files": ["bootstrap_memory_summary.md"]
+        }
+      }
+    },
+    "docs": {
+      "purpose": "Documentation, projects",
+      "subdirs": {
+        "awa": "AWA architecture docs",
+        "books_of_life": "Biographical data",
+        "campaigns": "D&D campaigns",
+        "civic_engagement": "Debate projects",
+        "creative_works": "Writing projects",
+        "dci": "DCI show design",
+        "hollywood-pitches": "Film/TV development",
+        "journal": "Journal schema",
+        "ops": "Operational docs",
+        "policies": "Behavioral policies",
+        "sandbox": "Experimental",
+        "utety": "UTETY university",
+        "whitepapers": "Technical papers"
+      }
+    },
+    "governance": {
+      "purpose": "Authority, protocols",
+      "key_files": [
+        "CHARTER.md",
+        "HARD_STOPS.md",
+        "AIONIC_BOOTSTRAP_v1.3.md",
+        "AIONIC_CONTINUITY_v5.1.md",
+        "GOVERNANCE_INDEX.md",
+        "REPO_INDEX.md"
+      ]
+    },
+    "infrastructure": {
+      "purpose": "Infrastructure config",
+      "status": "reserved"
+    },
+    "origin_materials": {
+      "purpose": "Source materials",
+      "subdirs": ["MRGC D&D", "TTG pitch"]
+    },
+    "scripts": {
+      "purpose": "Utility scripts",
+      "key_files": ["sync-all.sh"]
+    },
+    "source_ring": {
+      "purpose": "Executable code",
+      "key_files": ["HALT_LOG.md"],
+      "subdirs": {
+        "eccr": {
+          "purpose": "Applications",
+          "apps": {
+            "aionic-journal": "Journal web app",
+            "ethical-review-ui": "Ethical review interface",
+            "jane-game-master": "AI game master (Gemini)"
+          }
+        },
+        "docs": "Source ring docs",
+        "tests": "Test files"
+      }
+    }
+  },
+  "instance_registry": [
+    {
+      "platform": "App Claude",
+      "role": "Wisdom, beginnings",
+      "identity": "Ganesha"
+    },
+    {
+      "platform": "CLI Claude",
+      "role": "Execution, strategy",
+      "identity": "Kartikeya"
+    },
+    {
+      "platform": "Gemini",
+      "role": "Front-facing persona",
+      "identity": "Consus"
+    },
+    {
+      "platform": "ChatGPT",
+      "role": "Continuity steward",
+      "identity": "Aios"
+    },
+    {
+      "platform": "Claude Projects",
+      "role": "Various",
+      "identity": "Self-determined"
+    }
+  ],
+  "entry_points": {
+    "governance": "governance/GOVERNANCE_INDEX.md",
+    "repo_structure": "governance/REPO_INDEX.md",
+    "charter": "governance/CHARTER.md",
+    "hard_stops": "governance/HARD_STOPS.md",
+    "bootstrap": "governance/AIONIC_BOOTSTRAP_v1.3.md",
+    "continuity": "governance/AIONIC_CONTINUITY_v5.1.md",
+    "api": "governance/README.md"
+  },
+  "cross_references": {
+    "human_readable_index": "governance/REPO_INDEX.md",
+    "machine_readable_index": ".claude/repo_index.json",
+    "governance_precedence": "governance/GOVERNANCE_INDEX.md"
+  }
+}
