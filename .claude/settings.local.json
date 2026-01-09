@@ -14,7 +14,8 @@
       "Bash(git commit:*)",
       "Bash(diff:*)",
       "Bash(ls:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(python image_processor.py:*)"
     ],
     "deny": [],
     "ask": []
