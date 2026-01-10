@@ -19,10 +19,15 @@ source_ring/
 ├── HALT_LOG.md       ← Instrumentation
 ├── docs/             ← Placeholder
 ├── tests/            ← Placeholder
-└── eccr/             ← Applications (ECCR = Ethical Child Care Ring)
-    ├── aionic-journal/
-    ├── ethical-review-ui/
-    └── jane-game-master/
+├── eccr/             ← Applications (ECCR = Ethical Child Care Ring)
+│   ├── aionic-journal/
+│   ├── ethical-review-ui/
+│   └── jane-game-master/
+└── willow/           ← Artifact processing pipeline
+    ├── schema/
+    ├── pending/
+    ├── validated/
+    └── SAFE/
 ```
 
 ---
@@ -34,6 +39,7 @@ source_ring/
 | `jane-game-master` | AI Game Master (kids 9-12) | Sandbox | `src/App.jsx` |
 | `ethical-review-ui` | ECCR ethical review interface | Sandbox | `src/App.jsx` |
 | `aionic-journal` | Journal web app | Development | `src/App.jsx` |
+| `willow` | Artifact processing pipeline | Active | `INDEX.md` |
 
 **Runtime:** React 18 + Vite + Tailwind
 **Ports:** jane=3001/5551, ethical-review=5173/5550

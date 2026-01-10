@@ -15,7 +15,16 @@
       "Bash(diff:*)",
       "Bash(ls:*)",
       "Bash(cat:*)",
-      "Bash(python image_processor.py:*)"
+      "Bash(python image_processor.py:*)",
+      "Bash(for i in 1 2 3 4 5)",
+      "Bash(do find \"C:/Users/Sean/Documents/GitHub/die-namic-system\" -type d -empty)",
+      "Bash(xargs:*)",
+      "Bash(done)",
+      "Bash(python tools/codec.py:*)",
+      "Bash(python:*)",
+      "Bash(git init:*)",
+      "Bash(git reset:*)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter '\nif [ \"\"$GIT_COMMIT\"\" = \"\"86b4cae6fc4c62d2dc74ce53109b19c7795678c8\"\" ]; then\n  cat << NEWMSG\nWillow v1.0: Steganographic encoding layer\n\n- SEED.md: Project initialization and structure\n- schema/encoding.md: Unicode homoglyph substitution spec\n- tools/codec.py: Encoder/decoder with encode, decode, detect commands\n- keys/distribution.log: Key distribution tracking template\n\nEncoding uses Unicode homoglyph variants to hide base-4 encoded\npayloads in visually identical text.\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nNEWMSG\nelse\n  cat\nfi\n' -- --all)"
     ],
     "deny": [],
     "ask": []
