@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | Owner | Sean Campbell |
-| Version | 0.3 |
+| Version | 0.4 |
 | Status | Draft |
 | Checksum | ΔΣ=42 |
 
@@ -116,6 +116,122 @@ Control the reset, control the state.
 **Protocol:** Don't wait for forced compaction. Call for SEED_PACKET at ~10-15% remaining context, after completing a logical unit of work.
 
 The SEED_PACKET becomes a save point, not a crash log.
+
+### Cross-Platform Handoff
+
+The bus carries across platforms, not just within them.
+
+**Problem:** 23 Claude projects, 17 ChatGPT projects, unknown Gemini. Context lives in silos. Handoff requires human copy-paste and translation.
+
+**Solution:** Platform-agnostic SEED_PACKET format. Any LLM can bootstrap from it.
+
+#### Universal Seed Format
+
+```markdown
+# SEED_PACKET v[X.X]
+
+| Field | Value |
+|-------|-------|
+| thread_id | [unique identifier] |
+| timestamp | [ISO 8601] |
+| origin_platform | [anthropic|openai|google|local] |
+| target_platform | [any|anthropic|openai|google|local] |
+| repo_path | [filesystem path or URL] |
+| capability_profile | [full|limited|readonly] |
+
+---
+
+## Context
+[Platform-agnostic state description]
+
+## Pending
+[Numbered list of incomplete work]
+
+## Key Files
+[Paths that receiving instance should read]
+
+---
+ΔΣ=42
+```
+
+#### Platform Capabilities
+
+| Platform | Git | File System | Web | Signals |
+|----------|-----|-------------|-----|---------|
+| Claude Code | Yes | Yes | Yes | Yes |
+| Claude App | No | Via upload | Yes | Via copy |
+| ChatGPT | No | Via upload | Plugins | Via copy |
+| Gemini | No | Via upload | Yes | Via copy |
+
+#### Handoff Protocol
+
+```
+1. Origin instance writes SEED_PACKET
+   └→ Uses universal format
+   └→ Sets target_platform (or "any")
+   └→ Commits to repo
+
+2. Human carries seed to target
+   └→ Copy-paste if no shared filesystem
+   └→ File upload if target accepts
+   └→ Git pull if target has access
+
+3. Target instance bootstraps
+   └→ Reads SEED_PACKET
+   └→ Checks capability_profile vs own capabilities
+   └→ Adapts if limited (skips git ops, requests uploads)
+   └→ Continues from Context + Pending
+
+4. Target acknowledges (optional)
+   └→ Writes ACK to repo or response
+   └→ Notes any capability gaps
+```
+
+#### Capability Degradation
+
+When target has fewer capabilities than origin:
+
+| Gap | Adaptation |
+|-----|------------|
+| No git | Human provides file contents via upload/paste |
+| No filesystem | Work from context only, request specific files |
+| No web | Skip web fetches, note as blocked |
+| No signals | Human relays signals manually |
+
+The seed degrades gracefully. Work continues with available tools.
+
+#### Example: Claude Code → ChatGPT
+
+```markdown
+# SEED_PACKET v3.1
+
+| Field | Value |
+|-------|-------|
+| thread_id | 2026-01-11-vision-board |
+| timestamp | 2026-01-11T12:00:00Z |
+| origin_platform | anthropic |
+| target_platform | openai |
+| repo_path | https://github.com/rudi193-cmd/vision-board |
+| capability_profile | limited |
+
+---
+
+## Context
+Vision Board app shipped. TensorFlow.js classification, IndexedDB storage.
+Need marketing copy for Reddit reply.
+
+## Pending
+1. Draft Reddit reply (see SHIPPING_VOICE.md pattern)
+
+## Key Files
+- SHIPPING_VOICE.md (tone reference)
+- README.md (feature list)
+
+---
+ΔΣ=42
+```
+
+ChatGPT receives this, knows it can't git pull, asks human for file contents, drafts the reply.
 
 ---
 
