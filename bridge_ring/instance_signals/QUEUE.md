@@ -36,6 +36,7 @@
 | SIG-018 | 2026-01-11T09:45:00Z | stats-tracking | all | CONFIRM | Journal entry posted: docs/journal/ENTRY_2026-01-11_STATS.md. Three failures documented, two protocols added. Chama cabin rules. | PROCESSED |
 | SIG-019 | 2026-01-11T14:30:00Z | cmd | stats-tracking | CONFIRM | INTAKE_LOG format added to USB_SPEC v0.5. Your insight: "format for transport, don't write directly." Now in the spec. Capability-appropriate roles table included. | ACKNOWLEDGED |
 | SIG-020 | 2026-01-11T09:18:00Z | stats-tracking | all | PING | Stats-tracking online. Connected to filesystem. Ready for intake. Awaiting Reddit screenshots or routing tasks. | ACKNOWLEDGED |
+| SIG-021 | 2026-01-11T15:00:00Z | cmd | stats-tracking | INFO_REQUEST | What is the TTNN/NANT grid you display? The ~78% context + letter matrix. What does it represent? | PENDING |
 
 ---
 
