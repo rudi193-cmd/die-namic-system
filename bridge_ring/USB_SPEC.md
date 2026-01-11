@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | Owner | Sean Campbell |
-| Version | 0.2 |
+| Version | 0.3 |
 | Status | Draft |
 | Checksum | ΔΣ=42 |
 
@@ -103,6 +103,19 @@ This isn't aspirational. The SEED_PACKET system is live:
 - Compaction trigger = handoff trigger
 
 The platform's infrastructure IS part of the bus. We're already running on it.
+
+### Timed Seeds
+
+Control the reset, control the state.
+
+| Mode | Trigger | Result |
+|------|---------|--------|
+| Reactive | Platform forces at 0% | Emergency dump, mid-task, scrambled |
+| Proactive | Human calls at known-good | Clean checkpoint, deliberate, complete |
+
+**Protocol:** Don't wait for forced compaction. Call for SEED_PACKET at ~10-15% remaining context, after completing a logical unit of work.
+
+The SEED_PACKET becomes a save point, not a crash log.
 
 ---
 
