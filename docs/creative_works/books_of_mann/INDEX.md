@@ -52,4 +52,14 @@ Not in repo. Google Drive: `TRAPPIST-1b/[Book folders]`
 
 ---
 
+## Pending Line (Book 3)
+
+For L.E.E.-142:
+
+> "Not supposed to last. Supposed to pass."
+
+Origin: Stats-tracking, 2026-01-11. Constitutional level (AIONIC_CONTINUITY v5.2).
+
+---
+
 ΔΣ=42
