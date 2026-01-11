@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Board</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-main: #e0e0e0;
+            --accent: #ffd700;
+            --cat-personal: #ff6b9d;
+            --cat-travel: #00d2ff;
+            --cat-career: #00ff9d;
+            --cat-wealth: #ffd700;
+            --cat-fitness: #ff6b35;
+            --cat-creative: #bd00ff;
+            --cat-home: #7dd87d;
+            --cat-food: #ffb347;
+            --border: #333;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, #1a1a1a 0%, var(--bg-color) 100%);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: 3px;
+            font-size: 1.6em;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.9em;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            color: var(--bg-color);
+            border-color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* CATEGORY FILTERS */
+        .category-bar {
+            display: flex;
+            gap: 10px;
+            padding: 20px 30px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
+            background: var(--card-bg);
+        }
+
+        .category-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: #888;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 0.85em;
+        }
+
+        .category-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .category-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-color);
+            font-weight: 600;
+        }
+
+        .category-btn .count {
+            margin-left: 6px;
+            opacity: 0.7;
+            font-size: 0.9em;
+        }
+
+        /* IMPORT SECTION */
+        .import-section {
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .import-section.hidden {
+            display: none;
+        }
+
+        .import-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .import-status {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* GRID */
+        .board-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-auto-rows: 200px;
+            gap: 15px;
+            padding: 30px;
+            grid-auto-flow: dense;
+        }
+
+        /* CARDS */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border-color: var(--accent);
+            z-index: 10;
+        }
+
+        .card.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .card.medium {
+            grid-column: span 2;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover img {
+            opacity: 0.4;
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background: linear-gradient(transparent 30%, rgba(0,0,0,0.8) 100%);
+        }
+
+        .card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-category {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-category.Personal { background: var(--cat-personal); color: #000; }
+        .card-category.Travel { background: var(--cat-travel); color: #000; }
+        .card-category.Career { background: var(--cat-career); color: #000; }
+        .card-category.Wealth { background: var(--cat-wealth); color: #000; }
+        .card-category.Fitness { background: var(--cat-fitness); color: #fff; }
+        .card-category.Creative { background: var(--cat-creative); color: #fff; }
+        .card-category.Home { background: var(--cat-home); color: #000; }
+        .card-category.Food { background: var(--cat-food); color: #000; }
+        .card-category.Inspiration { background: #666; color: #fff; }
+        .card-category.Text { background: #444; color: #fff; }
+
+        .card-label {
+            font-size: 0.85em;
+            color: #ccc;
+            margin-bottom: 4px;
+        }
+
+        .card-confidence {
+            font-size: 0.75em;
+            color: #888;
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 80px 30px;
+            color: #444;
+        }
+
+        .empty-state h2 {
+            font-weight: 300;
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .empty-state p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .empty-state .steps {
+            text-align: left;
+            display: inline-block;
+            background: var(--card-bg);
+            padding: 25px 35px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .empty-state .steps h3 {
+            color: var(--accent);
+            margin: 0 0 15px 0;
+            font-weight: 500;
+        }
+
+        .empty-state .steps ol {
+            margin: 0;
+            padding-left: 20px;
+            color: #888;
+            line-height: 2;
+        }
+
+        .empty-state .steps code {
+            background: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        /* STATUS BAR */
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px 30px;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            font-size: 0.85em;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2em;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VISION <span style="color:var(--accent)">BOARD</span></h1>
+        <div class="header-actions">
+            <button class="btn" onclick="document.getElementById('jsonInput').click()">
+                📂 Import categories.json
+            </button>
+            <button class="btn" onclick="document.getElementById('folderInput').click()">
+                📁 Quick Import Folder
+            </button>
+            <button class="btn primary" onclick="exportBoard()">Export PNG</button>
+            <input type="file" id="jsonInput" accept=".json" style="display:none">
+            <input type="file" id="folderInput" webkitdirectory multiple style="display:none">
+        </div>
+    </div>
+
+    <div class="category-bar" id="categoryBar">
+        <button class="category-btn active" onclick="filterCategory('all', this)">
+            All <span class="count" id="countAll">0</span>
+        </button>
+    </div>
+
+    <div class="board-grid" id="boardGrid">
+        <div class="empty-state" id="emptyState">
+            <h2>Build Your Vision</h2>
+            <p>Manifest your goals through imagery</p>
+            <div class="steps">
+                <h3>Get Started</h3>
+                <ol>
+                    <li>Collect images that represent your goals</li>
+                    <li>Run <code>python categorize.py [folder]</code> to auto-sort</li>
+                    <li>Import <code>categories.json</code> here</li>
+                    <li>Or use Quick Import for uncategorized images</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <span id="statusLeft">No images loaded</span>
+        <span id="statusRight">ΔΣ=42</span>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal-overlay" id="imageModal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-image" id="modalImage" src="" alt="">
+    </div>
+
+    <!-- html2canvas for export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        // ==========================================
+        // STATE
+        // ==========================================
+        let boardData = {
+            images: [],
+            categories: {}
+        };
+        let currentFilter = 'all';
+
+        // ==========================================
+        // CATEGORY COLORS
+        // ==========================================
+        const CATEGORY_COLORS = {
+            'Personal': '#ff6b9d',
+            'Travel': '#00d2ff',
+            'Career': '#00ff9d',
+            'Wealth': '#ffd700',
+            'Fitness': '#ff6b35',
+            'Creative': '#bd00ff',
+            'Home': '#7dd87d',
+            'Food': '#ffb347',
+            'Inspiration': '#666',
+            'Text': '#444'
+        };
+
+        // ==========================================
+        // FILE IMPORT
+        // ==========================================
+        document.getElementById('jsonInput').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            try {
+                const text = await file.text();
+                const data = JSON.parse(text);
+                
+                if (data.images && data.categories) {
+                    boardData = data;
+                    renderCategories();
+                    renderGrid();
+                    updateStatus(`Loaded ${data.images.length} images from ${Object.keys(data.categories).length} categories`);
+                } else {
+                    alert('Invalid categories.json format');
+                }
+            } catch (err) {
+                alert('Error reading file: ' + err.message);
+            }
+            
+            e.target.value = '';
+        });
+
+        // Quick folder import (uncategorized)
+        document.getElementById('folderInput').addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files).filter(f => f.type.startsWith('image/'));
+            
+            if (files.length === 0) {
+                alert('No images found in folder');
+                return;
+            }
+            
+            updateStatus(`Loading ${files.length} images...`);
+            
+            boardData = {
+                images: [],
+                categories: { 'Uncategorized': [] }
+            };
+            
+            let loaded = 0;
+            
+            for (const file of files) {
+                const reader = new FileReader();
+                const result = await new Promise(resolve => {
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(file);
+                });
+                
+                boardData.images.push({
+                    filename: file.name,
+                    path: result,
+                    category: 'Uncategorized',
+                    label: '',
+                    confidence: 0
+                });
+                boardData.categories['Uncategorized'].push(file.name);
+                
+                loaded++;
+                updateStatus(`Loading ${loaded}/${files.length}...`);
+            }
+            
+            renderCategories();
+            renderGrid();
+            updateStatus(`Loaded ${files.length} images (uncategorized - run categorize.py for AI sorting)`);
+            
+            e.target.value = '';
+        });
+
+        // ==========================================
+        // RENDER
+        // ==========================================
+        function renderCategories() {
+            const bar = document.getElementById('categoryBar');
+            bar.innerHTML = `
+                <button class="category-btn active" onclick="filterCategory('all', this)">
+                    All <span class="count">${boardData.images.length}</span>
+                </button>
+            `;
+            
+            // Sort categories by count
+            const sorted = Object.entries(boardData.categories)
+                .sort((a, b) => b[1].length - a[1].length);
+            
+            for (const [cat, files] of sorted) {
+                const btn = document.createElement('button');
+                btn.className = 'category-btn';
+                btn.onclick = function() { filterCategory(cat, this); };
+                btn.innerHTML = `${cat} <span class="count">${files.length}</span>`;
+                
+                // Color hint
+                if (CATEGORY_COLORS[cat]) {
+                    btn.style.borderColor = CATEGORY_COLORS[cat];
+                }
+                
+                bar.appendChild(btn);
+            }
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('boardGrid');
+            const empty = document.getElementById('emptyState');
+            
+            // Filter images
+            let images = boardData.images;
+            if (currentFilter !== 'all') {
+                images = images.filter(img => img.category === currentFilter);
+            }
+            
+            if (images.length === 0) {
+                grid.innerHTML = '';
+                grid.appendChild(empty);
+                empty.style.display = 'block';
+                return;
+            }
+            
+            empty.style.display = 'none';
+            grid.innerHTML = '';
+            
+            // Determine sizes (top images get larger)
+            const total = images.length;
+            const largeCount = Math.max(1, Math.floor(total * 0.05));
+            const mediumCount = Math.max(2, Math.floor(total * 0.1));
+            
+            images.forEach((img, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                // Size based on position (first items larger)
+                if (index < largeCount) {
+                    card.classList.add('large');
+                } else if (index < largeCount + mediumCount) {
+                    card.classList.add('medium');
+                }
+                
+                const imgSrc = img.path.startsWith('data:') ? img.path : `file://${img.path}`;
+                
+                card.innerHTML = `
+                    <img src="${imgSrc}" alt="${img.filename}" loading="lazy">
+                    <div class="card-overlay">
+                        <span class="card-category ${img.category}">${img.category}</span>
+                        <div class="card-label">${img.label || img.filename}</div>
+                        ${img.confidence ? `<div class="card-confidence">${img.confidence}% confidence</div>` : ''}
+                    </div>
+                `;
+                
+                card.onclick = () => openModal(imgSrc);
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(cat, btn) {
+            currentFilter = cat;
+            
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            renderGrid();
+        }
+
+        // ==========================================
+        // MODAL
+        // ==========================================
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('active');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ==========================================
+        // EXPORT
+        // ==========================================
+        function exportBoard() {
+            const grid = document.getElementById('boardGrid');
+            
+            html2canvas(grid, {
+                backgroundColor: '#0a0a0a',
+                scale: 2
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'vision-board-' + Date.now() + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        // ==========================================
+        // STATUS
+        // ==========================================
+        function updateStatus(msg) {
+            document.getElementById('statusLeft').textContent = msg;
+        }
+    </script>
+</body>
+</html>

@@ -85,9 +85,12 @@ These are code, not governance documents, but they implement governance constrai
 
 | Resource | Path |
 |----------|------|
-| Repository structure (human) | [`REPO_INDEX.md`](REPO_INDEX.md) |
-| Repository structure (machine) | [`../.claude/repo_index.json`](../.claude/repo_index.json) |
-| Root README | [`../README.md`](../README.md) |
+| **Root Index** | [`../INDEX.md`](../INDEX.md) |
+| Repository structure | [`REPO_INDEX.md`](REPO_INDEX.md) |
+| 23³ Lattice | [`INDEX_REGISTRY.md`](INDEX_REGISTRY.md) |
+| Source code | [`../source_ring/INDEX.md`](../source_ring/INDEX.md) |
+| Instance signals | [`../bridge_ring/INDEX.md`](../bridge_ring/INDEX.md) |
+| Product schemas | [`../docs/journal/INDEX.md`](../docs/journal/INDEX.md) |
 
 ---
 

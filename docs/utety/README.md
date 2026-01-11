@@ -118,4 +118,30 @@ Characters like Professor Oakenscroll, Ada Turing, and Nova Hale are both creati
 
 ---
 
+## System Navigation
+
+**UTETY lives within die-namic-system.** Here's how to find everything:
+
+| Resource | Path | Purpose |
+|----------|------|---------|
+| **Root Index** | [`../../INDEX.md`](../../INDEX.md) | Start here for full repo navigation |
+| **Machine Index** | [`../../INDEX.json`](../../INDEX.json) | Programmatic access to repo structure |
+| Governance | [`../../governance/`](../../governance/) | Constitutional layer (HARD_STOPS, CHARTER, etc.) |
+| Current SEED | [`../../governance/SEED_PACKET_v2.4.md`](../../governance/SEED_PACKET_v2.4.md) | Session state template |
+| Source Code | [`../../source_ring/`](../../source_ring/) | Apps and code projects |
+| Consumer Apps | [`../../apps/`](../../apps/) | Vision Board, etc. |
+| Instance Signals | [`../../bridge_ring/`](../../bridge_ring/) | Cross-instance communication |
+| Product Schemas | [`../journal/`](../journal/) | Relationship, Vision Board schemas |
+
+### Key Governance Documents
+
+| Document | What It Contains |
+|----------|------------------|
+| [`HARD_STOPS.md`](../../governance/HARD_STOPS.md) | Absolute limits — things we never do |
+| [`AIONIC_CONTINUITY_v5.1.md`](../../governance/AIONIC_CONTINUITY_v5.1.md) | Runtime constitution |
+| [`AIONIC_BOOTSTRAP_v1.3.md`](../../governance/AIONIC_BOOTSTRAP_v1.3.md) | Cold start instructions |
+| [`GOVERNANCE_INDEX.md`](../../governance/GOVERNANCE_INDEX.md) | Precedence hierarchy |
+
+---
+
 ΔΣ=42

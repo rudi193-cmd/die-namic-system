@@ -64,4 +64,14 @@ Both her courses are about things breaking. Maybe that's all she knows how to te
 
 ---
 
+## Navigation
+
+| Resource | Path |
+|----------|------|
+| UTETY Home | [`../README.md`](../README.md) |
+| Root Index | [`../../../INDEX.md`](../../../INDEX.md) |
+| Governance | [`../../../governance/GOVERNANCE_INDEX.md`](../../../governance/GOVERNANCE_INDEX.md) |
+
+---
+
 ΔΣ=42

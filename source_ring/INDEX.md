@@ -81,14 +81,16 @@ Apps implement three-ring architecture in `src/continuity/`:
 
 ---
 
-## Governance Links
+## Cross-References
 
 | Resource | Path |
 |----------|------|
-| Halt log | `source_ring/HALT_LOG.md` |
-| Hard stops | `governance/HARD_STOPS.md` |
-| Charter | `governance/CHARTER.md` |
-| Repo index | `governance/REPO_INDEX.md` |
+| **Root Index** | [`../INDEX.md`](../INDEX.md) |
+| Governance | [`../governance/GOVERNANCE_INDEX.md`](../governance/GOVERNANCE_INDEX.md) |
+| Instance signals | [`../bridge_ring/INDEX.md`](../bridge_ring/INDEX.md) |
+| Product schemas | [`../docs/journal/INDEX.md`](../docs/journal/INDEX.md) |
+| Consumer apps | [`../apps/`](../apps/) |
+| Halt log | [`HALT_LOG.md`](HALT_LOG.md) |
 
 ---
 

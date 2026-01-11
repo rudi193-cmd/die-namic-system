@@ -65,13 +65,15 @@ bridge_ring/
 
 ---
 
-## Governance Links
+## Cross-References
 
 | Resource | Path |
 |----------|------|
-| Continuity | `governance/AIONIC_CONTINUITY_v5.1.md` |
-| Hard stops | `governance/HARD_STOPS.md` |
-| Repo index | `governance/REPO_INDEX.md` |
+| **Root Index** | [`../INDEX.md`](../INDEX.md) |
+| Governance | [`../governance/GOVERNANCE_INDEX.md`](../governance/GOVERNANCE_INDEX.md) |
+| Source code | [`../source_ring/INDEX.md`](../source_ring/INDEX.md) |
+| Continuity ring | [`../continuity_ring/INDEX.md`](../continuity_ring/INDEX.md) |
+| Product schemas | [`../docs/journal/INDEX.md`](../docs/journal/INDEX.md) |
 
 ---
 

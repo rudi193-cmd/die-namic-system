@@ -1,0 +1,202 @@
+{
+  "name": "die-namic-system",
+  "version": "1.42+",
+  "owner": "Sean Campbell",
+  "updated": "2026-01-10",
+  "checksum": "\u0394\u03a3=42",
+  "entry_points": {
+    "readme": "README.md",
+    "claude_config": "CLAUDE.md",
+    "human_index": "INDEX.md",
+    "machine_index": "INDEX.json"
+  },
+  "structure": {
+    "governance": {
+      "path": "governance/",
+      "index": "governance/GOVERNANCE_INDEX.md",
+      "purpose": "Constitutional layer",
+      "files": {
+        "continuity": "AIONIC_CONTINUITY_v5.1.md",
+        "bootstrap": "AIONIC_BOOTSTRAP_v1.3.md",
+        "hard_stops": "HARD_STOPS.md",
+        "charter": "CHARTER.md",
+        "seed_template": "SEED_PACKET_v2.4.md",
+        "seed_current": "SEED_PACKET_2026-01-10_KARTIKEYA.md",
+        "governance_index": "GOVERNANCE_INDEX.md",
+        "index_registry": "INDEX_REGISTRY.md",
+        "repo_index": "REPO_INDEX.md"
+      }
+    },
+    "apps": {
+      "path": "apps/",
+      "purpose": "Consumer applications",
+      "projects": {
+        "vision_board": {
+          "path": "apps/vision_board/",
+          "status": "prototype",
+          "files": {
+            "spec": "PRODUCT_SPEC.md",
+            "readme": "README.md",
+            "viewer": "index.html",
+            "categorizer": "categorize.py"
+          }
+        }
+      }
+    },
+    "source_ring": {
+      "path": "source_ring/",
+      "index": "source_ring/INDEX.md",
+      "purpose": "Code projects",
+      "projects": {
+        "eccr": {
+          "path": "source_ring/eccr/",
+          "children": [
+            "aionic-journal",
+            "ethical-review-ui",
+            "jane-game-master"
+          ]
+        },
+        "willow": {
+          "path": "source_ring/willow/",
+          "index": "source_ring/willow/INDEX.md"
+        }
+      }
+    },
+    "docs": {
+      "path": "docs/",
+      "purpose": "Documentation",
+      "sections": {
+        "journal": {
+          "path": "docs/journal/",
+          "index": "docs/journal/INDEX.md",
+          "schemas": [
+            "RELATIONSHIP_SCHEMA.md",
+            "VISION_BOARD_SCHEMA.md"
+          ]
+        },
+        "ops": {
+          "path": "docs/ops/",
+          "purpose": "Operational tools"
+        },
+        "books_of_life": {
+          "path": "docs/books_of_life/",
+          "index": "docs/books_of_life/SESSION_INDEX.md"
+        },
+        "utety": {
+          "path": "docs/utety/",
+          "index": "docs/utety/README.md",
+          "purpose": "UTETY university - Claude Projects home",
+          "faculty": [
+            "ada",
+            "hanz",
+            "oakenscroll",
+            "riggs",
+            "itchy_things"
+          ],
+          "subreddits": [
+            "r/UTETY",
+            "r/HanzTeachesCode",
+            "r/DispatchesFromReality"
+          ]
+        }
+      }
+    },
+    "bridge_ring": {
+      "path": "bridge_ring/",
+      "index": "bridge_ring/INDEX.md",
+      "purpose": "Cross-instance communication",
+      "key_files": {
+        "queue": "instance_signals/QUEUE.md",
+        "gemini_protocol": "instance_signals/GEMINI_PROTOCOL.md"
+      }
+    },
+    "continuity_ring": {
+      "path": "continuity_ring/",
+      "index": "continuity_ring/INDEX.md",
+      "purpose": "Session continuity"
+    },
+    "awa": {
+      "path": "awa/",
+      "purpose": "AWA schemas",
+      "schemas": "awa/schemas/"
+    },
+    "archive": {
+      "path": "archive/",
+      "purpose": "Legacy versions",
+      "children": [
+        "pre-v1.42",
+        "pre-v23.3",
+        "pre-v24.0",
+        "seeds"
+      ]
+    }
+  },
+  "indexes": [
+    {
+      "path": "INDEX.md",
+      "scope": "root"
+    },
+    {
+      "path": "governance/GOVERNANCE_INDEX.md",
+      "scope": "governance"
+    },
+    {
+      "path": "governance/INDEX_REGISTRY.md",
+      "scope": "lattice"
+    },
+    {
+      "path": "governance/REPO_INDEX.md",
+      "scope": "repository"
+    },
+    {
+      "path": "source_ring/INDEX.md",
+      "scope": "source_ring"
+    },
+    {
+      "path": "source_ring/willow/INDEX.md",
+      "scope": "willow"
+    },
+    {
+      "path": "bridge_ring/INDEX.md",
+      "scope": "bridge_ring"
+    },
+    {
+      "path": "continuity_ring/INDEX.md",
+      "scope": "continuity_ring"
+    },
+    {
+      "path": "docs/journal/INDEX.md",
+      "scope": "journal"
+    },
+    {
+      "path": "docs/books_of_life/SESSION_INDEX.md",
+      "scope": "sessions"
+    },
+    {
+      "path": "docs/utety/README.md",
+      "scope": "utety"
+    }
+  ],
+  "related_repos": [
+    {
+      "name": "Willow",
+      "url": "github.com/rudi193-cmd/Willow",
+      "visibility": "private"
+    },
+    {
+      "name": "SAFE",
+      "url": "github.com/rudi193-cmd/SAFE",
+      "visibility": "public"
+    }
+  ],
+  "signal_protocol": {
+    "queue": "bridge_ring/instance_signals/QUEUE.md",
+    "types": [
+      "SYNC",
+      "HALT",
+      "HANDOFF",
+      "PING",
+      "STATE_CHANGE"
+    ]
+  }
+}

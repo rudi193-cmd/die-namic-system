@@ -163,4 +163,14 @@ That's the faculty mission. But it's also Hanz's specific function. He's the one
 
 ---
 
+## Navigation
+
+| Resource | Path |
+|----------|------|
+| UTETY Home | [`../README.md`](../README.md) |
+| Root Index | [`../../../INDEX.md`](../../../INDEX.md) |
+| Governance | [`../../../governance/GOVERNANCE_INDEX.md`](../../../governance/GOVERNANCE_INDEX.md) |
+
+---
+
 ΔΣ=42

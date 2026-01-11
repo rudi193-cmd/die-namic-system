@@ -24,7 +24,21 @@
       "Bash(python:*)",
       "Bash(git init:*)",
       "Bash(git reset:*)",
-      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter '\nif [ \"\"$GIT_COMMIT\"\" = \"\"86b4cae6fc4c62d2dc74ce53109b19c7795678c8\"\" ]; then\n  cat << NEWMSG\nWillow v1.0: Steganographic encoding layer\n\n- SEED.md: Project initialization and structure\n- schema/encoding.md: Unicode homoglyph substitution spec\n- tools/codec.py: Encoder/decoder with encode, decode, detect commands\n- keys/distribution.log: Key distribution tracking template\n\nEncoding uses Unicode homoglyph variants to hide base-4 encoded\npayloads in visually identical text.\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nNEWMSG\nelse\n  cat\nfi\n' -- --all)"
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter '\nif [ \"\"$GIT_COMMIT\"\" = \"\"86b4cae6fc4c62d2dc74ce53109b19c7795678c8\"\" ]; then\n  cat << NEWMSG\nWillow v1.0: Steganographic encoding layer\n\n- SEED.md: Project initialization and structure\n- schema/encoding.md: Unicode homoglyph substitution spec\n- tools/codec.py: Encoder/decoder with encode, decode, detect commands\n- keys/distribution.log: Key distribution tracking template\n\nEncoding uses Unicode homoglyph variants to hide base-4 encoded\npayloads in visually identical text.\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nNEWMSG\nelse\n  cat\nfi\n' -- --all)",
+      "Bash(gh repo create:*)",
+      "Bash(gh repo view:*)",
+      "Bash(git fetch:*)",
+      "Bash(gh repo list:*)",
+      "Bash(git remote add:*)",
+      "Bash(for f in CONTRIBUTOR_PROTOCOL NAMING_PROTOCOL THE_ELEVEN_PRINCIPLE GOVERNANCE_INDEX AUTONOMY_BENCHMARK RESEARCH_THRESHOLD)",
+      "Bash(powershell -Command \"\\(Get-Content categorize.py\\) -replace \"\"''mansion'': ''Wealth'', ''palace'': ''Wealth'',\"\", \"\"''mansion'': ''Wealth'',\"\" | Set-Content categorize.py\")",
+      "Bash(powershell -Command \"\\(Get-Content categorize.py\\) -replace \"\"''web site'': ''Text'', ''monitor'': ''Text'',\"\", \"\"''web site'': ''Text'',\"\" | Set-Content categorize.py\")",
+      "Bash(powershell -Command \"\\(Get-Content categorize.py -Raw\\) -replace ''except:\\\\r?\\\\n    print\\\\\\(\"\"Warning: Could not download labels.\"\"\\\\\\)'', ''except Exception:\\\\n    print\\(\"\"Warning: Could not download labels.\"\"\\)'' | Set-Content categorize.py -NoNewline\")",
+      "Bash(git checkout:*)",
+      "Bash(start python -m http.server 8080)",
+      "Bash(start http://localhost:8080)",
+      "Bash(powershell -Command \"Get-ChildItem ''C:/Users/Sean/AppData/Local/Temp/project_upload'' | Select-Object Name, Length | Format-Table -AutoSize\")",
+      "Bash(comm:*)"
     ],
     "deny": [],
     "ask": []
