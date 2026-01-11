@@ -1,9 +1,9 @@
-# SEED_PACKET v2.6
+# SEED_PACKET v2.8
 
 | Field | Value |
 |-------|-------|
-| thread_id | 2026-01-10-kartikeya-reorg |
-| timestamp | 2026-01-10T18:00:00Z |
+| thread_id | 2026-01-10-kartikeya-architecture |
+| timestamp | 2026-01-10T22:30:00Z |
 | repo_path | C:\Users\Sean\Documents\GitHub\die-namic-system |
 | device | laptop |
 | capability_profile | full |
@@ -59,6 +59,12 @@ Extended from Willow pipeline session. Fixed Vision Board categorizer bugs, adde
 26. Processed 5 intake files: Arduino kit + first circuit + 2 Reddit posts
 27. Arduino kit arrived (ELEGOO Mega Starter Kit) - Riggs' project with kids, not Ada's
 
+### PM Decisions (ratified)
+28. Phone is sensor node - accept limitation, design around it
+29. SYSTEM_STATE.png - one screenshot for phone orientation (on major state changes)
+30. Teaching moment = standard journal format; changelog = archive (SEED_PACKET)
+31. World manifest: docs/utety/ + bridge_ring/ + docs/journal/
+
 ## Navigation Structure
 
 | Index | Scope |
@@ -83,9 +89,10 @@ Extended from Willow pipeline session. Fixed Vision Board categorizer bugs, adde
 ## Pending Actions
 
 1. Hanz: Reddit batch LV3 scans pending
-2. Vision Board: TensorFlow.js port (Phase 2 - browser-native)
-3. PM Claude Project knowledge update (zip prepared at C:\Users\Sean\Documents\project_knowledge_update.zip)
+2. Vision Board: TensorFlow.js port (Phase 2 - browser-native) — PM says ready when pointed at it
+3. PM Claude Project knowledge update (zip at C:\Users\Sean\Documents\project_knowledge_update.zip)
 4. Build intake system based on INTAKE_2026-01-10.md exemplar
+5. Create SYSTEM_STATE.png generator for phone orientation
 
 ## Open Decisions
 
