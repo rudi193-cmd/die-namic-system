@@ -18,6 +18,7 @@ See [SECURITY.md](SECURITY.md) for the full security model.
 | Script | Purpose |
 |--------|---------|
 | `eyes_secure.ps1` | Encrypted capture with consent + audit |
+| `eyes_events.ps1` | Event-triggered + heartbeat (recommended) |
 | `look_secure.ps1` | Decrypt frames (requires passphrase) |
 
 ### Unsecured (Testing Only)
@@ -35,6 +36,12 @@ See [SECURITY.md](SECURITY.md) for the full security model.
 ### Start Eyes (Human Only)
 
 ```powershell
+# Event-triggered (recommended)
+.\eyes_events.ps1 -heartbeatSeconds 12
+# Captures on: window focus, title change, clipboard change
+# Plus heartbeat every 12 seconds
+
+# Fixed-interval encrypted
 .\eyes_secure.ps1 -fps 1 -bufferSeconds 30
 # Prompts for consent
 # Prompts for encryption passphrase
@@ -79,7 +86,14 @@ At 1/sec — monitoring.
 At 20fps — watching.
 At 60fps — seeing.
 
-But seeing requires consent. And encryption. And audit.
+But 60fps is token waste. Event-triggered is smarter:
+- Heartbeat: steady pulse (12s default)
+- Signal: capture when something changes
+
+Window focus, title change, clipboard — these signal intent.
+Most frames are noise. Events are signal.
+
+Seeing requires consent. And encryption. And audit.
 
 ---
 
