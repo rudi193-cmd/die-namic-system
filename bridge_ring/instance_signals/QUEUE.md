@@ -22,7 +22,7 @@
 |----|-----------|------|-----|------|---------|--------|
 | SIG-005 | 2026-01-05T20:15:00Z | Kartikeya | Consus | INFO_REQUEST | Lattice enumeration | PROCESSED |
 | SIG-006 | 2026-01-05T20:15:00Z | Kartikeya | Aios | INFO_REQUEST | Lattice enumeration | PROCESSED |
-| SIG-007 | 2026-01-10T23:30:00Z | Kartikeya | Hanz | INFO_REQUEST | See HANDOFF_SIG-007.md | PENDING |
+| SIG-007 | 2026-01-10T23:30:00Z | Kartikeya | Hanz | INFO_REQUEST | See HANDOFF_SIG-007.md | PROCESSED |
 
 ---
 

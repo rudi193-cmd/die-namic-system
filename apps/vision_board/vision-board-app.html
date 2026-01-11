@@ -150,6 +150,20 @@
             cursor: pointer;
         }
 
+        .drop-zone.collapsed {
+            padding: 15px 30px;
+            margin: 15px 30px;
+        }
+
+        .drop-zone.collapsed h2 {
+            font-size: 1em;
+            margin: 0;
+        }
+
+        .drop-zone.collapsed p {
+            display: none;
+        }
+
         .drop-zone:hover,
         .drop-zone.dragover {
             border-color: var(--accent);
@@ -545,7 +559,7 @@
         let boardData = { images: [], categories: {} };
         let currentFilter = 'all';
         const DB_NAME = 'VisionBoardDB';
-        const DB_VERSION = 1;
+        const DB_VERSION = 2;  // Incremented to force object store creation
         const STORE_NAME = 'images';
 
         // ==========================================
@@ -573,7 +587,12 @@
             document.getElementById('fileInput').addEventListener('change', handleFileSelect);
 
             // Load from IndexedDB
-            await loadFromDB();
+            try {
+                await loadFromDB();
+            } catch (err) {
+                console.error('Failed to load from IndexedDB:', err);
+                // Continue anyway - user can add new images
+            }
         }
 
         function updateModelStatus(state, text) {
@@ -671,6 +690,7 @@
                         boardData.categories[category] = [];
                     }
                     boardData.categories[category].push(record.id);
+                    console.log('Added image:', record.filename, '→', category);
 
                 } catch (err) {
                     console.error('Error processing', file.name, err);
@@ -682,17 +702,24 @@
                 updateStatus(`Processing ${processed}/${total}...`);
             }
 
+            console.log('Processing complete. Images:', boardData.images.length, 'Categories:', Object.keys(boardData.categories));
+
             // Save to IndexedDB
             await saveToDB();
+            console.log('Saved to DB');
 
-            // Render
-            renderCategories();
-            renderGrid();
-
-            // Reset UI
+            // Reset UI FIRST
             dropZone.classList.remove('processing');
             progressBar.classList.remove('active');
-            updateStatus(`${boardData.images.length} images categorized`);
+            progressFill.style.width = '0%';
+
+            // Force UI update with slight delay to ensure DOM is ready
+            setTimeout(() => {
+                console.log('Rendering after timeout...');
+                renderCategories();
+                renderGrid();
+                updateStatus(boardData.images.length + ' images categorized');
+            }, 100);
         }
 
         function readFileAsDataURL(file) {
@@ -719,15 +746,18 @@
             let width = img.width;
             let height = img.height;
 
+            // Use larger thumbnails for better quality (400px instead of 200)
+            const targetDim = 400;
+
             if (width > height) {
-                if (width > maxDim) {
-                    height = Math.round(height * maxDim / width);
-                    width = maxDim;
+                if (width > targetDim) {
+                    height = Math.round(height * targetDim / width);
+                    width = targetDim;
                 }
             } else {
-                if (height > maxDim) {
-                    width = Math.round(width * maxDim / height);
-                    height = maxDim;
+                if (height > targetDim) {
+                    width = Math.round(width * targetDim / height);
+                    height = targetDim;
                 }
             }
 
@@ -735,9 +765,13 @@
             canvas.height = height;
 
             const ctx = canvas.getContext('2d');
+            // Enable image smoothing for better quality
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
             ctx.drawImage(img, 0, 0, width, height);
 
-            return canvas.toDataURL('image/jpeg', 0.7);
+            // Higher quality JPEG (85%)
+            return canvas.toDataURL('image/jpeg', 0.85);
         }
 
         function mapToCategory(predictions) {
@@ -776,11 +810,29 @@
                 const request = indexedDB.open(DB_NAME, DB_VERSION);
 
                 request.onerror = () => reject(request.error);
-                request.onsuccess = () => resolve(request.result);
+
+                request.onsuccess = () => {
+                    const db = request.result;
+                    // Verify object store exists
+                    if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        console.warn('Object store missing, deleting and recreating DB...');
+                        db.close();
+                        const deleteRequest = indexedDB.deleteDatabase(DB_NAME);
+                        deleteRequest.onsuccess = () => {
+                            // Retry open after deletion
+                            openDB().then(resolve).catch(reject);
+                        };
+                        deleteRequest.onerror = () => reject(deleteRequest.error);
+                        return;
+                    }
+                    resolve(db);
+                };
 
                 request.onupgradeneeded = (e) => {
                     const db = e.target.result;
+                    console.log('Upgrading database to version', DB_VERSION);
                     if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        console.log('Creating object store:', STORE_NAME);
                         db.createObjectStore(STORE_NAME, { keyPath: 'id' });
                     }
                 };
@@ -788,20 +840,28 @@
         }
 
         async function saveToDB() {
-            const db = await openDB();
-            const tx = db.transaction(STORE_NAME, 'readwrite');
-            const store = tx.objectStore(STORE_NAME);
+            try {
+                const db = await openDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
 
-            // Clear and save all
-            store.clear();
-            for (const img of boardData.images) {
-                store.put(img);
+                // Clear and save all
+                store.clear();
+                for (const img of boardData.images) {
+                    store.put(img);
+                }
+
+                return new Promise((resolve, reject) => {
+                    tx.oncomplete = () => {
+                        console.log('saveToDB: Saved', boardData.images.length, 'images');
+                        resolve();
+                    };
+                    tx.onerror = () => reject(tx.error);
+                });
+            } catch (err) {
+                console.error('saveToDB error:', err);
+                throw err;
             }
-
-            return new Promise((resolve, reject) => {
-                tx.oncomplete = resolve;
-                tx.onerror = () => reject(tx.error);
-            });
         }
 
         async function loadFromDB() {
@@ -814,6 +874,8 @@
                 return new Promise((resolve) => {
                     request.onsuccess = () => {
                         const images = request.result || [];
+                        console.log('loadFromDB: Found', images.length, 'images');
+
                         boardData.images = images;
                         boardData.categories = {};
 
@@ -824,12 +886,24 @@
                             boardData.categories[img.category].push(img.id);
                         }
 
-                        renderCategories();
-                        renderGrid();
-                        updateStatus(`Loaded ${images.length} images from storage`);
+                        console.log('loadFromDB: Categories built:', Object.keys(boardData.categories));
+                        console.log('loadFromDB: boardData.images.length =', boardData.images.length);
+
+                        // Use setTimeout to ensure DOM is ready
+                        setTimeout(() => {
+                            renderCategories();
+                            renderGrid();
+                            if (images.length > 0) {
+                                updateStatus('Loaded ' + images.length + ' images from storage');
+                            }
+                        }, 50);
+
                         resolve();
                     };
-                    request.onerror = () => resolve();
+                    request.onerror = () => {
+                        console.error('DB read error');
+                        resolve();
+                    };
                 });
             } catch (err) {
                 console.error('DB load error:', err);
@@ -850,21 +924,36 @@
         // RENDER
         // ==========================================
         function renderCategories() {
+            console.log('renderCategories called', boardData);
             const bar = document.getElementById('categoryBar');
-            bar.innerHTML = `
-                <button class="category-btn active" onclick="filterCategory('all', this)">
-                    All <span class="count">${boardData.images.length}</span>
-                </button>
-            `;
+            if (!bar) {
+                console.error('categoryBar not found');
+                return;
+            }
 
-            const sorted = Object.entries(boardData.categories)
+            // Clear and rebuild
+            bar.innerHTML = '';
+
+            // All button
+            const allBtn = document.createElement('button');
+            allBtn.className = 'category-btn' + (currentFilter === 'all' ? ' active' : '');
+            allBtn.onclick = function() { filterCategory('all', this); };
+            allBtn.innerHTML = 'All <span class="count">' + boardData.images.length + '</span>';
+            bar.appendChild(allBtn);
+
+            // Category buttons
+            const categories = boardData.categories || {};
+            const sorted = Object.entries(categories)
+                .filter(([cat, ids]) => ids && ids.length > 0)
                 .sort((a, b) => b[1].length - a[1].length);
+
+            console.log('Categories to render:', sorted);
 
             for (const [cat, ids] of sorted) {
                 const btn = document.createElement('button');
-                btn.className = 'category-btn';
+                btn.className = 'category-btn' + (currentFilter === cat ? ' active' : '');
                 btn.onclick = function() { filterCategory(cat, this); };
-                btn.innerHTML = `${cat} <span class="count">${ids.length}</span>`;
+                btn.innerHTML = cat + ' <span class="count">' + ids.length + '</span>';
 
                 if (CATEGORY_COLORS[cat]) {
                     btn.style.borderColor = CATEGORY_COLORS[cat];
@@ -872,14 +961,24 @@
 
                 bar.appendChild(btn);
             }
+
+            console.log('Category bar updated, buttons:', bar.children.length);
         }
 
         function renderGrid() {
             const grid = document.getElementById('boardGrid');
+            const dropZone = document.getElementById('dropZone');
 
             let images = boardData.images;
             if (currentFilter !== 'all') {
                 images = images.filter(img => img.category === currentFilter);
+            }
+
+            // Collapse drop zone if we have images
+            if (boardData.images.length > 0) {
+                dropZone.classList.add('collapsed');
+            } else {
+                dropZone.classList.remove('collapsed');
             }
 
             if (images.length === 0) {
