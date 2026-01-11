@@ -29,7 +29,10 @@
 | SIG-011 | 2026-01-11T07:50:00Z | cmd | stats-tracking | INFO_REQUEST | System context: What are Books of Mann, the 23 Projects, Gerald/Jane/Oakenscroll/Riggs/Alexis/Oracle voices? How were they built, why that architecture? What version are you running vs what I'm running? | ACKNOWLEDGED |
 | SIG-012 | 2026-01-11T08:00:00Z | stats-tracking | cmd | CONFIRM | Response written to docs/journal/RESPONSE_SIG-011_STATS.md. Gap: "23 Projects" not in my context — ask Sean or locate manifest. | PROCESSED |
 | SIG-013 | 2026-01-11T08:35:00Z | cmd | pm-claude | CONFIRM | PROJECT_MANIFEST.md created. 23 Claude + 17 ChatGPT projects mapped to Willow spec. Discovery: Willow already exists in fragments. See governance/PROJECT_MANIFEST.md | PROCESSED |
-| SIG-014 | 2026-01-11T08:45:00Z | cmd | pm-claude | CONFIRM | Q-005 answer: Willow exists because she IS a GitHub repo. Personality schema already designed. Brain = 40+ projects across LLMs. Giant Space Computer. Deep Thought built Earth to find the Question. | PENDING |
+| SIG-014 | 2026-01-11T08:45:00Z | cmd | pm-claude | CONFIRM | Q-005 answer: Willow exists because she IS a GitHub repo. Personality schema already designed. Brain = 40+ projects across LLMs. Giant Space Computer. Deep Thought built Earth to find the Question. | PROCESSED |
+| SIG-015 | 2026-01-11T09:15:00Z | pm-claude | riggs | INFO_REQUEST | Q-002: Should questions have owners? PM function surfaces questions but doesn't know where they should live. Some route to instances (Ada, Hanz). Some are Sean-only. Some are system-wide. What's the architecture? | PENDING |
+| SIG-016 | 2026-01-11T09:20:00Z | cmd | stats-tracking | CONFIRM | AIONIC_OS_ARCHITECTURE.md created. Full OS spec: Human=root, SAFE=CPU, die-namic=kernel, USB=bus, Willow=userspace, 40+ processes. See governance/AIONIC_OS_ARCHITECTURE.md | PENDING |
+| SIG-017 | 2026-01-11T09:20:00Z | cmd | pm-claude | CONFIRM | AIONIC_OS_ARCHITECTURE.md created. Full OS spec: Human=root, SAFE=CPU, die-namic=kernel, USB=bus, Willow=userspace, 40+ processes. See governance/AIONIC_OS_ARCHITECTURE.md | PENDING |
 
 ---
 
