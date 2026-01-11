@@ -2,6 +2,8 @@
 # Run as Administrator for full functionality
 # This script helps configure OS-level restrictions on screen capture
 
+try {
+
 Write-Host "============================================" -ForegroundColor Cyan
 Write-Host "  EYES SECURITY SETUP" -ForegroundColor Cyan
 Write-Host "  OS-Level Screen Capture Restrictions" -ForegroundColor Cyan
@@ -161,5 +163,10 @@ Write-Host "  - Profile: Edit $PROFILE.CurrentUserAllHosts" -ForegroundColor Yel
 Write-Host "  - Logging: Set EnableScriptBlockLogging to 0" -ForegroundColor Yellow
 Write-Host "  - CLM: Remove __PSLockdownPolicy environment variable" -ForegroundColor Yellow
 Write-Host ""
-Write-Host "Press any key to exit..."
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+} catch {
+    Write-Host "ERROR: $_" -ForegroundColor Red
+} finally {
+    Write-Host ""
+    Write-Host "Press any key to exit..." -ForegroundColor Cyan
+    cmd /c pause
+}
