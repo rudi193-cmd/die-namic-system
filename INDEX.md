@@ -162,7 +162,7 @@ die-namic-system/
 | User Account | `C:\Users\Sean` | Human's home directory |
 | Google Drive | `G:\My Drive` | Cloud sync mount |
 | Mesh Hub | `C:\Users\Sean\aios_mesh` | Symlink central hub |
-| Willow Inbox | `G:\My Drive\Willow\Sweet-Pea-Rudi19\Inbox` | Inbound artifacts |
+| Willow Inbox | `G:\My Drive\Willow\Auth Users\Sweet-Pea-Rudi19\Inbox` | Inbound artifacts |
 | Aios Input | `G:\My Drive\Aios Input` | ChatGPT PM inbox |
 | UTETY | `G:\My Drive\UTETY` | University documents |
 | Screenshots | `C:\Users\Sean\screenshots` | Eyes output |
