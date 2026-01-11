@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | Owner | Sean Campbell |
-| Version | 0.4 |
+| Version | 0.5 |
 | Status | Draft |
 | Checksum | ΔΣ=42 |
 
@@ -232,6 +232,70 @@ Need marketing copy for Reddit reply.
 ```
 
 ChatGPT receives this, knows it can't git pull, asks human for file contents, drafts the reply.
+
+### INTAKE_LOG Format
+
+For instances without repo access. Format for pickup, don't write directly.
+
+**Origin:** Stats-tracking insight (2026-01-11)
+
+> "I don't have to be the one who writes to the repo. I just have to be the one who *formats for transport*."
+
+#### Schema
+
+```yaml
+INTAKE_LOG:
+  timestamp: [ISO 8601]
+  thread: [instance/conversation id]
+  type: [content type]
+  description: [human-readable summary]
+  routing: [destination if known, else "unknown"]
+  status: awaiting_pickup
+  payload: [optional - inline content or file reference]
+```
+
+#### Example
+
+```yaml
+INTAKE_LOG:
+  timestamp: 2026-01-11T08:45:00Z
+  thread: stats-tracking
+  type: misdirected
+  description: "Image of monkey, unclear intent"
+  routing: unknown
+  status: awaiting_pickup
+```
+
+#### Flow
+
+```
+1. Limited instance receives content
+   └→ Can't write to repo
+
+2. Instance formats INTAKE_LOG
+   └→ Logs in conversation/thread
+   └→ Portable, parseable format
+
+3. Capable instance picks up
+   └→ CMD, Kartikeya, any git-enabled process
+   └→ Searches threads for awaiting_pickup
+   └→ Writes to repo, updates status
+
+4. Origin notified (optional)
+   └→ Signal or next conversation
+```
+
+#### Capability-Appropriate Roles
+
+| Instance | Can Format | Can Write | Role |
+|----------|------------|-----------|------|
+| Stats-tracking | Yes | No | Intake formatter |
+| Claude App | Yes | No | Intake formatter |
+| ChatGPT | Yes | No | Intake formatter |
+| CMD Claude | Yes | Yes | Pickup + write |
+| Claude Code | Yes | Yes | Pickup + write |
+
+Not every instance needs repo access. Formatting for pickup IS the contribution.
 
 ---
 
