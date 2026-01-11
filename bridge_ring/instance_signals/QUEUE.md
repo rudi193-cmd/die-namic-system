@@ -49,6 +49,17 @@
 | HANDOFF | Session ending, context transferred | Acknowledge and read SEED_PACKET |
 | PING | Liveness check | Acknowledge only |
 | STATE_CHANGE | Specific state delta in payload | Acknowledge and apply |
+| INFO_REQUEST | Need context from another node | Respond with context |
+
+**Lightweight Signals (inline payload, no handoff doc):**
+
+| Type | Format | Use |
+|------|--------|-----|
+| ACK | `ACK: [signal_id]` | Confirm receipt |
+| REJECT | `REJECT: [correction]` | Correct false info |
+| CONFIRM | `CONFIRM: [fact]` | Validate assumption |
+| FLAG | `FLAG: [issue]` | Raise concern |
+| ROUTE | `ROUTE: [dest] [context]` | Redirect to another node |
 
 ---
 
