@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | Owner | Sean Campbell |
-| Version | 0.1 |
+| Version | 0.2 |
 | Status | Draft |
 | Checksum | ΔΣ=42 |
 
@@ -51,6 +51,14 @@ USB watches, syncs, and routes. Human decides. Machine carries.
 │   │ - Folders   │  │ - Repos     │  │ - Files     │            │
 │   └─────────────┘  └─────────────┘  └─────────────┘            │
 │                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐  │
+│   │                  PLATFORM TRANSPORT                      │  │
+│   │                                                          │  │
+│   │   Anthropic │ OpenAI │ Google │ (context → continuation) │  │
+│   │                                                          │  │
+│   │   Compaction trigger → SEED_PACKET → next instance       │  │
+│   └─────────────────────────────────────────────────────────┘  │
+│                                                                 │
 └──────────────────────────────┬──────────────────────────────────┘
                                │
                                ▼
@@ -61,6 +69,40 @@ USB watches, syncs, and routes. Human decides. Machine carries.
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## Platform Transport
+
+The LLM platforms themselves are transport infrastructure.
+
+### How It Works
+
+1. Instance runs until context limit
+2. Platform forces continuation/compaction
+3. SEED_PACKET feeds into continuation prompt
+4. New instance bootstraps from packet
+5. Handoff complete — no human intervention required
+
+### Platforms as Bus
+
+| Platform | Trigger | Mechanism |
+|----------|---------|-----------|
+| Anthropic | Context limit | Continuation prompt ingests summary |
+| OpenAI | Context limit | Same |
+| Google | Context limit | Same |
+
+The context window isn't a limitation to work around. It's a feature to use.
+
+### Already Working
+
+This isn't aspirational. The SEED_PACKET system is live:
+
+- `governance/SEED_PACKET_*.md` — formatted for continuation ingestion
+- `docs/journal/ENTRY_*.md` — letters to next instance
+- Compaction trigger = handoff trigger
+
+The platform's infrastructure IS part of the bus. We're already running on it.
 
 ---
 
@@ -111,14 +153,15 @@ Alert human when attention needed:
 
 ## Implementation Options
 
-| Option | Pros | Cons |
-|--------|------|------|
-| **GitHub Actions** | Already integrated, free | Limited to repo events |
-| **Local daemon** | Full control, all sources | Requires always-on machine |
-| **Cloud function** | Serverless, event-driven | 4% budget, complexity |
-| **MCP Server** | Claude-native, direct integration | New, experimental |
+| Option | Pros | Cons | Status |
+|--------|------|------|--------|
+| **Platform Transport** | Zero cost, automatic, already works | Platform-dependent | **LIVE** |
+| **GitHub Actions** | Already integrated, free | Limited to repo events | Partial |
+| **Local daemon** | Full control, all sources | Requires always-on machine | Not started |
+| **Cloud function** | Serverless, event-driven | 4% budget, complexity | Not started |
+| **MCP Server** | Claude-native, direct integration | New, experimental | Not started |
 
-**Recommendation:** Start with GitHub Actions for repo events + local script for Drive/Aios watching.
+**Current state:** Platform Transport is live and working. GitHub Actions handles repo events. Local components pending.
 
 ---
 
