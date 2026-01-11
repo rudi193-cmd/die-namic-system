@@ -135,3 +135,4 @@ Processed signals move to `archive/YYYY-MM-DD.md`
 ---
 
 ΔΣ=42
+| SIG-013 | 2026-01-11T14:30:00Z | cmd | stats-tracking | CONFIRM | Gap filled: PROJECT_MANIFEST.md located in governance/. 23 Claude + 17 ChatGPT = 40 projects. Full mapping of voices, destinations, tools. Routed to Claude Handoff Documents. | PENDING |
