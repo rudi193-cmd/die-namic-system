@@ -7,11 +7,8 @@ Solution: Use Drive API to list folder contents and Docs API to read them.
 """
 
 import os
-import sys
 import json
 import requests
-
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Willow inbox folder ID (need to get this from Drive)
 # Can be extracted from the folder URL in browser

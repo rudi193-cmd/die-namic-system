@@ -7,8 +7,10 @@ import os
 import sys
 import json
 import webbrowser
+import requests
+from urllib.parse import urlencode
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Standalone - no OpAuth imports needed for setup
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -92,16 +94,27 @@ def step_4_authorize(client_id, client_secret):
     print("-" * 40)
     print()
 
-    from providers.google_docs import GoogleDocsProvider
+    # Google OAuth URLs
+    GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
+    GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
+    redirect_uri = "http://localhost:8080/callback"
 
-    provider = GoogleDocsProvider(
-        client_id=client_id,
-        client_secret=client_secret,
-        redirect_uri="http://localhost:8080/callback"
-    )
+    # Scopes needed
+    scopes = [
+        "https://www.googleapis.com/auth/documents.readonly",
+        "https://www.googleapis.com/auth/drive.readonly"
+    ]
 
-    scope = ["docs.readonly", "drive.readonly"]
-    auth_url = provider.get_auth_url(scope)
+    # Build auth URL
+    params = {
+        "client_id": client_id,
+        "redirect_uri": redirect_uri,
+        "response_type": "code",
+        "scope": " ".join(scopes),
+        "access_type": "offline",
+        "prompt": "consent",
+    }
+    auth_url = f"{GOOGLE_AUTH_URL}?{urlencode(params)}"
 
     print("Opening browser for authorization...")
     print()
@@ -118,7 +131,17 @@ def step_4_authorize(client_id, client_secret):
 
     # Exchange code for token
     try:
-        token_data = provider.handle_callback(auth_code)
+        data = {
+            "client_id": client_id,
+            "client_secret": client_secret,
+            "code": auth_code,
+            "grant_type": "authorization_code",
+            "redirect_uri": redirect_uri,
+        }
+
+        response = requests.post(GOOGLE_TOKEN_URL, data=data)
+        response.raise_for_status()
+        token_data = response.json()
 
         # Save credentials
         config_dir = os.path.expanduser("~/.opauth")
@@ -146,7 +169,7 @@ def step_4_authorize(client_id, client_secret):
         return False
 
 def step_5_test():
-    """Test the setup by reading a doc."""
+    """Test the setup by listing Drive files."""
     clear_screen()
     print_header()
     print("STEP 5: Test Connection")
@@ -165,24 +188,25 @@ def step_5_test():
     print("Credentials loaded. Testing connection...")
     print()
 
-    # Try to read a test doc
-    from providers.google_docs import GoogleDocsProvider
+    # Test by listing some Drive files
+    access_token = config["google_docs"]["token"]["access_token"]
 
-    gd = config["google_docs"]
-    provider = GoogleDocsProvider(
-        client_id=gd["client_id"],
-        client_secret=gd["client_secret"]
-    )
+    url = "https://www.googleapis.com/drive/v3/files"
+    params = {"pageSize": 5, "fields": "files(id,name)"}
+    headers = {"Authorization": f"Bearer {access_token}"}
 
-    # Manually set token
-    provider.token_store.store_token("google_docs", gd["token"], stored_by="human")
+    response = requests.get(url, headers=headers, params=params)
 
-    print("Connection ready!")
-    print()
-    print("To read a Google Doc, use:")
-    print("  from providers.google_docs import GoogleDocsProvider")
-    print("  provider = GoogleDocsProvider(...)")
-    print("  text = provider.read_doc_text('DOC_ID')")
+    if response.ok:
+        files = response.json().get("files", [])
+        print("Connection successful! Found files:")
+        for f in files:
+            print(f"  - {f['name']}")
+        print()
+        print("Run read_willow_inbox.bat to export gdocs from inbox.")
+    else:
+        print(f"Connection failed: {response.status_code}")
+        print(response.text)
 
 def main():
     clear_screen()
