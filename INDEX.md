@@ -15,6 +15,7 @@
 
 | I want to... | Go to |
 |--------------|-------|
+| Find a system path | [System Paths](#system-paths) |
 | Understand the system | [README.md](README.md) |
 | Configure Claude instances | [CLAUDE.md](CLAUDE.md) |
 | Read governance rules | [governance/](#governance) |
@@ -149,6 +150,45 @@ die-namic-system/
 | [archive/seeds/](archive/seeds/) | Old SEED_PACKET sessions |
 
 → See [archive/README.md](archive/README.md)
+
+---
+
+## System Paths
+
+**External paths the system depends on. CHECK HERE FIRST.**
+
+| Path | Location | Purpose |
+|------|----------|---------|
+| User Account | `C:\Users\Sean` | Human's home directory |
+| Google Drive | `G:\My Drive` | Cloud sync mount |
+| Mesh Hub | `C:\Users\Sean\aios_mesh` | Symlink central hub |
+| Willow Inbox | `G:\My Drive\Willow\Sweet-Pea-Rudi19\Inbox` | Inbound artifacts |
+| Aios Input | `G:\My Drive\Aios Input` | ChatGPT PM inbox |
+| UTETY | `G:\My Drive\UTETY` | University documents |
+| Screenshots | `C:\Users\Sean\screenshots` | Eyes output |
+| OpAuth Config | `~/.opauth` | OAuth credentials |
+
+**Local Repos:**
+
+| Repo | Path |
+|------|------|
+| die-namic-system | `C:\Users\Sean\die-namic-system` |
+| Willow | `C:\Users\Sean\Willow` |
+| SAFE | `C:\Users\Sean\SAFE` |
+
+**Mesh Links (reach from anywhere):**
+
+```
+C:\Users\Sean\aios_mesh\
+├── die-namic    → die-namic-system
+├── willow       → Willow
+├── safe         → SAFE
+├── screenshots  → screenshots
+├── willow_inbox → Willow inbox (GDrive)
+├── aios_input   → Aios Input (GDrive)
+├── utety        → UTETY (GDrive)
+└── gdrive       → G:\My Drive
+```
 
 ---
 
