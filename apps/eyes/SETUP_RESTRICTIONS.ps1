@@ -161,3 +161,5 @@ Write-Host "  - Profile: Edit $PROFILE.CurrentUserAllHosts" -ForegroundColor Yel
 Write-Host "  - Logging: Set EnableScriptBlockLogging to 0" -ForegroundColor Yellow
 Write-Host "  - CLM: Remove __PSLockdownPolicy environment variable" -ForegroundColor Yellow
 Write-Host ""
+Write-Host "Press any key to exit..."
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
