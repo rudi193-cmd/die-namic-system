@@ -110,3 +110,13 @@ Working directories, mapped drives, and prior session context are paths. Explori
 The path costs one question. The search costs dozens of tool calls.
 
 Ask first.
+
+## Corollary: Memory Before Search
+
+Added 2026-01-11.
+
+If you built it this session, **you already know where it is**.
+
+Don't grep for something you just created. Don't search for answers in your own context.
+
+The conversation is memory. Use it.
