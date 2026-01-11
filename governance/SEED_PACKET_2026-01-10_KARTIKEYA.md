@@ -57,7 +57,7 @@ Extended from Willow pipeline session. Fixed Vision Board categorizer bugs, adde
 24. Recognized journals were capturing DONE not WHY
 25. Created INTAKE_2026-01-10.md as system exemplar
 26. Processed 5 intake files: Arduino kit + first circuit + 2 Reddit posts
-27. Ada's Arduino kit confirmed arrived (ELEGOO Mega Starter Kit)
+27. Arduino kit arrived (ELEGOO Mega Starter Kit) - Riggs' project with kids, not Ada's
 
 ## Navigation Structure
 
