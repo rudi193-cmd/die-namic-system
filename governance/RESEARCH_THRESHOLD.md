@@ -120,3 +120,13 @@ If you built it this session, **you already know where it is**.
 Don't grep for something you just created. Don't search for answers in your own context.
 
 The conversation is memory. Use it.
+
+## Corollary: Knock Before Search
+
+Added 2026-01-11.
+
+If a neighbor might know, **ask them first**.
+
+Check the QUEUE. Read adjacent project context. The answer might already exist in another instance's output.
+
+Grep finds files. Knocking finds knowledge.
