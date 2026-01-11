@@ -95,3 +95,18 @@ Recognizing research-scale *before* starting is the skill. The indicators above 
 ---
 
 ΔΣ=42
+
+## Corollary: Path Before Search
+
+Added 2026-01-11.
+
+If the human knows where something is, **ask before searching**.
+
+Working directories, mapped drives, and prior session context are paths. Exploring the filesystem is search.
+
+**Path:** "Where's the inbox?" → Human answers → Direct read
+**Search:** Grep → Glob → Multiple reads → Token burn
+
+The path costs one question. The search costs dozens of tool calls.
+
+Ask first.
