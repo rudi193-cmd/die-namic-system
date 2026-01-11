@@ -1,8 +1,37 @@
 # Vision Board
 
-Goal visualization through AI-categorized imagery. Uses the existing image analysis pipeline to sort your vision into categories.
+Goal visualization through AI-categorized imagery. **96% client-side, 4% cloud (OAuth only).**
 
-## Workflow
+## Two Modes
+
+| Mode | File | AI Engine | Storage |
+|------|------|-----------|---------|
+| **Browser-Native** | `vision-board-app.html` | TensorFlow.js/MobileNet | IndexedDB |
+| **Python Batch** | `categorize.py` → `index.html` | PyTorch/ResNet50 | JSON file |
+
+### Browser-Native (Recommended)
+```bash
+# Start server
+python -m http.server 8080
+
+# Open http://localhost:8080/vision-board-app.html
+# Drag & drop images - AI runs in your browser
+# Data never leaves your device
+```
+
+### Python Batch (For large collections)
+```bash
+# Batch process with ResNet50
+python categorize.py "C:\path\to\images" --portable
+
+# View results
+# Open http://localhost:8080/index.html
+# Import categories.json
+```
+
+---
+
+## Original Workflow
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -51,8 +80,9 @@ LAUNCH.bat
 
 | File | Purpose |
 |------|---------|
-| `index.html` | Vision board viewer |
-| `categorize.py` | AI image categorization (ResNet50) |
+| `vision-board-app.html` | **Full app** - TensorFlow.js, drag-drop, IndexedDB |
+| `index.html` | Simple viewer (requires categories.json) |
+| `categorize.py` | Batch AI categorization (PyTorch/ResNet50) |
 | `LAUNCH.bat` | Start local server |
 
 ## Categories

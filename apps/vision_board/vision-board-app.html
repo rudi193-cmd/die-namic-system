@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Board - AI Powered</title>
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-main: #e0e0e0;
+            --accent: #ffd700;
+            --cat-personal: #ff6b9d;
+            --cat-travel: #00d2ff;
+            --cat-career: #00ff9d;
+            --cat-wealth: #ffd700;
+            --cat-fitness: #ff6b35;
+            --cat-creative: #bd00ff;
+            --cat-home: #7dd87d;
+            --cat-food: #ffb347;
+            --cat-relationships: #ff69b4;
+            --border: #333;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, #1a1a1a 0%, var(--bg-color) 100%);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: 3px;
+            font-size: 1.6em;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .model-status {
+            font-size: 0.85em;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #222;
+        }
+
+        .model-status.loading { color: #ffd700; }
+        .model-status.ready { color: #00ff9d; }
+        .model-status.error { color: #ff6b35; }
+
+        .btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.9em;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            color: var(--bg-color);
+            border-color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* CATEGORY FILTERS */
+        .category-bar {
+            display: flex;
+            gap: 10px;
+            padding: 20px 30px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
+            background: var(--card-bg);
+        }
+
+        .category-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: #888;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 0.85em;
+        }
+
+        .category-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .category-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-color);
+            font-weight: 600;
+        }
+
+        .category-btn .count {
+            margin-left: 6px;
+            opacity: 0.7;
+            font-size: 0.9em;
+        }
+
+        /* DROP ZONE */
+        .drop-zone {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            margin: 30px;
+            padding: 60px 30px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .drop-zone:hover,
+        .drop-zone.dragover {
+            border-color: var(--accent);
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .drop-zone h2 {
+            margin: 0 0 10px 0;
+            font-weight: 300;
+            font-size: 1.5em;
+        }
+
+        .drop-zone p {
+            color: #666;
+            margin: 0;
+        }
+
+        .drop-zone.processing {
+            border-color: var(--accent);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* PROGRESS */
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #333;
+            margin-top: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-bar.active {
+            display: block;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* GRID */
+        .board-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-auto-rows: 200px;
+            gap: 15px;
+            padding: 30px;
+            grid-auto-flow: dense;
+        }
+
+        /* CARDS */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border-color: var(--accent);
+            z-index: 10;
+        }
+
+        .card.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .card.medium {
+            grid-column: span 2;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover img {
+            opacity: 0.4;
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background: linear-gradient(transparent 30%, rgba(0,0,0,0.8) 100%);
+        }
+
+        .card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-category {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-category.Personal { background: var(--cat-personal); color: #000; }
+        .card-category.Travel { background: var(--cat-travel); color: #000; }
+        .card-category.Career { background: var(--cat-career); color: #000; }
+        .card-category.Wealth { background: var(--cat-wealth); color: #000; }
+        .card-category.Fitness { background: var(--cat-fitness); color: #fff; }
+        .card-category.Creative { background: var(--cat-creative); color: #fff; }
+        .card-category.Home { background: var(--cat-home); color: #000; }
+        .card-category.Food { background: var(--cat-food); color: #000; }
+        .card-category.Relationships { background: var(--cat-relationships); color: #000; }
+        .card-category.Inspiration { background: #666; color: #fff; }
+        .card-category.Text { background: #444; color: #fff; }
+
+        .card-label {
+            font-size: 0.85em;
+            color: #ccc;
+            margin-bottom: 4px;
+        }
+
+        .card-confidence {
+            font-size: 0.75em;
+            color: #888;
+        }
+
+        .card-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover .card-actions {
+            opacity: 1;
+        }
+
+        .card-action-btn {
+            background: rgba(0,0,0,0.7);
+            border: none;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: background 0.2s;
+        }
+
+        .card-action-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* STATUS BAR */
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px 30px;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            font-size: 0.85em;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2em;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+        }
+
+        /* HIDDEN FILE INPUT */
+        .hidden-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VISION <span style="color:var(--accent)">BOARD</span></h1>
+        <div class="header-actions">
+            <span class="model-status loading" id="modelStatus">Loading AI...</span>
+            <button class="btn" id="clearBtn" onclick="clearBoard()">Clear Board</button>
+            <button class="btn primary" onclick="exportBoard()">Export PNG</button>
+        </div>
+    </div>
+
+    <div class="category-bar" id="categoryBar">
+        <button class="category-btn active" onclick="filterCategory('all', this)">
+            All <span class="count" id="countAll">0</span>
+        </button>
+    </div>
+
+    <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+        <h2>Drop images here</h2>
+        <p>or click to browse</p>
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+    <input type="file" id="fileInput" class="hidden-input" multiple accept="image/*">
+
+    <div class="board-grid" id="boardGrid"></div>
+
+    <div class="status-bar">
+        <span id="statusLeft">Drop images to begin</span>
+        <span id="statusRight">4% cloud, 96% you</span>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal-overlay" id="imageModal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-image" id="modalImage" src="" alt="">
+    </div>
+
+    <!-- html2canvas for export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        // ==========================================
+        // CATEGORY MAPPING (ported from Python)
+        // ==========================================
+        const CATEGORY_MAP = {
+            // Personal / Life
+            'tabby': 'Personal', 'persian cat': 'Personal', 'siamese cat': 'Personal',
+            'egyptian cat': 'Personal', 'tiger cat': 'Personal',
+            'golden retriever': 'Personal', 'labrador retriever': 'Personal',
+            'german shepherd': 'Personal', 'beagle': 'Personal', 'pug': 'Personal',
+            'chihuahua': 'Personal', 'poodle': 'Personal', 'husky': 'Personal',
+
+            // Nature / Travel
+            'beach': 'Travel', 'seashore': 'Travel', 'lakeside': 'Travel', 'lakeshore': 'Travel',
+            'mountain': 'Travel', 'alp': 'Travel', 'volcano': 'Travel', 'valley': 'Travel',
+            'coral reef': 'Travel', 'cliff': 'Travel', 'promontory': 'Travel',
+            'palace': 'Travel', 'castle': 'Travel', 'monastery': 'Travel',
+            'church': 'Travel', 'mosque': 'Travel', 'temple': 'Travel',
+            'fountain': 'Travel', 'pier': 'Travel', 'dock': 'Travel',
+            'suspension bridge': 'Travel', 'viaduct': 'Travel',
+            'gondola': 'Travel', 'streetcar': 'Travel',
+
+            // Home / Lifestyle
+            'dining table': 'Home', 'desk': 'Home', 'bookcase': 'Home', 'bookshop': 'Home',
+            'couch': 'Home', 'studio couch': 'Home', 'chair': 'Home', 'rocking chair': 'Home',
+            'lamp': 'Home', 'table lamp': 'Home', 'lampshade': 'Home',
+            'refrigerator': 'Home', 'washer': 'Home', 'dishwasher': 'Home',
+            'patio': 'Home', 'greenhouse': 'Home', 'flower pot': 'Home',
+            'window shade': 'Home', 'window screen': 'Home',
+            'shower curtain': 'Home', 'bath towel': 'Home',
+
+            // Food
+            'pizza': 'Food', 'cheeseburger': 'Food', 'hotdog': 'Food',
+            'ice cream': 'Food', 'ice lolly': 'Food', 'trifle': 'Food',
+            'chocolate sauce': 'Food', 'espresso': 'Food', 'cup': 'Food',
+            'wine bottle': 'Food', 'beer bottle': 'Food', 'beer glass': 'Food',
+            'plate': 'Food', 'soup bowl': 'Food', 'mixing bowl': 'Food',
+            'banana': 'Food', 'orange': 'Food', 'lemon': 'Food', 'pineapple': 'Food',
+            'broccoli': 'Food', 'cauliflower': 'Food', 'cucumber': 'Food',
+            'burrito': 'Food', 'guacamole': 'Food',
+
+            // Fitness / Health
+            'dumbbell': 'Fitness', 'barbell': 'Fitness',
+            'running shoe': 'Fitness', 'athletic shoe': 'Fitness',
+            'bicycle': 'Fitness', 'mountain bike': 'Fitness',
+            'punching bag': 'Fitness', 'swimming trunks': 'Fitness',
+            'ski': 'Fitness', 'snowboard': 'Fitness',
+            'tennis ball': 'Fitness', 'golf ball': 'Fitness', 'soccer ball': 'Fitness',
+            'basketball': 'Fitness', 'volleyball': 'Fitness',
+
+            // Career / Professional
+            'laptop': 'Career', 'notebook': 'Career', 'desktop computer': 'Career',
+            'computer keyboard': 'Career', 'mouse': 'Career', 'computer mouse': 'Career',
+            'monitor': 'Career', 'screen': 'Career',
+            'suit': 'Career', 'Windsor tie': 'Career', 'bow tie': 'Career',
+            'briefcase': 'Career', 'envelope': 'Career',
+            'printer': 'Career', 'photocopier': 'Career',
+            'projector': 'Career', 'slide rule': 'Career',
+
+            // Finance / Wealth
+            'sports car': 'Wealth', 'convertible': 'Wealth', 'limousine': 'Wealth',
+            'minivan': 'Wealth', 'cab': 'Wealth',
+            'yacht': 'Wealth', 'speedboat': 'Wealth', 'catamaran': 'Wealth',
+            'airliner': 'Wealth', 'warplane': 'Wealth',
+            'chain': 'Wealth', 'necklace': 'Wealth',
+
+            // Creative / Art
+            'paintbrush': 'Creative', 'easel': 'Creative', 'palette': 'Creative',
+            'guitar': 'Creative', 'acoustic guitar': 'Creative', 'electric guitar': 'Creative',
+            'piano': 'Creative', 'grand piano': 'Creative', 'upright piano': 'Creative',
+            'violin': 'Creative', 'cello': 'Creative', 'flute': 'Creative',
+            'drum': 'Creative', 'maraca': 'Creative', 'harmonica': 'Creative',
+            'camera': 'Creative', 'reflex camera': 'Creative', 'Polaroid camera': 'Creative',
+            'tripod': 'Creative', 'microphone': 'Creative', 'stage': 'Creative',
+
+            // Relationships / Social
+            'groom': 'Relationships', 'bridegroom': 'Relationships',
+            'bow': 'Relationships', 'bouquet': 'Relationships',
+            'wine glass': 'Relationships', 'goblet': 'Relationships',
+
+            // Text / Documents (screenshots, memes, etc)
+            'web site': 'Text', 'website': 'Text',
+            'book jacket': 'Text', 'comic book': 'Text',
+            'menu': 'Text', 'crossword puzzle': 'Text',
+            'jigsaw puzzle': 'Text'
+        };
+
+        const DEFAULT_CATEGORY = 'Inspiration';
+
+        const CATEGORY_COLORS = {
+            'Personal': '#ff6b9d',
+            'Travel': '#00d2ff',
+            'Career': '#00ff9d',
+            'Wealth': '#ffd700',
+            'Fitness': '#ff6b35',
+            'Creative': '#bd00ff',
+            'Home': '#7dd87d',
+            'Food': '#ffb347',
+            'Relationships': '#ff69b4',
+            'Inspiration': '#666',
+            'Text': '#444'
+        };
+
+        // ==========================================
+        // STATE
+        // ==========================================
+        let model = null;
+        let boardData = { images: [], categories: {} };
+        let currentFilter = 'all';
+        const DB_NAME = 'VisionBoardDB';
+        const DB_VERSION = 1;
+        const STORE_NAME = 'images';
+
+        // ==========================================
+        // INITIALIZE
+        // ==========================================
+        async function init() {
+            // Load model
+            updateModelStatus('loading', 'Loading AI...');
+            try {
+                model = await mobilenet.load({ version: 2, alpha: 1.0 });
+                updateModelStatus('ready', 'AI Ready');
+                document.getElementById('fileInput').disabled = false;
+            } catch (err) {
+                updateModelStatus('error', 'AI Load Failed');
+                console.error('Model load error:', err);
+            }
+
+            // Setup drag/drop
+            const dropZone = document.getElementById('dropZone');
+            dropZone.addEventListener('dragover', handleDragOver);
+            dropZone.addEventListener('dragleave', handleDragLeave);
+            dropZone.addEventListener('drop', handleDrop);
+
+            // File input
+            document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
+            // Load from IndexedDB
+            await loadFromDB();
+        }
+
+        function updateModelStatus(state, text) {
+            const status = document.getElementById('modelStatus');
+            status.className = 'model-status ' + state;
+            status.textContent = text;
+        }
+
+        // ==========================================
+        // DRAG & DROP
+        // ==========================================
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('dropZone').classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('dropZone').classList.remove('dragover');
+        }
+
+        async function handleDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('dropZone').classList.remove('dragover');
+
+            const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+            if (files.length > 0) {
+                await processImages(files);
+            }
+        }
+
+        async function handleFileSelect(e) {
+            const files = Array.from(e.target.files).filter(f => f.type.startsWith('image/'));
+            if (files.length > 0) {
+                await processImages(files);
+            }
+            e.target.value = '';
+        }
+
+        // ==========================================
+        // IMAGE PROCESSING
+        // ==========================================
+        async function processImages(files) {
+            if (!model) {
+                updateStatus('AI not ready - please wait');
+                return;
+            }
+
+            const dropZone = document.getElementById('dropZone');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+
+            dropZone.classList.add('processing');
+            progressBar.classList.add('active');
+            progressFill.style.width = '0%';
+
+            let processed = 0;
+            const total = files.length;
+
+            for (const file of files) {
+                try {
+                    // Read file as data URL
+                    const dataUrl = await readFileAsDataURL(file);
+
+                    // Create image element for classification
+                    const img = await loadImage(dataUrl);
+
+                    // Classify with MobileNet
+                    const predictions = await model.classify(img);
+
+                    // Map to category
+                    const { label, confidence, category } = mapToCategory(predictions);
+
+                    // Create thumbnail
+                    const thumbnail = await createThumbnail(img, 200);
+
+                    // Build record
+                    const record = {
+                        id: generateId(),
+                        filename: file.name,
+                        thumbnail: thumbnail,
+                        fullImage: dataUrl,
+                        label: label,
+                        confidence: Math.round(confidence * 100),
+                        category: category,
+                        addedAt: new Date().toISOString()
+                    };
+
+                    // Add to board
+                    boardData.images.push(record);
+                    if (!boardData.categories[category]) {
+                        boardData.categories[category] = [];
+                    }
+                    boardData.categories[category].push(record.id);
+
+                } catch (err) {
+                    console.error('Error processing', file.name, err);
+                }
+
+                processed++;
+                const pct = Math.round((processed / total) * 100);
+                progressFill.style.width = pct + '%';
+                updateStatus(`Processing ${processed}/${total}...`);
+            }
+
+            // Save to IndexedDB
+            await saveToDB();
+
+            // Render
+            renderCategories();
+            renderGrid();
+
+            // Reset UI
+            dropZone.classList.remove('processing');
+            progressBar.classList.remove('active');
+            updateStatus(`${boardData.images.length} images categorized`);
+        }
+
+        function readFileAsDataURL(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function loadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = src;
+            });
+        }
+
+        function createThumbnail(img, maxDim) {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+                if (width > maxDim) {
+                    height = Math.round(height * maxDim / width);
+                    width = maxDim;
+                }
+            } else {
+                if (height > maxDim) {
+                    width = Math.round(width * maxDim / height);
+                    height = maxDim;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            return canvas.toDataURL('image/jpeg', 0.7);
+        }
+
+        function mapToCategory(predictions) {
+            // Check all predictions for category match
+            for (const pred of predictions) {
+                const label = pred.className.toLowerCase();
+
+                for (const [key, category] of Object.entries(CATEGORY_MAP)) {
+                    if (label.includes(key.toLowerCase())) {
+                        return {
+                            label: pred.className,
+                            confidence: pred.probability,
+                            category: category
+                        };
+                    }
+                }
+            }
+
+            // No match - use top prediction
+            return {
+                label: predictions[0]?.className || 'unknown',
+                confidence: predictions[0]?.probability || 0,
+                category: DEFAULT_CATEGORY
+            };
+        }
+
+        function generateId() {
+            return 'img_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // ==========================================
+        // INDEXEDDB STORAGE
+        // ==========================================
+        function openDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve(request.result);
+
+                request.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+                    }
+                };
+            });
+        }
+
+        async function saveToDB() {
+            const db = await openDB();
+            const tx = db.transaction(STORE_NAME, 'readwrite');
+            const store = tx.objectStore(STORE_NAME);
+
+            // Clear and save all
+            store.clear();
+            for (const img of boardData.images) {
+                store.put(img);
+            }
+
+            return new Promise((resolve, reject) => {
+                tx.oncomplete = resolve;
+                tx.onerror = () => reject(tx.error);
+            });
+        }
+
+        async function loadFromDB() {
+            try {
+                const db = await openDB();
+                const tx = db.transaction(STORE_NAME, 'readonly');
+                const store = tx.objectStore(STORE_NAME);
+                const request = store.getAll();
+
+                return new Promise((resolve) => {
+                    request.onsuccess = () => {
+                        const images = request.result || [];
+                        boardData.images = images;
+                        boardData.categories = {};
+
+                        for (const img of images) {
+                            if (!boardData.categories[img.category]) {
+                                boardData.categories[img.category] = [];
+                            }
+                            boardData.categories[img.category].push(img.id);
+                        }
+
+                        renderCategories();
+                        renderGrid();
+                        updateStatus(`Loaded ${images.length} images from storage`);
+                        resolve();
+                    };
+                    request.onerror = () => resolve();
+                });
+            } catch (err) {
+                console.error('DB load error:', err);
+            }
+        }
+
+        async function clearBoard() {
+            if (!confirm('Clear all images from the board?')) return;
+
+            boardData = { images: [], categories: {} };
+            await saveToDB();
+            renderCategories();
+            renderGrid();
+            updateStatus('Board cleared');
+        }
+
+        // ==========================================
+        // RENDER
+        // ==========================================
+        function renderCategories() {
+            const bar = document.getElementById('categoryBar');
+            bar.innerHTML = `
+                <button class="category-btn active" onclick="filterCategory('all', this)">
+                    All <span class="count">${boardData.images.length}</span>
+                </button>
+            `;
+
+            const sorted = Object.entries(boardData.categories)
+                .sort((a, b) => b[1].length - a[1].length);
+
+            for (const [cat, ids] of sorted) {
+                const btn = document.createElement('button');
+                btn.className = 'category-btn';
+                btn.onclick = function() { filterCategory(cat, this); };
+                btn.innerHTML = `${cat} <span class="count">${ids.length}</span>`;
+
+                if (CATEGORY_COLORS[cat]) {
+                    btn.style.borderColor = CATEGORY_COLORS[cat];
+                }
+
+                bar.appendChild(btn);
+            }
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('boardGrid');
+
+            let images = boardData.images;
+            if (currentFilter !== 'all') {
+                images = images.filter(img => img.category === currentFilter);
+            }
+
+            if (images.length === 0) {
+                grid.innerHTML = '';
+                return;
+            }
+
+            grid.innerHTML = '';
+
+            const total = images.length;
+            const largeCount = Math.max(1, Math.floor(total * 0.05));
+            const mediumCount = Math.max(2, Math.floor(total * 0.1));
+
+            images.forEach((img, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.id = img.id;
+
+                if (index < largeCount) {
+                    card.classList.add('large');
+                } else if (index < largeCount + mediumCount) {
+                    card.classList.add('medium');
+                }
+
+                card.innerHTML = `
+                    <img src="${img.thumbnail}" alt="${img.filename}" loading="lazy">
+                    <div class="card-overlay">
+                        <span class="card-category ${img.category}">${img.category}</span>
+                        <div class="card-label">${img.label}</div>
+                        <div class="card-confidence">${img.confidence}% confidence</div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="card-action-btn" onclick="event.stopPropagation(); deleteImage('${img.id}')" title="Delete">✕</button>
+                    </div>
+                `;
+
+                card.onclick = () => openModal(img.fullImage || img.thumbnail);
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(cat, btn) {
+            currentFilter = cat;
+
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            renderGrid();
+        }
+
+        async function deleteImage(id) {
+            const img = boardData.images.find(i => i.id === id);
+            if (!img) return;
+
+            // Remove from arrays
+            boardData.images = boardData.images.filter(i => i.id !== id);
+            if (boardData.categories[img.category]) {
+                boardData.categories[img.category] = boardData.categories[img.category].filter(i => i !== id);
+                if (boardData.categories[img.category].length === 0) {
+                    delete boardData.categories[img.category];
+                }
+            }
+
+            await saveToDB();
+            renderCategories();
+            renderGrid();
+            updateStatus(`Deleted ${img.filename}`);
+        }
+
+        // ==========================================
+        // MODAL
+        // ==========================================
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('active');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ==========================================
+        // EXPORT
+        // ==========================================
+        function exportBoard() {
+            const grid = document.getElementById('boardGrid');
+
+            if (boardData.images.length === 0) {
+                alert('No images to export');
+                return;
+            }
+
+            html2canvas(grid, {
+                backgroundColor: '#0a0a0a',
+                scale: 2
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'vision-board-' + Date.now() + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        // ==========================================
+        // STATUS
+        // ==========================================
+        function updateStatus(msg) {
+            document.getElementById('statusLeft').textContent = msg;
+        }
+
+        // ==========================================
+        // INIT
+        // ==========================================
+        init();
+    </script>
+</body>
+</html>

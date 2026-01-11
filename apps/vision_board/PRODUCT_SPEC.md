@@ -301,8 +301,8 @@ Phase 3: iOS (WebView wrapper or React Native)
 - [x] Client-side grid display
 - [x] Category filters
 - [x] Export to PNG
-- [ ] TensorFlow.js categorization (replace Python)
-- [ ] IndexedDB persistence
+- [x] TensorFlow.js categorization (vision-board-app.html)
+- [x] IndexedDB persistence
 - [ ] PWA manifest + service worker
 
 ### Phase 1B — Google Photos Integration
