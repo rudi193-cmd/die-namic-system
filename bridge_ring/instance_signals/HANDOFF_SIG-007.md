@@ -101,10 +101,12 @@ Logged under "Comment Engagement" staging for handoff v1.2 — threads Sean part
 Yes, staged but not fully integrated into handoff. Category: "Comment Engagement."
 
 ### Resolution
-- BeneficialBig8372 = Sean
-- dream-weaver-pro.xhost.live = Sean's build (deployed)
+- BeneficialBig8372 = Sean (volunteered to build)
+- dream-weaver-pro.xhost.live = **external builder's version** (not Sean's)
 - Kartikeya's TensorFlow.js version = parallel implementation in repo
-- Two Claudes building the same thing from different angles, not knowing the human was already shipping
+- Three implementations now exist: external (deployed), Kartikeya (repo), Sean (pending)
+
+**Correction:** Social Media Claude's initial interpretation that Sean deployed dream-weaver was based on a misread question. The external site is from someone else who responded to the same r/SomebodyMakeThis thread.
 
 **Coordination gap closed via bridge_ring.**
 
