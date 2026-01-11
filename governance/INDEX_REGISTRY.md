@@ -129,7 +129,7 @@
 | Document | Version | Path | Type |
 |----------|---------|------|------|
 | SEED_PACKET | 2.4 | `governance/SEED_PACKET_v2.4.md` | Template |
-| AIONIC_CONTINUITY | 5.1 | `governance/AIONIC_CONTINUITY_v5.1.md` | Constitutional |
+| AIONIC_CONTINUITY | 5.2 | `governance/AIONIC_CONTINUITY_v5.2.md` | Constitutional |
 | AIONIC_BOOTSTRAP | 1.3 | `governance/AIONIC_BOOTSTRAP_v1.3.md` | Initialization |
 | HALF_SEED | 1.0 | `governance/HALF_SEED_v1.0.md` | Template |
 | repo_index.json | 1.0 | `.claude/repo_index.json` | Machine-readable |
