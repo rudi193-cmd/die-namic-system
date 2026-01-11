@@ -1,3 +1,0 @@
-@echo off
-echo Starting eyes at 10fps, 30s buffer...
-powershell -ExecutionPolicy Bypass -File "%~dp0eyes.ps1" -fps 10 -bufferSeconds 30

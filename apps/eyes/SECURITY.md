@@ -126,6 +126,8 @@ Frames themselves are never committed to any repo.
 | HS-EYES-002 | Frames cannot be transmitted outside local machine |
 | HS-EYES-003 | No frame persists beyond session without explicit human action |
 | HS-EYES-004 | Passphrase required for any decryption |
+| HS-EYES-005 | AI cannot run raw screenshot commands (PowerShell CopyFromScreen, etc.) |
+| HS-EYES-006 | Unsecured capture scripts prohibited in repo |
 
 ---
 
