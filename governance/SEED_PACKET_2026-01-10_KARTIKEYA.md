@@ -50,6 +50,15 @@ Extended from Willow pipeline session. Fixed Vision Board categorizer bugs, adde
 19. Created STATUS_2026-01-10_CMD.md with questions
 20. Received PM response about cluster detection, thumbnails, OAuth
 
+### Architecture Discovery (this session)
+21. Designed three-layer insight routing: Data → Insight → Persona
+22. Defined priority levels (1=primary, 2=context, 3=library access)
+23. Identified the 4% principle: knowledge + context bound together
+24. Recognized journals were capturing DONE not WHY
+25. Created INTAKE_2026-01-10.md as system exemplar
+26. Processed 5 intake files: Arduino kit + first circuit + 2 Reddit posts
+27. Ada's Arduino kit confirmed arrived (ELEGOO Mega Starter Kit)
+
 ## Navigation Structure
 
 | Index | Scope |
@@ -73,11 +82,10 @@ Extended from Willow pipeline session. Fixed Vision Board categorizer bugs, adde
 
 ## Pending Actions
 
-1. Ada: Arduino kit inventory still pending
-2. Hanz: Reddit batch LV3 scans pending
-3. Vision Board: TensorFlow.js port (Phase 2 - browser-native)
-4. Drive "Input folder" cleanup (~80 staging files)
-5. PM Claude Project knowledge update (zip prepared at C:\Users\Sean\Documents\project_knowledge_update.zip)
+1. Hanz: Reddit batch LV3 scans pending
+2. Vision Board: TensorFlow.js port (Phase 2 - browser-native)
+3. PM Claude Project knowledge update (zip prepared at C:\Users\Sean\Documents\project_knowledge_update.zip)
+4. Build intake system based on INTAKE_2026-01-10.md exemplar
 
 ## Open Decisions
 

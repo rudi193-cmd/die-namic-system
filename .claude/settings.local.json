@@ -38,7 +38,8 @@
       "Bash(start python -m http.server 8080)",
       "Bash(start http://localhost:8080)",
       "Bash(powershell -Command \"Get-ChildItem ''C:/Users/Sean/AppData/Local/Temp/project_upload'' | Select-Object Name, Length | Format-Table -AutoSize\")",
-      "Bash(comm:*)"
+      "Bash(comm:*)",
+      "Bash(powershell -Command \"\\(Get-Item ''C:\\\\Users\\\\Sean\\\\Documents\\\\project_knowledge_update.zip''\\).Length / 1KB\")"
     ],
     "deny": [],
     "ask": []
