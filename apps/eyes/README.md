@@ -38,7 +38,8 @@ See [SECURITY.md](SECURITY.md) for the full security model.
 ```powershell
 # Event-triggered (recommended)
 .\eyes_events.ps1 -heartbeatSeconds 12
-# Captures on: window focus, title change, clipboard change
+# Captures on: window focus, title change, clipboard, auth detection
+# Auth events logged to audit trail
 # Plus heartbeat every 12 seconds
 
 # Fixed-interval encrypted

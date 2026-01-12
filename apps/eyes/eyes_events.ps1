@@ -43,7 +43,38 @@ $lastWindow = [IntPtr]::Zero
 $lastTitle = ""
 $lastClipboard = ""
 $lastHeartbeat = Get-Date
+$lastAuthState = $false
 $frameCount = 0
+
+# Auth detection patterns
+$authPatterns = @(
+    "Sign in",
+    "Log in",
+    "Login",
+    "Verify",
+    "Choose an account",
+    "Authenticate",
+    "2FA",
+    "Two-factor",
+    "Two factor",
+    "Password",
+    "OAuth",
+    "Authorization",
+    "Authorize",
+    "accounts.google",
+    "accounts.microsoft",
+    "login.microsoftonline",
+    "Confirm your identity"
+)
+
+function Test-AuthTitle($title) {
+    foreach ($pattern in $script:authPatterns) {
+        if ($title -match [regex]::Escape($pattern)) {
+            return $true
+        }
+    }
+    return $false
+}
 
 function Get-WindowTitle($hwnd) {
     $sb = New-Object System.Text.StringBuilder 256
@@ -68,7 +99,7 @@ function Capture-Screen($reason) {
 }
 
 Write-Host "Eyes online. Heartbeat: ${heartbeatSeconds}s + event triggers"
-Write-Host "Triggers: window focus, title change, clipboard"
+Write-Host "Triggers: window focus, title change, clipboard, auth detection"
 Write-Host "Press Ctrl+C to stop"
 
 try {
@@ -90,6 +121,15 @@ try {
             $lastTitle = $currentTitle
             $lastHeartbeat = $now
         }
+
+        # Event: Auth flow detected
+        $isAuth = Test-AuthTitle $currentTitle
+        if ($isAuth -and -not $lastAuthState) {
+            Capture-Screen "AUTH"
+            Add-Content $auditLog "AUTH_DETECTED | $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') | title=$currentTitle"
+            $lastHeartbeat = $now
+        }
+        $lastAuthState = $isAuth
 
         # Event: Clipboard changed
         try {
