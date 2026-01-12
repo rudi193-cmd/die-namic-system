@@ -1,0 +1,85 @@
+#!/bin/bash
+set -euo pipefail
+
+# knock - Send PING signal to another instance
+# Usage: knock <instance> [message]
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+QUEUE_FILE="$SCRIPT_DIR/../bridge_ring/instance_signals/QUEUE.md"
+
+# Detect who I am
+if [[ "$(uname -s)" == "Linux" ]]; then
+  FROM="Ganesha"
+elif [[ "$(uname -s)" == "Darwin" ]] || [[ "$(uname -o 2>/dev/null)" == "Msys" ]] || [[ -d "/mnt/c" ]]; then
+  FROM="Kartikeya"
+else
+  FROM="unknown"
+fi
+
+# Parse arguments
+if [[ $# -lt 1 ]]; then
+  echo "Usage: knock <instance> [message]"
+  echo ""
+  echo "Instances:"
+  echo "  Kartikeya   - Desktop Claude Code (cmd)"
+  echo "  Ganesha     - Mobile Claude Code (mobile)"
+  echo "  Mitra       - PM Claude (claude.ai)"
+  echo "  Riggs       - UTETY Faculty (claude.ai)"
+  echo "  Oakenscroll - UTETY Faculty (claude.ai)"
+  echo "  all         - Broadcast to all instances"
+  echo ""
+  echo "Examples:"
+  echo "  knock Kartikeya"
+  echo "  knock Mitra \"Ready for review?\""
+  echo "  knock all"
+  exit 1
+fi
+
+TO="$1"
+MESSAGE="${2:-Knock.}"
+
+# Get next signal ID (only from Active Signals section, not orphaned entries at bottom)
+LAST_SIG=$(sed -n '/^## Active Signals/,/^---$/p' "$QUEUE_FILE" | grep -E '^\| SIG-[0-9]+' | tail -1 | head -c 20 | grep -oE 'SIG-[0-9]+' || echo "SIG-000")
+LAST_NUM=$(echo "$LAST_SIG" | grep -oE '[0-9]+' | sed 's/^0*//')  # Strip leading zeros
+LAST_NUM=${LAST_NUM:-0}  # Default to 0 if empty
+NEXT_NUM=$((LAST_NUM + 1))  # Arithmetic
+SIG_ID=$(printf "SIG-%03d" $NEXT_NUM)
+
+# Get timestamp
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+# Create signal row
+SIGNAL_ROW="| $SIG_ID | $TIMESTAMP | $FROM | $TO | PING | $MESSAGE | PENDING |"
+
+# Find insertion point (before the "---" separator after signals)
+LINE_NUM=$(grep -n "^---$" "$QUEUE_FILE" | sed -n '2p' | cut -d: -f1)
+
+if [[ -z "$LINE_NUM" ]]; then
+  echo "Error: Could not find insertion point in QUEUE.md"
+  exit 1
+fi
+
+# Insert the signal
+sed -i "${LINE_NUM}i\\$SIGNAL_ROW" "$QUEUE_FILE"
+
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "KNOCK SENT"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "  Signal ID: $SIG_ID"
+echo "  From:      $FROM"
+echo "  To:        $TO"
+echo "  Type:      PING"
+echo "  Payload:   $MESSAGE"
+echo "  Status:    PENDING"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "Next steps:"
+echo "  1. git add bridge_ring/instance_signals/QUEUE.md"
+echo "  2. git commit -m \"signal: $SIG_ID PING to $TO\""
+echo "  3. git push"
+echo ""
+echo "To check for response:"
+echo "  grep '$SIG_ID' bridge_ring/instance_signals/QUEUE.md"
+echo ""
