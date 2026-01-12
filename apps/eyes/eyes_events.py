@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Eyes - Event-triggered screen capture
+Eyes - Event-triggered screen capture with trigger layer
 
 GOVERNANCE: This script must be started by human action only.
 AI cannot invoke this script directly.
@@ -12,6 +12,13 @@ import time
 import threading
 from datetime import datetime
 from pathlib import Path
+
+# Trigger layer
+try:
+    from triggers import process_screenshot, classify
+    TRIGGERS_AVAILABLE = True
+except ImportError:
+    TRIGGERS_AVAILABLE = False
 
 try:
     from PIL import ImageGrab
@@ -147,7 +154,7 @@ def is_auth_title(title):
     return any(pattern in title_lower for pattern in AUTH_PATTERNS)
 
 
-def capture(reason):
+def capture(reason, title=None):
     global frame_count
     frame_count += 1
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]
@@ -157,6 +164,15 @@ def capture(reason):
         img = ImageGrab.grab()
         img.save(out_file)
         print(f"[{reason}] {out_file}")
+
+        # Process through trigger layer
+        if TRIGGERS_AVAILABLE and title:
+            result = process_screenshot(str(out_file), title)
+            if result["triggers_fired"] > 0:
+                print(f"  → {result['triggers_fired']} trigger(s) fired")
+            if result["routed_to"]:
+                print(f"  → routed to {result['project']}")
+
     except Exception as e:
         print(f"[{reason}] FAILED: {e}")
 
@@ -194,6 +210,10 @@ def main():
     if PYNPUT_AVAILABLE:
         triggers.extend(["mouse activity", "keystroke activity", "idle detection"])
     print(f"Triggers: {', '.join(triggers)}")
+    if TRIGGERS_AVAILABLE:
+        print("Trigger layer: ACTIVE (routing + pattern detection)")
+    else:
+        print("Trigger layer: DISABLED (triggers.py not found)")
     print("Press Ctrl+C to stop")
 
     try:
@@ -204,16 +224,16 @@ def main():
             # Event: Window/title changed
             if current_title != last_title and current_title:
                 if last_title == "":
-                    capture("FOCUS")
+                    capture("FOCUS", current_title)
                 else:
-                    capture("TITLE")
+                    capture("TITLE", current_title)
                 last_title = current_title
                 last_heartbeat = now
 
             # Event: Auth flow detected
             is_auth = is_auth_title(current_title)
             if is_auth and not last_auth_state:
-                capture("AUTH")
+                capture("AUTH", current_title)
                 log(f"AUTH_DETECTED | title={current_title}")
                 last_heartbeat = now
             last_auth_state = is_auth
@@ -225,13 +245,13 @@ def main():
                 # Went idle
                 if not is_idle and idle_duration >= IDLE_THRESHOLD_SECONDS:
                     is_idle = True
-                    capture("IDLE")
+                    capture("IDLE", current_title)
                     log(f"IDLE_START | after={IDLE_THRESHOLD_SECONDS}s inactivity")
 
                 # Returned from idle
                 elif is_idle and idle_duration < 1:
                     is_idle = False
-                    capture("RETURN")
+                    capture("RETURN", current_title)
                     log(f"IDLE_END | keys={keystroke_count} | mouse={mouse_move_count}")
                     keystroke_count = 0
                     mouse_move_count = 0
@@ -242,7 +262,7 @@ def main():
                 try:
                     clip = pyperclip.paste()
                     if clip != last_clipboard and clip:
-                        capture("CLIPBOARD")
+                        capture("CLIPBOARD", current_title)
                         last_clipboard = clip
                         last_heartbeat = now
                 except:
@@ -250,7 +270,7 @@ def main():
 
             # Heartbeat
             if now - last_heartbeat >= HEARTBEAT_SECONDS:
-                capture("HEARTBEAT")
+                capture("HEARTBEAT", current_title)
                 last_heartbeat = now
 
             time.sleep(0.1)
