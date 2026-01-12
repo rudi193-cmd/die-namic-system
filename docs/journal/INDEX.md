@@ -32,6 +32,14 @@ Design schemas for the Aionic consumer product family. Each schema defines a fea
 
 ---
 
+## Instance Journals
+
+| Instance | Journal | Purpose |
+|----------|---------|--------|
+| PM Claude | [PM_JOURNAL.md](PM_JOURNAL.md) | Open questions, observations, routing |
+
+---
+
 ## Status Log
 
 | Date | From | Subject |

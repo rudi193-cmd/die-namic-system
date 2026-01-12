@@ -45,7 +45,8 @@
       "Bash(taskkill /F /PID 5216)",
       "Bash(powershell -Command:*)",
       "Bash(start python -m http.server 8888)",
-      "WebFetch(domain:dream-weaver-pro.xhost.live)"
+      "WebFetch(domain:dream-weaver-pro.xhost.live)",
+      "Bash(git tag:*)"
     ],
     "deny": [],
     "ask": []
