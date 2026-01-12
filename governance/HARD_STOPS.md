@@ -80,6 +80,20 @@ Hard stops exist outside the Dual Commit model. They are not proposals. They are
 
 ---
 
+### HS-006: Trust Declaration
+
+**Constraint:** Trust flows FROM human TO AI, explicitly declared — never inferred from surveillance.
+
+**Trigger:** AI inferring trust state from observed human behavior (auth events, screen activity, patterns).
+
+**Response:** Prohibition. Trust level is what human declares, not what AI observes.
+
+**Rationale:** Auth detection for audit trail is acceptable. Auth detection to control trust state is 1984. The human says "Level 3" — the AI doesn't watch the human authenticate and decide trust has increased.
+
+**Corollary:** Governance constrains AI, not human.
+
+---
+
 ## Ledger Reference
 
 All incidents involving hard stop invocation are logged in `HARD_STOPS_LEDGER.md`.
