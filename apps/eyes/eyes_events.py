@@ -9,6 +9,7 @@ AI cannot invoke this script directly.
 import os
 import sys
 import time
+import threading
 from datetime import datetime
 from pathlib import Path
 
@@ -18,19 +19,44 @@ except ImportError:
     print("Need pillow: pip install pillow")
     sys.exit(1)
 
+# Window title detection - try multiple methods
 try:
-    import pygetwindow as gw
-except ImportError:
-    print("Need pygetwindow: pip install pygetwindow")
-    sys.exit(1)
+    import ctypes
+    user32 = ctypes.windll.user32
+
+    def get_active_window_title_native():
+        hwnd = user32.GetForegroundWindow()
+        length = user32.GetWindowTextLengthW(hwnd)
+        buf = ctypes.create_unicode_buffer(length + 1)
+        user32.GetWindowTextW(hwnd, buf, length + 1)
+        return buf.value
+
+    GET_WINDOW_TITLE = get_active_window_title_native
+    print("Using native Windows API for window detection")
+except:
+    try:
+        import pygetwindow as gw
+        GET_WINDOW_TITLE = lambda: gw.getActiveWindow().title if gw.getActiveWindow() else ""
+        print("Using pygetwindow for window detection")
+    except ImportError:
+        GET_WINDOW_TITLE = lambda: ""
+        print("Warning: No window detection available")
 
 try:
     import pyperclip
 except ImportError:
     pyperclip = None  # Optional - clipboard detection disabled
 
+try:
+    from pynput import mouse, keyboard
+    PYNPUT_AVAILABLE = True
+except ImportError:
+    PYNPUT_AVAILABLE = False
+    print("Note: pip install pynput for mouse/keystroke detection")
+
 # Config
 HEARTBEAT_SECONDS = 12
+IDLE_THRESHOLD_SECONDS = 30  # Consider idle after 30s no input
 OUT_DIR = Path(r"C:\Users\Sean\screenshots")
 AUDIT_LOG = OUT_DIR / "eyes_audit.log"
 
@@ -54,6 +80,14 @@ last_heartbeat = time.time()
 last_auth_state = False
 frame_count = 0
 
+# Activity tracking (mouse/keyboard)
+# GOVERNANCE: We track THAT activity happens, not WHAT.
+# No keystroke content. No mouse coordinates. Just presence.
+last_activity = time.time()
+is_idle = False
+keystroke_count = 0  # Count only, no content
+mouse_move_count = 0
+
 
 def log(msg):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -61,10 +95,49 @@ def log(msg):
         f.write(f"{msg} | {timestamp}\n")
 
 
+def on_mouse_move(x, y):
+    """Track mouse activity (not position)."""
+    global last_activity, mouse_move_count
+    last_activity = time.time()
+    mouse_move_count += 1
+
+
+def on_mouse_click(x, y, button, pressed):
+    """Track click activity."""
+    global last_activity
+    if pressed:
+        last_activity = time.time()
+
+
+def on_key_press(key):
+    """Track keystroke activity (not content)."""
+    global last_activity, keystroke_count
+    last_activity = time.time()
+    keystroke_count += 1
+
+
+def start_activity_listeners():
+    """Start mouse/keyboard listeners in background threads."""
+    if not PYNPUT_AVAILABLE:
+        return None, None
+
+    mouse_listener = mouse.Listener(
+        on_move=on_mouse_move,
+        on_click=on_mouse_click
+    )
+    keyboard_listener = keyboard.Listener(
+        on_press=on_key_press
+    )
+
+    mouse_listener.start()
+    keyboard_listener.start()
+
+    return mouse_listener, keyboard_listener
+
+
 def get_active_window_title():
     try:
-        win = gw.getActiveWindow()
-        return win.title if win else ""
+        return GET_WINDOW_TITLE()
     except:
         return ""
 
@@ -90,20 +163,37 @@ def capture(reason):
 
 def main():
     global last_window, last_title, last_clipboard, last_heartbeat, last_auth_state
+    global last_activity, is_idle, keystroke_count, mouse_move_count
+
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--no-consent", action="store_true",
+                        help="Skip consent prompt (for background service)")
+    args = parser.parse_args()
 
     # Consent
     print("Eyes (event-triggered) will capture your screen.")
-    consent = input("Continue? (yes/no): ").strip().lower()
-    if consent != "yes":
-        print("Aborted.")
-        return
+    if not args.no_consent:
+        consent = input("Continue? (yes/no): ").strip().lower()
+        if consent != "yes":
+            print("Aborted.")
+            return
+    else:
+        print("Background mode: consent assumed from human startup.")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    log(f"EYES_ON | heartbeat={HEARTBEAT_SECONDS}s | mode=events | user={os.environ.get('USERNAME', 'unknown')}")
+    # Start activity listeners
+    mouse_listener, keyboard_listener = start_activity_listeners()
+    activity_mode = "full" if PYNPUT_AVAILABLE else "limited"
+
+    log(f"EYES_ON | heartbeat={HEARTBEAT_SECONDS}s | mode=events | activity={activity_mode} | user={os.environ.get('USERNAME', 'unknown')}")
 
     print(f"Eyes online. Heartbeat: {HEARTBEAT_SECONDS}s + event triggers")
-    print("Triggers: window focus, title change, clipboard, auth detection")
+    triggers = ["window focus", "title change", "clipboard", "auth detection"]
+    if PYNPUT_AVAILABLE:
+        triggers.extend(["mouse activity", "keystroke activity", "idle detection"])
+    print(f"Triggers: {', '.join(triggers)}")
     print("Press Ctrl+C to stop")
 
     try:
@@ -128,6 +218,25 @@ def main():
                 last_heartbeat = now
             last_auth_state = is_auth
 
+            # Event: Idle detection and return from idle
+            if PYNPUT_AVAILABLE:
+                idle_duration = now - last_activity
+
+                # Went idle
+                if not is_idle and idle_duration >= IDLE_THRESHOLD_SECONDS:
+                    is_idle = True
+                    capture("IDLE")
+                    log(f"IDLE_START | after={IDLE_THRESHOLD_SECONDS}s inactivity")
+
+                # Returned from idle
+                elif is_idle and idle_duration < 1:
+                    is_idle = False
+                    capture("RETURN")
+                    log(f"IDLE_END | keys={keystroke_count} | mouse={mouse_move_count}")
+                    keystroke_count = 0
+                    mouse_move_count = 0
+                    last_heartbeat = now
+
             # Event: Clipboard changed
             if pyperclip:
                 try:
@@ -149,8 +258,16 @@ def main():
     except KeyboardInterrupt:
         pass
     finally:
-        log(f"EYES_OFF | frames={frame_count}")
+        # Stop listeners
+        if mouse_listener:
+            mouse_listener.stop()
+        if keyboard_listener:
+            keyboard_listener.stop()
+
+        log(f"EYES_OFF | frames={frame_count} | total_keys={keystroke_count} | total_mouse={mouse_move_count}")
         print(f"\nEyes off. {frame_count} frames captured.")
+        if PYNPUT_AVAILABLE:
+            print(f"Activity: {keystroke_count} keystrokes, {mouse_move_count} mouse moves")
 
 
 if __name__ == "__main__":

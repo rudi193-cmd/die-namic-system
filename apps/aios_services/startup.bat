@@ -7,7 +7,7 @@ echo.
 
 :: Start Eyes (screen capture)
 echo [1/2] Starting Eyes...
-start "eyes_events" /MIN pythonw "%~dp0..\eyes\eyes_events.py"
+start "eyes_events" /MIN pythonw "%~dp0..\eyes\eyes_events.py" --no-consent
 timeout /t 2 /nobreak >nul
 
 :: Start Willow Watcher (inbox monitor)
