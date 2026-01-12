@@ -53,9 +53,11 @@ def save_state(state):
 def log(entry):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     line = f"{timestamp} | {entry}\n"
-    with open(EVENT_LOG, "a") as f:
+    with open(EVENT_LOG, "a", encoding="utf-8") as f:
         f.write(line)
-    print(f"[{timestamp}] {entry}")
+    # Console-safe print (replace unencodable chars)
+    safe_entry = entry.encode("cp1252", errors="replace").decode("cp1252")
+    print(f"[{timestamp}] {safe_entry}")
 
 
 def get_file_hash(filepath):
