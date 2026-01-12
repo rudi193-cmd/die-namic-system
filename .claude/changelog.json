@@ -55,6 +55,24 @@
         "Created _STUB.md to prevent recurrence"
       ],
       "summary": "Changelog system. Background services tested. Local copies synced. Mitra named (with scope inflation). _STUB.md created as fix."
+    },
+    {
+      "date": "2026-01-12",
+      "session": "PONG-resumed",
+      "instance": "Kartikeya",
+      "commits": ["94049f0"],
+      "files_created": [
+        "apps/aios_services/unified_watcher.py"
+      ],
+      "files_modified": [
+        "apps/aios_services/unified_watcher.py"
+      ],
+      "lessons": [
+        "Windows console uses cp1252 — emoji breaks print()",
+        "UTF-8 encoding required for file writes on Windows",
+        "Test with real data containing edge cases (emoji filenames)"
+      ],
+      "summary": "Unified watcher built and fixed. Unicode crash on emoji filenames resolved."
     }
   ]
 }
