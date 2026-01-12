@@ -150,14 +150,24 @@ def scan_inbox() -> List[Path]:
 
 def main():
     """Main watcher loop."""
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--no-consent", action="store_true",
+                        help="Skip consent prompt (for background service)")
+    args = parser.parse_args()
+
     # Consent
     print("Willow Inbox Watcher")
     print(f"Watching: {INBOX_PATH}")
     print(f"Poll interval: {POLL_INTERVAL}s")
-    consent = input("Start watching? (yes/no): ").strip().lower()
-    if consent != "yes":
-        print("Aborted.")
-        return
+
+    if not args.no_consent:
+        consent = input("Start watching? (yes/no): ").strip().lower()
+        if consent != "yes":
+            print("Aborted.")
+            return
+    else:
+        print("Background mode: consent assumed from human startup.")
 
     ensure_dirs()
     state = load_state()
