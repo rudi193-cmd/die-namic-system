@@ -47,6 +47,10 @@ $lastAuthState = $false
 $frameCount = 0
 
 # Auth detection patterns
+# GOVERNANCE HS-006: Auth detection is for AUDIT ONLY.
+# This data MUST NOT be used to infer trust state.
+# Trust flows FROM human TO AI, explicitly declared.
+# See: governance/HARD_STOPS.md
 $authPatterns = @(
     "Sign in",
     "Log in",
