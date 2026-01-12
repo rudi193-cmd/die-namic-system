@@ -15,10 +15,16 @@ from pathlib import Path
 
 # Trigger layer
 try:
+    # Add eyes directory to path for import
+    import sys
+    _eyes_dir = Path(__file__).parent
+    if str(_eyes_dir) not in sys.path:
+        sys.path.insert(0, str(_eyes_dir))
     from triggers import process_screenshot, classify
     TRIGGERS_AVAILABLE = True
-except ImportError:
+except ImportError as e:
     TRIGGERS_AVAILABLE = False
+    print(f"Trigger layer disabled: {e}")
 
 try:
     from PIL import ImageGrab

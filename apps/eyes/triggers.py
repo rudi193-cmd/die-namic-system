@@ -15,17 +15,24 @@ from datetime import datetime
 # Routing table: pattern → (project, handler, priority)
 # Priority: 1=critical (immediate), 2=normal, 3=background
 ROUTES = {
-    # Claude instances
+    # Claude instances (multiple patterns for dash variations)
     "Project Manager CLAUDE": ("pm-claude", "mitra", 2),
     "Claude — Control+Alt+Space": ("die-namic", "cmd", 2),
+    "Claude - Control+Alt+Space": ("die-namic", "cmd", 2),
+    "Control+Alt+Space": ("die-namic", "cmd", 2),
     "Claude —": ("claude-generic", None, 3),
+    "Claude -": ("claude-generic", None, 3),
 
     # ChatGPT instances
     "ChatGPT": ("chatgpt", None, 3),
 
     # Dev tools
     "Visual Studio Code": ("dev", "code", 3),
+    "VS Code": ("dev", "code", 3),
     "GitHub": ("dev", "github", 2),
+    "cmd.exe": ("dev", "terminal", 3),
+    "PowerShell": ("dev", "terminal", 3),
+    "Windows Terminal": ("dev", "terminal", 3),
 
     # Google workspace
     "Google Docs": ("gdocs", None, 3),
@@ -33,6 +40,9 @@ ROUTES = {
 
     # Willow-specific
     "Sweet-Pea": ("willow", "inbox", 2),
+
+    # Testing
+    "Eyes Trigger": ("die-namic", "eyes-test", 3),
 
     # Triggers (not routing, just detection)
     "Divergence": ("trigger", "divergence", 1),
@@ -60,7 +70,9 @@ def log_trigger(msg):
     line = f"{timestamp} | {msg}\n"
     with open(TRIGGER_LOG, "a", encoding="utf-8") as f:
         f.write(line)
-    print(f"[TRIGGER] {msg}")
+    # Console-safe print
+    safe_msg = msg.encode("cp1252", errors="replace").decode("cp1252")
+    print(f"[TRIGGER] {safe_msg}")
 
 
 def load_state():
