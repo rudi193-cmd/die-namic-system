@@ -245,5 +245,11 @@
     "human_readable_index": "governance/REPO_INDEX.md",
     "machine_readable_index": ".claude/repo_index.json",
     "governance_precedence": "governance/GOVERNANCE_INDEX.md"
+  },
+  "changelog": {
+    "machine": ".claude/changelog.json",
+    "human": ".claude/changelog.txt",
+    "purpose": "Delta tracking between index updates",
+    "note": "Index is static structure. Changelog captures session changes. Read changelog first for recent updates."
   }
 }
