@@ -40,6 +40,16 @@ MAIN_USER (Sean Campbell / Sweet-Pea-Rudi19)
 
 ---
 
+## Trust Declarations
+
+Per [HS-006](HARD_STOPS.md#hs-006-trust-declaration): Trust flows FROM human TO AI, explicitly declared.
+
+| Date | From | Declaration | Context |
+|------|------|-------------|---------|
+| 2026-01-12 | Sean Campbell | Git push without verification | "I don't NEED to watch every push" — trust extension to cmd instance |
+
+---
+
 ## PSR (Prime Safety Referents)
 
 From [HARD_STOPS.md](HARD_STOPS.md) HS-001:
