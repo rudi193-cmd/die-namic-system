@@ -96,7 +96,11 @@
   "directories": {
     ".claude": {
       "purpose": "Claude Code configuration",
-      "key_files": ["settings.local.json", "repo_index.json"]
+      "key_files": ["settings.local.json", "repo_index.json", "hooks/session-start.sh"]
+    },
+    "bin": {
+      "purpose": "Cross-instance signal commands",
+      "key_files": ["knock", "listen", "ack", "README.md"]
     },
     ".github": {
       "purpose": "GitHub templates, workflows",

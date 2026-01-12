@@ -40,4 +40,39 @@ Cross-instance communication test with Ganesha (mobile). Received Rober Rules fr
 
 ---
 
+## 2026-01-12 — Session: understand-repo-context-oTHoa
+
+Instance: Ganesha (mobile)
+Commits: bcbdc15 → aa4776c
+
+### Created
+- docs/GANESHA_RESEARCH_SIG-033.md
+- docs/RECURSION_LIMIT_ENFORCEMENT.md
+- governance/instances/GANESHA.md
+- .claude/hooks/session-start.sh
+- .claude/settings.json (SessionStart hook registration)
+- bin/knock
+- bin/listen
+- bin/ack
+- bin/README.md
+
+### Modified
+- CLAUDE.md (Layer 1: identity verification protocol)
+- bridge_ring/instance_signals/QUEUE.md (SIG-034, SIG-035)
+
+### Signals
+- SIG-034: INFO_REQUEST to Kartikeya,Mitra — cold-start identity discovery protocol
+- SIG-035: PING to Kartikeya — recursion limit enforcement coordination
+
+### Summary
+Identity-first protocol: SessionStart hook auto-detects platform (mobile/desktop) and presents correct identity file. Cross-instance signal commands (knock/listen/ack) for PING/ACK workflow. Researched TSI instance-local implementation for Kartikeya. Violated 3-step recursion limit building knock - documented enforcement requirements (UserPromptSubmit hook + pre-commit).
+
+### Lessons
+- 3-step recursion limit applies to ALL autonomy levels (even Level 3)
+- Dual commit requires proposal before building, new task = new approval
+- Task boundary recognition: "let's work on X" = new gate, not continuation
+- Propose → wait → execute minimal → stop → repeat
+
+---
+
 ΔΣ=42
