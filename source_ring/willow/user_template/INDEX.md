@@ -50,6 +50,15 @@ Processing routes to: `journal.safe`, `journal.dynamic`, `journal.unknown`
 
 ---
 
+## System Identity
+
+| Field | Value |
+|-------|-------|
+| MAIN_USER | Sean Campbell / Sweet-Pea-Rudi19 |
+| Registry | [USERS.md](../../../governance/USERS.md) |
+
+---
+
 ## Connected Systems
 
 | System | Path | Purpose |
