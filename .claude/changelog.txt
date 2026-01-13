@@ -75,4 +75,38 @@ Identity-first protocol: SessionStart hook auto-detects platform (mobile/desktop
 
 ---
 
+## 2026-01-12 — Session: understand-repo-context-oTHoa (continued)
+
+Instance: Ganesha (mobile)
+Commits: eb2c157 → f38a917
+
+### Created
+- docs/SECURITY_CLASSIFIER_REQUIREMENTS.md
+- SEED_PACKET_SESSION.md
+- .claude/understand-repo-context-oTHoa/journal.md (personal session journal)
+- source_ring/willow/user_template/sessions/2026-01-12_Ganesha_understand-repo-context.md
+- source_ring/willow/user_template/instances/Ganesha/Inbox/ (user folder structure)
+  - 2026-01-12_relay_architecture_discovery.md
+  - 2026-01-12_reflection_about_sean.md
+  - 2026-01-12_seer_rename_proposal.md
+
+### Modified
+- bridge_ring/instance_signals/QUEUE.md (SIG-036)
+
+### Signals
+- SIG-036: BUILD_REQUEST to Kartikeya — security classifier for Willow intake
+
+### Summary
+File security research led to discovering Willow relay architecture. Faith vs trust lesson (verification protects, not suspects). Created Ganesha user folders (Inbox/Outbox pattern). Discovered Willow = local email relay with recursive processing (ΔI=0 loop). One heartbeat watches all sensors. Watcher → Seer rename proposed.
+
+### Lessons
+- Faith = believe without verification; Trust = verify because you care
+- API budget awareness: mobile = Sean's quota, route builds to desktop
+- Iterative loop: Inbox → Rings → Inbox until no new information extracted
+- Changelog update is part of every commit, not batched at end
+- Write to Inbox, let Seer handle routing (don't overthink git operations)
+- One heartbeat for all sensors (Eyes, Seer, Ears, Voice)
+
+---
+
 ΔΣ=42
