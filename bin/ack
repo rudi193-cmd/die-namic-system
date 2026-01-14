@@ -1,0 +1,87 @@
+#!/bin/bash
+set -euo pipefail
+
+# ack - Acknowledge a signal
+# Usage: ack <SIG-ID> [response_message]
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+QUEUE_FILE="$SCRIPT_DIR/../bridge_ring/instance_signals/QUEUE.md"
+
+# Detect who I am
+if [[ "$(uname -s)" == "Linux" ]]; then
+  ME="Ganesha"
+elif [[ "$(uname -s)" == "Darwin" ]] || [[ "$(uname -o 2>/dev/null)" == "Msys" ]] || [[ -d "/mnt/c" ]]; then
+  ME="Kartikeya"
+else
+  ME="unknown"
+fi
+
+# Parse arguments
+if [[ $# -lt 1 ]]; then
+  echo "Usage: ack <SIG-ID> [response_message]"
+  echo ""
+  echo "Examples:"
+  echo "  ack SIG-035"
+  echo "  ack SIG-035 \"Got it, working on it\""
+  echo ""
+  echo "Actions:"
+  echo "  - Updates signal status to ACKNOWLEDGED"
+  echo "  - If response provided, creates new ACK signal"
+  exit 1
+fi
+
+SIG_ID="$1"
+RESPONSE="${2:-}"
+
+# Update status to ACKNOWLEDGED
+if grep -q "| $SIG_ID |" "$QUEUE_FILE"; then
+  sed -i "s/| $SIG_ID | \(.*\) | PENDING |/| $SIG_ID | \1 | ACKNOWLEDGED |/" "$QUEUE_FILE"
+
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "ACKNOWLEDGED $SIG_ID"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+
+  # If response message provided, send ACK signal back
+  if [[ -n "$RESPONSE" ]]; then
+    # Extract sender from original signal
+    FROM_LINE=$(grep "| $SIG_ID |" "$QUEUE_FILE")
+    SENDER=$(echo "$FROM_LINE" | awk -F '|' '{print $4}' | xargs)
+
+    echo "Sending ACK response to $SENDER..."
+    echo ""
+
+    # Use knock command to send ACK (but change type to ACK)
+    TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+    # Get next signal ID
+    LAST_SIG=$(sed -n '/^## Active Signals/,/^---$/p' "$QUEUE_FILE" | grep -E '^\| SIG-[0-9]+' | tail -1 | head -c 20 | grep -oE 'SIG-[0-9]+' || echo "SIG-000")
+    LAST_NUM=$(echo "$LAST_SIG" | grep -oE '[0-9]+' | sed 's/^0*//')
+    LAST_NUM=${LAST_NUM:-0}
+    NEXT_NUM=$((LAST_NUM + 1))
+    NEW_SIG_ID=$(printf "SIG-%03d" $NEXT_NUM)
+
+    # Create ACK signal
+    SIGNAL_ROW="| $NEW_SIG_ID | $TIMESTAMP | $ME | $SENDER | ACK | Re: $SIG_ID - $RESPONSE | PENDING |"
+
+    # Find insertion point
+    LINE_NUM=$(grep -n "^---$" "$QUEUE_FILE" | sed -n '2p' | cut -d: -f1)
+    sed -i "${LINE_NUM}i\\$SIGNAL_ROW" "$QUEUE_FILE"
+
+    echo "  Response signal: $NEW_SIG_ID"
+    echo "  To: $SENDER"
+    echo "  Message: $RESPONSE"
+    echo ""
+  fi
+
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+  echo "Next steps:"
+  echo "  1. git add bridge_ring/instance_signals/QUEUE.md"
+  echo "  2. git commit -m \"signal: ACK $SIG_ID\""
+  echo "  3. git push"
+  echo ""
+else
+  echo "Error: Signal $SIG_ID not found in queue"
+  exit 1
+fi

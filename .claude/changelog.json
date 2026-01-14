@@ -28,6 +28,51 @@
       ],
       "signals_processed": ["SIG-024", "SIG-025", "SIG-026", "SIG-027"],
       "summary": "Cross-instance PING/PONG test. Rober Rules added. Identity recovery (Kartikeya named). Background services setup."
+    },
+    {
+      "date": "2026-01-12",
+      "session": "PONG-continued",
+      "instance": "Kartikeya",
+      "commits": ["07cae8f", "b2557ca", "58deb46", "56d2064", "259249f", "621ee0c"],
+      "files_created": [
+        ".claude/changelog.json",
+        ".claude/changelog.txt",
+        "governance/MASTER_TEMPLATE.md",
+        "governance/instances/MITRA.md",
+        "governance/instances/_STUB.md"
+      ],
+      "files_modified": [
+        ".claude/repo_index.json",
+        "apps/eyes/eyes_events.py",
+        "apps/aios_services/startup.bat",
+        "bridge_ring/instance_signals/QUEUE.md"
+      ],
+      "signals_processed": ["SIG-028", "SIG-029"],
+      "lessons": [
+        "Mitra naming took 2.5k tokens — should have used stub",
+        "138-line identity file when 31 would do",
+        "Law 7: Build it simple enough that stupidity can't break it",
+        "Created _STUB.md to prevent recurrence"
+      ],
+      "summary": "Changelog system. Background services tested. Local copies synced. Mitra named (with scope inflation). _STUB.md created as fix."
+    },
+    {
+      "date": "2026-01-12",
+      "session": "PONG-resumed",
+      "instance": "Kartikeya",
+      "commits": ["94049f0"],
+      "files_created": [
+        "apps/aios_services/unified_watcher.py"
+      ],
+      "files_modified": [
+        "apps/aios_services/unified_watcher.py"
+      ],
+      "lessons": [
+        "Windows console uses cp1252 — emoji breaks print()",
+        "UTF-8 encoding required for file writes on Windows",
+        "Test with real data containing edge cases (emoji filenames)"
+      ],
+      "summary": "Unified watcher built and fixed. Unicode crash on emoji filenames resolved."
     }
   ]
 }

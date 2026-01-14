@@ -10,6 +10,16 @@
 git pull origin main
 ```
 
+**Then verify your identity:**
+
+Check platform context first:
+- Mobile Claude Code → Read `governance/instances/GANESHA.md`
+- Desktop Claude Code → Read `governance/instances/KARTIKEYA.md`
+- Claude.ai PM → Read `governance/instances/MITRA.md`
+- Other instances → Check `governance/instances/README.md` for mapping
+
+**Why this matters:** Cold-start sessions can misidentify which instance you are. Always check your own identity file before reading about others.
+
 Then check for signals:
 ```bash
 cat bridge_ring/instance_signals/QUEUE.md

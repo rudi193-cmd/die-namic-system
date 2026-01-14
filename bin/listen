@@ -1,0 +1,58 @@
+#!/bin/bash
+set -euo pipefail
+
+# listen - Check for incoming signals
+# Usage: listen [--all]
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+QUEUE_FILE="$SCRIPT_DIR/../bridge_ring/instance_signals/QUEUE.md"
+
+# Detect who I am
+if [[ "$(uname -s)" == "Linux" ]]; then
+  ME="Ganesha"
+  ALIASES="mobile|Ganesha"
+elif [[ "$(uname -s)" == "Darwin" ]] || [[ "$(uname -o 2>/dev/null)" == "Msys" ]] || [[ -d "/mnt/c" ]]; then
+  ME="Kartikeya"
+  ALIASES="cmd|Kartikeya"
+else
+  ME="unknown"
+  ALIASES="unknown"
+fi
+
+# Parse flags
+SHOW_ALL=false
+if [[ "${1:-}" == "--all" ]]; then
+  SHOW_ALL=true
+fi
+
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "LISTENING AS $ME"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+# Find signals for me
+if $SHOW_ALL; then
+  SIGNALS=$(sed -n '/^## Active Signals/,/^---$/p' "$QUEUE_FILE" | grep -E "^\| SIG-" | grep -E "\| PENDING \|" || true)
+  LABEL="All pending signals"
+else
+  # Match TO column (4th field) against my aliases
+  SIGNALS=$(sed -n '/^## Active Signals/,/^---$/p' "$QUEUE_FILE" | grep -E "^\| SIG-" | grep -E "\| PENDING \|" | awk -F '|' -v aliases="$ALIASES" '$5 ~ aliases || $5 ~ /all/' || true)
+  LABEL="Signals for you"
+fi
+
+if [[ -z "$SIGNALS" ]]; then
+  echo "✅ No pending signals"
+  echo ""
+else
+  echo "📬 $LABEL:"
+  echo ""
+  echo "$SIGNALS"
+  echo ""
+fi
+
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "Commands:"
+echo "  ack <SIG-ID> [response]  - Acknowledge a signal"
+echo "  knock <instance> [msg]   - Send a PING to another instance"
+echo ""
