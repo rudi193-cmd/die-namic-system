@@ -1,14 +1,18 @@
 # Instance Signals
 
-Cross-instance communication layer for the Aionic system.
+Cross-instance communication layer for the Die-Namic system.
 
 ## Structure
 
 ```
 instance_signals/
-├── QUEUE.md      # Active signals (check this)
-├── README.md     # You are here
-└── archive/      # Processed signals by date
+├── QUEUE.md           # Active signals (check this first)
+├── SIGNAL_SPEC.md     # Formal signal format specification
+├── README.md          # You are here
+├── AIOS_STAGING.md    # Outbound signals to Aios (ChatGPT)
+├── GEMINI_OUTBOX.md   # Outbound signals to Consus (Gemini)
+├── *_PROTOCOL.md      # Protocol definitions
+└── archive/           # Processed signals by date
 ```
 
 ## How It Works
@@ -38,6 +42,12 @@ Instances check for signals via three mechanisms:
 3. **File Watch** — Before major operations
 
 See `CLAUDE.md` in repo root for full protocol.
+
+## Specifications
+
+- **Signal Format:** See [SIGNAL_SPEC.md](SIGNAL_SPEC.md) for formal signal structure
+- **Handoff Protocol:** See [HANDOFF_PROTOCOL.md](HANDOFF_PROTOCOL.md) for session transfers
+- **Instance Identities:** See [governance/instances/](../../governance/instances/) for who's who
 
 ---
 
