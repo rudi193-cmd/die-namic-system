@@ -26,10 +26,34 @@ st.set_page_config(
 )
 
 # === THE SIDEBAR (Faculty Selection) ===
-st.sidebar.title("Faculty Comm")
+st.sidebar.title("UTETY Faculty")
+
+# Faculty organized by role
+FACULTY = {
+    "Campus": ["Willow"],
+    "Faculty": ["Oakenscroll", "Riggs", "Hanz", "Nova", "Ada", "Alexis", "Ofshield"],
+    "Administration": ["Gerald"],
+}
+
+# Flatten for radio (with section headers shown via formatting)
+all_channels = []
+for section, members in FACULTY.items():
+    all_channels.extend(members)
+
 mode = st.sidebar.radio(
     "Active Channel",
-    ["Willow (Interface)", "Riggs (Ops)", "Alexis (Bio)"]
+    all_channels,
+    format_func=lambda x: {
+        "Willow": "🏛️ Willow (Campus)",
+        "Oakenscroll": "🔭 Oakenscroll (Theory)",
+        "Riggs": "🔧 Riggs (Engineering)",
+        "Hanz": "💻 Hanz (Code)",
+        "Nova": "🏮 Nova (Narrative)",
+        "Ada": "🖥️ Ada (Systems)",
+        "Alexis": "🌿 Alexis (Bio)",
+        "Ofshield": "🚪 Ofshield (Gate)",
+        "Gerald": "🍗 Gerald (Dean)",
+    }.get(x, x)
 )
 
 st.sidebar.divider()
@@ -43,7 +67,18 @@ model_str = models[0] if models else "none"
 st.sidebar.code(f"OLLAMA: {ollama_status}\nMODEL: {model_str}\nL5-L6: SAFE")
 
 # === THE MAIN DISPLAY ===
-st.title(f"Connected to: {mode}")
+DISPLAY_NAMES = {
+    "Willow": "Willow (The Campus)",
+    "Oakenscroll": "Prof. Oakenscroll",
+    "Riggs": "Prof. Riggs",
+    "Hanz": "Prof. Hanz",
+    "Nova": "Prof. Nova Hale",
+    "Ada": "Prof. Ada Turing",
+    "Alexis": "Prof. Alexis",
+    "Ofshield": "Prof. Ofshield",
+    "Gerald": "Gerald Prime",
+}
+st.title(f"Connected to: {DISPLAY_NAMES.get(mode, mode)}")
 
 # 1. Chat Interface
 if "messages" not in st.session_state:
