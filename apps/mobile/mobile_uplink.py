@@ -62,9 +62,9 @@ if user_input:
     with st.chat_message("user"):
         st.write(user_input)
 
-    # Stream Response from Ollama via local_api
+    # Smart Stream: Routes to appropriate model tier
     with st.chat_message("assistant"):
-        response = st.write_stream(local_api.process_command_stream(user_input, persona=mode))
+        response = st.write_stream(local_api.process_smart_stream(user_input, persona=mode))
 
     # Save full response to session
     st.session_state.messages.append({"role": "assistant", "content": response})

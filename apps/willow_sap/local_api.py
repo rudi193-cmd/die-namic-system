@@ -23,14 +23,39 @@ from typing import Optional
 
 # === CONFIGURATION ===
 OLLAMA_URL = "http://localhost:11434"
-MODEL_FAST = "llama3.2:latest"
-MODEL_VISION = "llama3.2-vision:latest"
 LOG_FILE = Path.home() / ".willow" / "local_api.log"
 RATE_LIMIT_SECONDS = 1.0
 
 # User profile location
 USER_PROFILE_ROOT = Path(r"G:\My Drive\Willow\Auth Users")
 DEFAULT_USER = "Sweet-Pea-Rudi19"
+
+# === MODEL TIERS ===
+# Cascade: Start simple, escalate if needed
+MODEL_TIERS = {
+    1: {"name": "tinyllama:latest", "desc": "Fast, simple tasks", "max_tokens": 256},
+    2: {"name": "llama3.2:latest", "desc": "General conversation", "max_tokens": 512},
+    3: {"name": "llama3.1:8b", "desc": "Complex reasoning, code", "max_tokens": 1024},
+}
+
+# Default tier
+DEFAULT_TIER = 2
+MODEL_FAST = MODEL_TIERS[2]["name"]
+MODEL_VISION = "llama3.2-vision:latest"
+
+# Keywords that trigger tier escalation
+TIER3_KEYWORDS = [
+    "code", "python", "javascript", "function", "class", "debug",
+    "analyze", "explain how", "step by step", "algorithm",
+    "compare", "difference between", "pros and cons",
+    "write a", "create a", "implement", "refactor",
+]
+
+TIER1_PATTERNS = [
+    r"^(yes|no|ok|sure|thanks|hi|hello|hey)\b",  # Simple greetings/responses
+    r"^what (is|are) \w+\??$",  # Simple "what is X" questions
+    r"^(how much|how many|when|where)\b.{0,30}\??$",  # Short factual questions
+]
 
 # === SYSTEM CONTEXT ===
 # This is what Die-Namic actually IS - prevents hallucination
@@ -141,6 +166,56 @@ def _rate_limit():
     if elapsed < RATE_LIMIT_SECONDS:
         time.sleep(RATE_LIMIT_SECONDS - elapsed)
     _last_request_time = time.time()
+
+
+def route_prompt(prompt: str) -> int:
+    """
+    Determine which model tier should handle this prompt.
+
+    Returns tier number (1=fast, 2=mid, 3=heavy).
+
+    Routing logic:
+    - Tier 1: Simple greetings, yes/no, short factual
+    - Tier 2: General conversation (default)
+    - Tier 3: Code, analysis, complex reasoning
+    """
+    prompt_lower = prompt.lower().strip()
+
+    # Check for Tier 3 keywords (escalate to heavy)
+    for keyword in TIER3_KEYWORDS:
+        if keyword in prompt_lower:
+            _log(f"ROUTE | tier=3 | trigger='{keyword}'")
+            return 3
+
+    # Check for Tier 1 patterns (simple/fast)
+    for pattern in TIER1_PATTERNS:
+        if re.match(pattern, prompt_lower, re.IGNORECASE):
+            _log(f"ROUTE | tier=1 | trigger=pattern")
+            return 1
+
+    # Length heuristic: very short = tier 1, very long = tier 3
+    if len(prompt) < 20:
+        _log(f"ROUTE | tier=1 | trigger=short")
+        return 1
+    elif len(prompt) > 500:
+        _log(f"ROUTE | tier=3 | trigger=long")
+        return 3
+
+    # Default to tier 2
+    _log(f"ROUTE | tier=2 | trigger=default")
+    return DEFAULT_TIER
+
+
+def get_model_for_tier(tier: int) -> str:
+    """Get model name for a tier, with fallback."""
+    if tier in MODEL_TIERS:
+        model = MODEL_TIERS[tier]["name"]
+        # Check if model is available
+        available = list_models()
+        if model in available or model.split(":")[0] in [m.split(":")[0] for m in available]:
+            return model
+    # Fallback to default
+    return MODEL_FAST
 
 
 def load_user_profile(username: str = DEFAULT_USER) -> str:
@@ -378,6 +453,30 @@ Remember: Keep responses concise. CPU inference is slow. No hallucination."""
     except Exception as e:
         _log(f"ERROR | {type(e).__name__}: {e}")
         yield f"[ERROR] {e}"
+
+
+def process_smart_stream(prompt: str, persona: str = "Willow (Interface)",
+                          user: str = DEFAULT_USER):
+    """
+    Smart streaming: Routes prompt to appropriate model tier.
+
+    Uses route_prompt() to select tier, then streams response.
+    Shows which tier is handling the request.
+
+    SAFE: Same constraints as other process functions.
+    """
+    # Route to appropriate tier
+    tier = route_prompt(prompt)
+    model = get_model_for_tier(tier)
+    tier_info = MODEL_TIERS.get(tier, {})
+
+    # Emit tier notification first
+    tier_msg = f"[Tier {tier}: {tier_info.get('desc', model)}]\n"
+    yield tier_msg
+
+    # Stream the actual response
+    for chunk in process_command_stream(prompt, persona=persona, model=model, user=user):
+        yield chunk
 
 
 def trigger_sync() -> str:
