@@ -134,7 +134,7 @@ if user_input:
 
 # 3. BUTTONS (The "Hands")
 st.divider()
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     if st.button("Sync Drive"):
@@ -150,6 +150,22 @@ with col3:
     if st.button("Clear Chat"):
         st.session_state.messages = []
         st.rerun()
+
+with col4:
+    if st.button("To Pickup"):
+        # Summarize last few messages for user pickup
+        if st.session_state.messages:
+            summary_lines = []
+            for msg in st.session_state.messages[-6:]:  # Last 3 exchanges
+                role = "User" if msg["role"] == "user" else mode
+                summary_lines.append(f"**{role}:** {msg['content'][:200]}")
+            summary = "\n\n".join(summary_lines)
+            if local_api.send_session_summary(mode, summary):
+                st.toast("Sent to your Pickup box!")
+            else:
+                st.toast("Failed to send", icon="⚠️")
+        else:
+            st.toast("No messages to send")
 
 # === GATEKEEPER TEST PANEL ===
 if GATEKEEPER_AVAILABLE:

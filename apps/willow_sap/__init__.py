@@ -7,5 +7,8 @@ from .local_api import (
     check_ollama,
     list_models,
     log_conversation,
+    send_to_pickup,
+    send_session_summary,
     MODEL_TIERS,
+    MAX_SEARCH_FILES,
 )

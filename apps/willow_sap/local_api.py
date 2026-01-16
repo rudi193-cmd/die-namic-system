@@ -30,6 +30,9 @@ RATE_LIMIT_SECONDS = 1.0
 USER_PROFILE_ROOT = Path(r"G:\My Drive\Willow\Auth Users")
 DEFAULT_USER = "Sweet-Pea-Rudi19"
 
+# Pickup box for cross-instance handoffs
+USER_PICKUP_BOX = USER_PROFILE_ROOT / DEFAULT_USER / "Pickup"
+
 # === MODEL TIERS ===
 # Cascade: Start simple, escalate if needed
 MODEL_TIERS = {
@@ -129,6 +132,47 @@ def log_conversation(
         _log(f"CONVERSATION_LOG_ERROR | {e}")
 
 
+def send_to_pickup(filename: str, content: str) -> bool:
+    """
+    Send a file to user's pickup box for cross-instance handoff.
+
+    Path: G:\My Drive\Willow\Auth Users\Sweet-Pea-Rudi19\Pickup\
+
+    SAFE: Creates directory if needed, write-only operation.
+    """
+    try:
+        USER_PICKUP_BOX.mkdir(parents=True, exist_ok=True)
+        filepath = USER_PICKUP_BOX / filename
+        filepath.write_text(content, encoding="utf-8")
+        _log(f"PICKUP_SENT | {filename} | {len(content)}c")
+        return True
+    except Exception as e:
+        _log(f"PICKUP_ERROR | {filename} | {e}")
+        return False
+
+
+def send_session_summary(persona: str, summary: str) -> bool:
+    """
+    Send a session summary to user's pickup box.
+    """
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H%M")
+    filename = f"session_{persona.lower()}_{timestamp}.md"
+    content = f"""# Session Summary - {persona}
+
+**Timestamp:** {datetime.now().isoformat()}
+**From:** Willow Datapad
+
+---
+
+{summary}
+
+---
+
+ΔΣ=42
+"""
+    return send_to_pickup(filename, content)
+
+
 # === KNOWLEDGE SEARCH ===
 # Simple RAG: search docs for relevant context
 
@@ -163,6 +207,7 @@ STOP_WORDS = {
 
 # Maximum context to inject (characters)
 MAX_SEARCH_CONTEXT = 2000
+MAX_SEARCH_FILES = 50  # Limit how many files to scan (depth limit)
 
 
 def extract_keywords(query: str) -> list:
@@ -229,14 +274,22 @@ def search_knowledge(query: str, max_results: int = 3) -> str:
 
     results = []
     seen_content = set()
+    files_scanned = 0
 
     for search_path in SEARCH_PATHS:
+        if files_scanned >= MAX_SEARCH_FILES:
+            break
+
         full_path = PROJECT_ROOT / search_path
         if not full_path.exists():
             continue
 
-        # Search markdown files
+        # Search markdown files (with depth limit)
         for md_file in full_path.rglob("*.md"):
+            if files_scanned >= MAX_SEARCH_FILES:
+                _log(f"SEARCH | depth limit reached ({MAX_SEARCH_FILES} files)")
+                break
+            files_scanned += 1
             try:
                 content = md_file.read_text(encoding="utf-8", errors="ignore")
                 content_lower = content.lower()
