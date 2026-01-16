@@ -21,6 +21,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+# === COHERENCE TRACKING ===
+from .coherence import track_conversation, get_coherence_report, check_intervention
+
 # === CONFIGURATION ===
 OLLAMA_URL = "http://localhost:11434"
 LOG_FILE = Path.home() / ".willow" / "local_api.log"
@@ -90,14 +93,25 @@ def log_conversation(
     assistant_response: str,
     model: str = "unknown",
     tier: int = 0
-) -> None:
+) -> dict:
     """
     Log a conversation exchange for later training/review.
 
     Saves to: docs/utety/{persona}/conversations/{date}.md
+    Also tracks ΔE coherence metrics.
 
     SAFE: Append-only, no deletions, no overwrites.
+
+    Returns: coherence metrics dict {coherence_index, delta_e, state, adjustment}
     """
+    # Track coherence (ΔE)
+    coherence = {}
+    try:
+        coherence = track_conversation(user_input, assistant_response, persona)
+    except Exception as e:
+        _log(f"COHERENCE_ERROR | {e}")
+        coherence = {"coherence_index": 0, "delta_e": 0, "state": "unknown"}
+
     try:
         folder_name = PERSONA_FOLDERS.get(persona, persona.lower())
         log_dir = CONVERSATION_LOG_ROOT / folder_name / "conversations"
@@ -110,10 +124,16 @@ def log_conversation(
         # Timestamp for this exchange
         timestamp = datetime.now().strftime("%H:%M:%S")
 
-        # Format entry
+        # Format entry with coherence metrics
+        delta_e_str = f"{coherence.get('delta_e', 0):+.4f}"
+        ci_str = f"{coherence.get('coherence_index', 0):.2f}"
+        state_emoji = {"regenerative": "↑", "stable": "→", "decaying": "↓"}.get(
+            coherence.get("state", "stable"), "→"
+        )
+
         entry = f"""
 ---
-**[{timestamp}]** (Tier {tier}, {model})
+**[{timestamp}]** (Tier {tier}, {model}) | ΔE: {delta_e_str} {state_emoji} Cᵢ: {ci_str}
 
 **User:** {user_input}
 
@@ -127,9 +147,11 @@ def log_conversation(
                 f.write(f"# {persona} Conversations - {date_str}\n\n")
             f.write(entry)
 
-        _log(f"CONVERSATION_LOGGED | {persona} | {len(user_input)}c -> {len(assistant_response)}c")
+        _log(f"CONVERSATION_LOGGED | {persona} | ΔE={delta_e_str} | {len(user_input)}c -> {len(assistant_response)}c")
     except Exception as e:
         _log(f"CONVERSATION_LOG_ERROR | {e}")
+
+    return coherence
 
 
 def send_to_pickup(filename: str, content: str) -> bool:

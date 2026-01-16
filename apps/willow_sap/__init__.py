@@ -12,3 +12,12 @@ from .local_api import (
     MODEL_TIERS,
     MAX_SEARCH_FILES,
 )
+
+# Coherence tracking (ΔE)
+from .coherence import (
+    track_conversation,
+    get_coherence_report,
+    check_intervention,
+    CoherenceTracker,
+    THRESHOLDS,
+)

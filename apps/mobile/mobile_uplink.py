@@ -17,6 +17,7 @@ from pathlib import Path
 # Add parent path so we can import local_api
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from willow_sap import local_api
+from willow_sap.coherence import get_coherence_report, THRESHOLDS
 
 # Add governance path for Gatekeeper
 governance_path = Path(__file__).parent.parent.parent / "governance"
@@ -77,6 +78,21 @@ models = local_api.list_models()
 model_str = models[0] if models else "none"
 
 st.sidebar.code(f"OLLAMA: {ollama_status}\nMODEL: {model_str}\nL5-L6: SAFE")
+
+# ΔE Coherence Status
+st.sidebar.divider()
+st.sidebar.markdown("**ΔE Coherence**")
+try:
+    coherence_report = get_coherence_report()
+    state_emoji = {"regenerative": "↑", "stable": "→", "decaying": "↓", "no_data": "○"}.get(
+        coherence_report.get("status", "stable"), "→"
+    )
+    delta_e = coherence_report.get("average_delta_e", 0)
+    ci = coherence_report.get("latest_coherence", 0) or 0
+    trend = coherence_report.get("trend", "unknown")
+    st.sidebar.code(f"ΔE: {delta_e:+.4f} {state_emoji}\nCᵢ: {ci:.2f}\nTrend: {trend}")
+except Exception:
+    st.sidebar.code("ΔE: [loading...]")
 
 # === THE MAIN DISPLAY ===
 DISPLAY_NAMES = {
