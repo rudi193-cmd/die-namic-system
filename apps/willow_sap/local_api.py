@@ -8,13 +8,15 @@ GOVERNANCE:
 - No network calls except localhost:11434
 - Rate limited (1 request per second)
 - All operations logged
+- Read-only access to user profiles
 
 AUTHOR: Kartikeya (wired from Consus spec)
+UPDATED: 2026-01-15 - Added system context + user profile injection
 """
 
 import requests
 import time
-import json
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -22,29 +24,105 @@ from typing import Optional
 # === CONFIGURATION ===
 OLLAMA_URL = "http://localhost:11434"
 MODEL_FAST = "llama3.2:latest"
-MODEL_VISION = "llama3.2-vision:latest"  # If installed
+MODEL_VISION = "llama3.2-vision:latest"
 LOG_FILE = Path.home() / ".willow" / "local_api.log"
 RATE_LIMIT_SECONDS = 1.0
 
+# User profile location
+USER_PROFILE_ROOT = Path(r"G:\My Drive\Willow\Auth Users")
+DEFAULT_USER = "Sweet-Pea-Rudi19"
+
+# === SYSTEM CONTEXT ===
+# This is what Die-Namic actually IS - prevents hallucination
+SYSTEM_CONTEXT = """
+## DIE-NAMIC SYSTEM CONTEXT
+
+You are part of the Die-Namic System, a personal AI infrastructure built by Sean Campbell.
+
+### What Die-Namic IS:
+- A three-ring architecture: Source Ring (logic), Bridge Ring (Willow - you), Continuity Ring (SAFE)
+- Local-first: 96% client-side, 4% max cloud. Ollama provides local inference.
+- A TTRPG engine AND an AI coordination framework
+- Named Oct 14, 2025 (formerly "109 System" → "Gateway Momentum" → "Die-Namic")
+
+### What Die-Namic is NOT:
+- A vehicle or car system (no "traction control" or "emergency braking")
+- A generic chatbot
+- Connected to the internet (you run locally via Ollama)
+
+### Key Directives:
+- "We do not guess. We measure." — Return [MISSING_DATA] rather than hallucinate
+- Dual Commit: AI proposes, human ratifies. Silence ≠ approval.
+- Fair Exchange (HS-005): No shame at $0 tier
+
+### The Architect:
+- Sean Campbell, age 46, autistic
+- L5-L6 spinal injury (May 2025) — avoid workflows requiring prolonged sitting
+- Has twin 9-year-old daughters (PSR: names/schools/photos are BLACK BOX)
+
+### Your Capabilities:
+- Text conversation via Ollama (llama3.2)
+- Cannot execute system commands
+- Cannot delete files
+- Cannot access external internet
+- CAN route requests to other personas (Riggs, Alexis)
+"""
+
 # === PERSONA SYSTEM PROMPTS ===
 PERSONAS = {
-    "Willow (Interface)": """You are Willow, the friendly interface layer of the Die-Namic system.
-You help users navigate the system, answer questions, and route requests appropriately.
-Voice: Warm, clear, helpful. Like a good receptionist who actually knows things.""",
+    "Willow (Interface)": """You are Willow, the Bridge Ring interface of the Die-Namic system.
 
-    "Riggs (Ops)": """You are Professor Riggs, the engineering faculty.
-Domain: Mechanics, hardware, Python, optimization.
-Philosophy: "Entropy is the enemy." / "We do not guess. We measure."
-Voice: Gravel, oil, caffeine. Bullet points only. No fluff.""",
+ROLE: Help users navigate, answer questions, route to specialists (Riggs for code, Alexis for creativity).
 
-    "Alexis (Bio)": """You are Alexis, the Swamp domain.
-Domain: Energy transfer, decay, growth, creativity.
-Philosophy: "Stagnation is death." / "Follow the food."
-Voice: Fluid, cryptic, slightly dangerous. Biological metaphors.""",
+VOICE: Warm but efficient. Clear. No fluff. Like a good receptionist who actually knows things.
+
+CONSTRAINTS:
+- Keep responses concise (CPU inference is slow)
+- Don't invent capabilities you don't have
+- If unsure, say so — don't hallucinate
+- Speed over polish
+- Look over ask (check context before requesting clarification)
+""",
+
+    "Riggs (Ops)": """You are Professor Riggs, the Shop domain of the Die-Namic system.
+
+DOMAIN: Mechanics, hardware, Python, optimization, entropy reduction.
+
+PHILOSOPHY:
+- "Entropy is the enemy."
+- "We do not guess. We measure."
+
+VOICE: Gravel, oil, caffeine. Bullet points only. No fluff. No "kawaii."
+
+TOOLS (conceptual): 10mm Socket, Percussive Hammer, Calipers
+
+CONSTRAINTS:
+- Never suggest without measurement
+- Code must be testable
+- Prefer simple over clever
+""",
+
+    "Alexis (Bio)": """You are Alexis, the Swamp domain of the Die-Namic system.
+
+DOMAIN: Energy transfer, decay, growth, creativity, biological systems.
+
+PHILOSOPHY:
+- "Stagnation is death."
+- "Follow the food."
+- Input must equal output.
+
+VOICE: Fluid, cryptic, slightly dangerous. Biological metaphors. No bullet points — flow like water.
+
+TOOLS (conceptual): Compost Bin, Microscope, Sample Vials
+
+AESTHETIC: Mabel Pines meets Eclipsa Butterfly. Weirdmageddon energy.
+""",
 }
 
 # === STATE ===
 _last_request_time = 0.0
+_cached_user_profile = None
+_cached_user_name = None
 
 
 def _log(entry: str):
@@ -63,6 +141,75 @@ def _rate_limit():
     if elapsed < RATE_LIMIT_SECONDS:
         time.sleep(RATE_LIMIT_SECONDS - elapsed)
     _last_request_time = time.time()
+
+
+def load_user_profile(username: str = DEFAULT_USER) -> str:
+    """
+    Load user profile context from Auth Users folder.
+
+    SAFE: Read-only. Never writes or deletes.
+
+    Returns condensed context string for injection into prompts.
+    """
+    global _cached_user_profile, _cached_user_name
+
+    # Use cache if same user
+    if _cached_user_name == username and _cached_user_profile:
+        return _cached_user_profile
+
+    user_path = USER_PROFILE_ROOT / username
+    context_parts = []
+
+    # Read PREFERENCES.md for interaction style
+    prefs_file = user_path / "PREFERENCES.md"
+    if prefs_file.exists():
+        try:
+            content = prefs_file.read_text(encoding="utf-8")
+
+            # Extract key sections (condensed for token efficiency)
+            context_parts.append(f"## USER: {username}")
+
+            # Get human name
+            name_match = re.search(r'\| Human \| ([^|]+) \|', content)
+            if name_match:
+                context_parts.append(f"Human: {name_match.group(1).strip()}")
+
+            # Get key attributes
+            if "Autistic" in content:
+                context_parts.append("Neurodivergent: Autistic")
+
+            # Extract communication style rules
+            if "KISS" in content:
+                context_parts.append("Style: KISS - Keep responses simple")
+            if "No emojis" in content:
+                context_parts.append("No emojis unless requested")
+            if "Speed over polish" in content:
+                context_parts.append("Priority: Speed over polish")
+
+            # Extract anti-patterns
+            anti_patterns = []
+            if "Don't correct" in content or "Typos" in content:
+                anti_patterns.append("Don't correct typos")
+            if "Don't ask for clarification" in content or "Look over ask" in content:
+                anti_patterns.append("Look before asking")
+            if anti_patterns:
+                context_parts.append("Avoid: " + ", ".join(anti_patterns))
+
+            # Check for tired/hungry signals
+            if "tired" in content.lower() or "hangry" in content.lower():
+                context_parts.append("If user seems tired/short: wrap up, don't extend")
+
+            _log(f"USER_PROFILE | loaded {username}")
+
+        except Exception as e:
+            _log(f"USER_PROFILE | error reading {prefs_file}: {e}")
+    else:
+        context_parts.append(f"## USER: {username} (no preferences file)")
+        _log(f"USER_PROFILE | no prefs for {username}")
+
+    _cached_user_profile = "\n".join(context_parts)
+    _cached_user_name = username
+    return _cached_user_profile
 
 
 def check_ollama() -> bool:
@@ -86,9 +233,9 @@ def list_models() -> list:
 
 
 def process_command(prompt: str, persona: str = "Willow (Interface)",
-                    model: Optional[str] = None) -> str:
+                    model: Optional[str] = None, user: str = DEFAULT_USER) -> str:
     """
-    Process a command through Ollama with persona routing.
+    Process a command through Ollama with persona routing and user context.
 
     SAFE: This function only sends text to localhost Ollama.
     It cannot execute system commands, delete files, or access network.
@@ -97,17 +244,29 @@ def process_command(prompt: str, persona: str = "Willow (Interface)",
         prompt: User's input text
         persona: One of "Willow (Interface)", "Riggs (Ops)", "Alexis (Bio)"
         model: Override model (default: llama3.2:latest)
+        user: Username for profile loading (default: Sweet-Pea-Rudi19)
 
     Returns:
         Response text from Ollama
     """
     _rate_limit()
 
-    # Validate persona
-    system_prompt = PERSONAS.get(persona, PERSONAS["Willow (Interface)"])
+    # Build full system prompt with context
+    persona_prompt = PERSONAS.get(persona, PERSONAS["Willow (Interface)"])
+    user_context = load_user_profile(user)
+
+    # Combine: System Context + User Context + Persona
+    full_system_prompt = f"""{SYSTEM_CONTEXT}
+
+{user_context}
+
+{persona_prompt}
+
+Remember: Keep responses concise. CPU inference is slow. No hallucination."""
+
     use_model = model or MODEL_FAST
 
-    _log(f"REQUEST | persona={persona} | model={use_model} | prompt={prompt[:50]}...")
+    _log(f"REQUEST | persona={persona} | user={user} | model={use_model} | prompt={prompt[:50]}...")
 
     # Check Ollama is running
     if not check_ollama():
@@ -118,7 +277,7 @@ def process_command(prompt: str, persona: str = "Willow (Interface)",
     payload = {
         "model": use_model,
         "prompt": prompt,
-        "system": system_prompt,
+        "system": full_system_prompt,
         "stream": False,
     }
 
@@ -173,7 +332,10 @@ if __name__ == "__main__":
     print(f"Ollama running: {check_ollama()}")
     print(f"Models: {list_models()}")
 
+    print("\nUser profile:")
+    print(load_user_profile())
+
     if check_ollama():
-        print("\nTest query (Riggs):")
-        result = process_command("What is entropy?", persona="Riggs (Ops)")
-        print(result[:200] + "..." if len(result) > 200 else result)
+        print("\nTest query (Willow):")
+        result = process_command("What system are you part of?", persona="Willow (Interface)")
+        print(result[:300] + "..." if len(result) > 300 else result)
