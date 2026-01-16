@@ -19,6 +19,9 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from willow_sap import local_api
 from willow_sap.coherence import get_coherence_report, THRESHOLDS
 
+# Auth module
+from auth import render_login, render_auth_status, get_current_user, render_admin_panel
+
 # Add governance path for Gatekeeper
 governance_path = Path(__file__).parent.parent.parent / "governance"
 sys.path.insert(0, str(governance_path))
@@ -37,6 +40,10 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# === AUTHENTICATION GATE ===
+if not render_login():
+    st.stop()
 
 # === THE SIDEBAR (Faculty Selection) ===
 st.sidebar.title("UTETY Faculty")
@@ -93,6 +100,9 @@ try:
     st.sidebar.code(f"ΔE: {delta_e:+.4f} {state_emoji}\nCᵢ: {ci:.2f}\nTrend: {trend}")
 except Exception:
     st.sidebar.code("ΔE: [loading...]")
+
+# Auth status in sidebar
+render_auth_status()
 
 # === THE MAIN DISPLAY ===
 DISPLAY_NAMES = {
@@ -275,6 +285,15 @@ if GATEKEEPER_AVAILABLE:
                             st.toast("Rejected")
                             st.rerun()
 
+# === ADMIN PANEL ===
+user = get_current_user()
+if user and user.get("role") == "admin":
+    st.divider()
+    with st.expander("👥 User Management", expanded=False):
+        render_admin_panel()
+
 # === FOOTER ===
 st.divider()
-st.caption("Die-Namic System | L5-L6 Safe Mode | ΔΣ=42")
+user = get_current_user()
+user_str = f" | {user['display_name']}" if user else ""
+st.caption(f"Die-Namic System | L5-L6 Safe Mode{user_str} | ΔΣ=42")

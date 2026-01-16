@@ -3,3 +3,8 @@ desktop.ini
 
 # Large binary folder - do not commit to git (sync manually between locations)
 docs/ops/reddit_analytics/Image Input/
+
+# Auth credentials (contains hashed passwords and API keys)
+apps/mobile/auth_config.json
+apps/mobile/known_devices.json
+apps/mobile/claude_api_key.txt

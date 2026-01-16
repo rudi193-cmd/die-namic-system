@@ -38,11 +38,18 @@ USER_PICKUP_BOX = USER_PROFILE_ROOT / DEFAULT_USER / "Pickup"
 
 # === MODEL TIERS ===
 # Cascade: Start simple, escalate if needed
+# Tier 4 = Claude API (expensive, use sparingly)
 MODEL_TIERS = {
     1: {"name": "tinyllama:latest", "desc": "Fast, simple tasks", "max_tokens": 256},
     2: {"name": "llama3.2:latest", "desc": "General conversation", "max_tokens": 512},
     3: {"name": "llama3.1:8b", "desc": "Complex reasoning, code", "max_tokens": 1024},
+    4: {"name": "claude-sonnet", "desc": "Cloud API ($$)", "max_tokens": 4096, "is_cloud": True},
 }
+
+# Claude API config (Tier 4)
+CLAUDE_API_KEY_FILE = Path(__file__).parent.parent / "mobile" / "claude_api_key.txt"
+CLAUDE_MODEL = "claude-sonnet-4-20250514"  # Sonnet for cost efficiency
+CLAUDE_MAX_TOKENS = 4096
 
 # Default tier
 DEFAULT_TIER = 2
@@ -55,6 +62,22 @@ TIER3_KEYWORDS = [
     "analyze", "explain how", "step by step", "algorithm",
     "compare", "difference between", "pros and cons",
     "write a", "create a", "implement", "refactor",
+]
+
+# Keywords that trigger Tier 4 (Claude API) - use sparingly
+# These are tasks local models genuinely can't handle well
+TIER4_KEYWORDS = [
+    "architect", "architecture", "design pattern", "system design",
+    "security review", "vulnerability", "audit",
+    "multi-file", "across files", "entire codebase",
+    "complex debug", "root cause", "deep analysis",
+    "governance", "constitutional", "aionic",
+    "escalate to claude", "use claude", "need claude",
+]
+
+# Explicit Tier 4 trigger phrases (user requests cloud)
+TIER4_EXPLICIT = [
+    "escalate", "use cloud", "use claude", "need api", "tier 4",
 ]
 
 # TIER 1 DISABLED - tinyllama too unreliable with system prompts
@@ -641,16 +664,29 @@ def route_prompt(prompt: str) -> int:
     """
     Determine which model tier should handle this prompt.
 
-    Returns tier number (1=fast, 2=mid, 3=heavy).
+    Returns tier number (1=fast, 2=mid, 3=heavy, 4=cloud).
 
     Routing logic:
-    - Tier 1: Simple greetings, yes/no, short factual
+    - Tier 1: Simple greetings, yes/no, short factual (DISABLED)
     - Tier 2: General conversation (default)
     - Tier 3: Code, analysis, complex reasoning
+    - Tier 4: Architecture, security, multi-file, governance (CLOUD - costs $$)
     """
     prompt_lower = prompt.lower().strip()
 
-    # Check for Tier 3 keywords (escalate to heavy)
+    # Check for explicit Tier 4 request (user wants cloud)
+    for phrase in TIER4_EXPLICIT:
+        if phrase in prompt_lower:
+            _log(f"ROUTE | tier=4 | trigger=explicit '{phrase}'")
+            return 4
+
+    # Check for Tier 4 keywords (complex tasks needing cloud)
+    for keyword in TIER4_KEYWORDS:
+        if keyword in prompt_lower:
+            _log(f"ROUTE | tier=4 | trigger='{keyword}'")
+            return 4
+
+    # Check for Tier 3 keywords (escalate to heavy local)
     for keyword in TIER3_KEYWORDS:
         if keyword in prompt_lower:
             _log(f"ROUTE | tier=3 | trigger='{keyword}'")
@@ -662,7 +698,10 @@ def route_prompt(prompt: str) -> int:
             _log(f"ROUTE | tier=1 | trigger=pattern")
             return 1
 
-    # Length heuristic: very long = tier 3
+    # Length heuristic: very long = tier 3, extremely long = tier 4
+    if len(prompt) > 2000:
+        _log(f"ROUTE | tier=4 | trigger=very_long")
+        return 4
     if len(prompt) > 500:
         _log(f"ROUTE | tier=3 | trigger=long")
         return 3
@@ -810,6 +849,87 @@ def list_models() -> list:
     except:
         pass
     return []
+
+
+# === TIER 4: CLAUDE API ===
+
+def _load_claude_api_key() -> Optional[str]:
+    """Load Claude API key from file or environment."""
+    import os
+
+    # Try environment variable first
+    key = os.environ.get("ANTHROPIC_API_KEY")
+    if key:
+        return key
+
+    # Try file
+    if CLAUDE_API_KEY_FILE.exists():
+        try:
+            return CLAUDE_API_KEY_FILE.read_text().strip()
+        except:
+            pass
+
+    return None
+
+
+def check_claude_available() -> bool:
+    """Check if Claude API is configured and available."""
+    return _load_claude_api_key() is not None
+
+
+def process_claude_stream(prompt: str, system_prompt: str, persona: str = "Willow"):
+    """
+    Process a prompt through Claude API with streaming.
+
+    TIER 4: Only called when local models insufficient.
+    Costs money - use sparingly.
+
+    Yields chunks of text as they're generated.
+    """
+    api_key = _load_claude_api_key()
+    if not api_key:
+        _log("CLAUDE_ERROR | No API key configured")
+        yield "[ERROR] Claude API key not configured. Set ANTHROPIC_API_KEY env var or create apps/mobile/claude_api_key.txt"
+        return
+
+    _log(f"CLAUDE_REQUEST | persona={persona} | prompt={prompt[:50]}...")
+
+    try:
+        import anthropic
+    except ImportError:
+        _log("CLAUDE_ERROR | anthropic package not installed")
+        yield "[ERROR] anthropic package not installed. Run: pip install anthropic"
+        return
+
+    try:
+        client = anthropic.Anthropic(api_key=api_key)
+
+        # Stream response
+        full_response = []
+        with client.messages.stream(
+            model=CLAUDE_MODEL,
+            max_tokens=CLAUDE_MAX_TOKENS,
+            system=system_prompt,
+            messages=[{"role": "user", "content": prompt}]
+        ) as stream:
+            for text in stream.text_stream:
+                full_response.append(text)
+                yield text
+
+        _log(f"CLAUDE_RESPONSE | len={len(''.join(full_response))} | model={CLAUDE_MODEL}")
+
+    except anthropic.APIConnectionError:
+        _log("CLAUDE_ERROR | Connection failed")
+        yield "[ERROR] Could not connect to Claude API"
+    except anthropic.RateLimitError:
+        _log("CLAUDE_ERROR | Rate limited")
+        yield "[ERROR] Claude API rate limited. Try again later."
+    except anthropic.APIStatusError as e:
+        _log(f"CLAUDE_ERROR | API error: {e.status_code}")
+        yield f"[ERROR] Claude API error: {e.message}"
+    except Exception as e:
+        _log(f"CLAUDE_ERROR | {type(e).__name__}: {e}")
+        yield f"[ERROR] Claude API: {e}"
 
 
 def process_command(prompt: str, persona: str = "Willow",
@@ -975,6 +1095,10 @@ def process_smart_stream(prompt: str, persona: str = "Willow",
     Uses route_prompt() to select tier, then streams response.
     Shows which tier is handling the request.
 
+    Tiers:
+    - 1-3: Local Ollama models
+    - 4: Claude API (cloud, costs money)
+
     SAFE: Same constraints as other process functions.
     """
     # Route to appropriate tier
@@ -989,7 +1113,7 @@ def process_smart_stream(prompt: str, persona: str = "Willow",
     # 1. Query looks like a retrieval request (question, "tell me about", etc.)
     # 2. RAG actually finds substantial context
     retrieved = ""
-    if is_retrieval_query:
+    if is_retrieval_query and tier < 4:
         retrieved = search_knowledge(prompt)
         if retrieved and len(retrieved) > 300:  # Substantial context threshold
             tier = 3
@@ -997,10 +1121,43 @@ def process_smart_stream(prompt: str, persona: str = "Willow",
     else:
         _log(f"TIER_NORMAL | casual message, staying at Tier {tier}")
 
-    model = get_model_for_tier(tier)
     tier_info = MODEL_TIERS.get(tier, {})
 
-    # Emit tier notification first
+    # === TIER 4: CLAUDE API ===
+    if tier == 4:
+        # Check if Claude is available
+        if not check_claude_available():
+            _log("TIER4_FALLBACK | Claude not configured, falling back to Tier 3")
+            tier = 3
+            tier_info = MODEL_TIERS.get(tier, {})
+            yield f"[Tier 4 requested but Claude not configured - falling back to Tier 3]\n"
+        else:
+            # Emit tier notification with cost warning
+            yield f"[Tier 4: {tier_info.get('desc', 'Cloud API')}] ⚠️ Using paid API\n"
+
+            # Build system prompt for Claude
+            persona_prompt = PERSONAS.get(persona, PERSONAS["Willow"])
+            user_context = load_user_profile(user)
+
+            full_system_prompt = f"""{SYSTEM_CONTEXT}
+
+{user_context}
+
+{persona_prompt}
+
+{retrieved}
+
+Remember: You are being called via API because local models couldn't handle this task. Be thorough but efficient."""
+
+            # Stream from Claude
+            for chunk in process_claude_stream(prompt, full_system_prompt, persona=persona):
+                yield chunk
+            return
+
+    # === TIERS 1-3: LOCAL OLLAMA ===
+    model = get_model_for_tier(tier)
+
+    # Emit tier notification
     tier_msg = f"[Tier {tier}: {tier_info.get('desc', model)}]\n"
     yield tier_msg
 

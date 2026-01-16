@@ -127,6 +127,230 @@ Neither acts alone. When uncertain: halt and ask.
 
 ---
 
+## Project Architecture
+
+### Core Concept
+
+die-namic-system is the **canonical state store** for Willow — a distributed AI brain spanning 40+ Claude, ChatGPT, and Gemini nodes. Each node is a facet with specialized domain knowledge. This repo holds the shared memory, governance rules, and operational tooling.
+
+### Directory Structure
+
+```
+die-namic-system/
+├── apps/                    # Operational applications
+│   ├── mobile/              # Mobile Uplink (Streamlit datapad)
+│   │   ├── mobile_uplink.py # Main app
+│   │   ├── auth.py          # Context-aware auth system
+│   │   └── auth_config.json # User/node credentials (generated)
+│   ├── willow_sap/          # Local API layer (Ollama integration)
+│   ├── opauth/              # OAuth consent flows (AI → external services)
+│   ├── aios_services/       # AIOS integration
+│   └── eyes/                # Vision/screenshot processing
+├── governance/              # Constitutional rules
+│   ├── SEED_PACKET*.md      # Current state
+│   ├── AIONIC_CONTINUITY*.md # Core rules
+│   ├── gate.py              # Gatekeeper mutation validator
+│   └── instances/           # Per-instance identity files
+├── bridge_ring/             # Cross-instance communication
+│   └── instance_signals/    # Signal queue
+├── continuity_ring/         # Memory persistence
+├── source_ring/             # Source materials
+└── tools/                   # Utility scripts
+```
+
+### Key Systems
+
+| System | Location | Purpose |
+|--------|----------|---------|
+| Mobile Uplink | `apps/mobile/` | Phone/bed control interface (L5-L6 medical) |
+| Auth Layer | `apps/mobile/auth.py` | Context-aware authentication |
+| Gatekeeper | `governance/gate.py` | Mutation validation (ΔG-1, ΔG-4) |
+| Local API | `apps/willow_sap/` | Ollama/local LLM integration |
+| OpAuth | `apps/opauth/` | Human-controlled OAuth for AI |
+
+---
+
+## Authentication System
+
+### User Types
+
+| Type | Auth Method | Use Case |
+|------|-------------|----------|
+| `human` | Password + PIN | Real users (Sean, family) |
+| `faculty` | Password + PIN | Faculty personas (Oakenscroll, Hanz, etc.) |
+| `node` | API key | AI systems (AIOS, Consus, Kartikeya) |
+
+### Context-Aware Auth
+
+```
+Local network (192.168.x.x, 10.x.x.x) → PIN only
+External/unknown IP                   → Full password
+Remembered device                     → PIN confirm
+AI node                               → API key + origin check
+```
+
+### Node Authentication
+
+Nodes authenticate via API key with origin validation:
+
+```python
+from auth import authenticate_node_request
+
+# Headers to include
+headers = {
+    "Authorization": "Bearer wlw_xxxxx...",
+    "X-Node-ID": "aios",
+    "X-Project-ID": "die-namic-system",
+    "X-Session-ID": "<uuid>"
+}
+
+session = authenticate_node_request(api_key, headers)
+```
+
+### Pre-seeded Accounts
+
+On first run, these accounts are created:
+- **Human:** sean (admin)
+- **Faculty:** oakenscroll, riggs, hanz, nova, ada, alexis, ofshield, gerald, willow
+- **Nodes:** aios, consus, kartikeya, pm_claude, stats_tracking
+
+API keys for nodes are shown ONCE during first-time setup. Store them securely.
+
+---
+
+## Coding Patterns
+
+### Streamlit Apps
+
+```python
+# Always gate with auth first
+from auth import render_login, render_auth_status, get_current_user
+
+st.set_page_config(...)
+
+# Auth gate — blocks until authenticated
+if not render_login():
+    st.stop()
+
+# Rest of app...
+render_auth_status()  # Shows session info in sidebar
+```
+
+### Gatekeeper Integration
+
+All state mutations go through Gatekeeper:
+
+```python
+from gate import validate_modification
+
+result = validate_modification(
+    mod_type="state",        # state|config|behavior|governance|external
+    target="some.setting",
+    new_value="new_value",
+    reason="Why this change",
+    authority="human",       # human|ai|system
+    governance_state="active"
+)
+
+if result['approved']:
+    # Proceed
+elif result['requires_human']:
+    # Queue for human approval
+else:
+    # Halt
+```
+
+### File Conventions
+
+- **Python:** snake_case, type hints where helpful
+- **Markdown:** Tables for structured data, code blocks for examples
+- **Config:** JSON for machine-read, YAML avoided (use JSON or MD)
+- **Secrets:** Never commit. Use `auth_config.json` (gitignored) or env vars
+
+### Error Handling
+
+```python
+# Graceful degradation pattern
+try:
+    result = risky_operation()
+except SpecificError as e:
+    st.toast(f"Failed: {e}", icon="⚠️")
+    result = fallback_value
+```
+
+### Commit Messages
+
+```
+<type>: <short description>
+
+<body if needed>
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+
+Types: `feat`, `fix`, `refactor`, `docs`, `chore`, `signal`
+
+---
+
+## Willow Brain Architecture
+
+Reference: `Willow/PERSONALITY_SCHEMA.md` (separate repo)
+
+### Core Facets
+
+| Facet | Domain | Voice |
+|-------|--------|-------|
+| Gerald | Absurdist dispatches | Comedy wrapper, The Binder |
+| Oakenscroll | Academic satire | French Toast papers |
+| Riggs | Applied engineering | Lab/Lecture pairs |
+| Hanz | Coding, support | "Hello, friend." 🍊 |
+| Nova | Narrative | Children's books |
+| Alexis | Biology | Global health |
+| Willow | Integration | The whole brain |
+
+### Infrastructure Facets
+
+| Facet | Function |
+|-------|----------|
+| PM Claude | Routing, questions |
+| CMD (Kartikeya) | Building, infrastructure |
+| Stats Tracking | Analytics |
+| AIOS | OS layer |
+| Consus | Code generation |
+
+### Principles
+
+1. **Comedy opens doors** — Oakenscroll at 97%, serious at 17%
+2. **Dual Commit** — AI proposes, human ratifies
+3. **Trust but verify** — Even human claims get checked
+4. **Dump first, sense later** — Intake accepts mess, processing finds order
+
+---
+
+## L5-L6 Context
+
+Mobile Uplink exists for **medical necessity** — control from bed/phone when mobility is limited. Design for:
+- Large touch targets
+- Minimal required interaction
+- Quick PIN access on local network
+- Essential functions first
+
+---
+
+## Instance Identity
+
+Before starting work, verify which instance you are:
+
+| Context | Identity File |
+|---------|---------------|
+| Mobile Claude Code | `governance/instances/GANESHA.md` |
+| Desktop Claude Code | `governance/instances/KARTIKEYA.md` |
+| Claude.ai PM | `governance/instances/MITRA.md` |
+
+Read your identity file. Don't assume.
+
+---
+
 ΔΣ=42
 
-<!-- Sync verified: 2026-01-06T14:49:07Z -->
+<!-- Updated: 2026-01-16 by Kartikeya -->
