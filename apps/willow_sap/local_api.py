@@ -304,6 +304,82 @@ Remember: Keep responses concise. CPU inference is slow. No hallucination."""
         return f"[ERROR] {type(e).__name__}: {e}"
 
 
+def process_command_stream(prompt: str, persona: str = "Willow (Interface)",
+                           model: Optional[str] = None, user: str = DEFAULT_USER):
+    """
+    Process a command through Ollama with STREAMING response.
+
+    Yields chunks of text as they're generated. Feels much faster.
+
+    SAFE: Same constraints as process_command.
+    """
+    _rate_limit()
+
+    # Build full system prompt with context
+    persona_prompt = PERSONAS.get(persona, PERSONAS["Willow (Interface)"])
+    user_context = load_user_profile(user)
+
+    full_system_prompt = f"""{SYSTEM_CONTEXT}
+
+{user_context}
+
+{persona_prompt}
+
+Remember: Keep responses concise. CPU inference is slow. No hallucination."""
+
+    use_model = model or MODEL_FAST
+
+    _log(f"STREAM_REQUEST | persona={persona} | user={user} | model={use_model} | prompt={prompt[:50]}...")
+
+    # Check Ollama is running
+    if not check_ollama():
+        _log("ERROR | Ollama not responding")
+        yield "[ERROR] Ollama is not running."
+        return
+
+    # Build request with stream=True
+    payload = {
+        "model": use_model,
+        "prompt": prompt,
+        "system": full_system_prompt,
+        "stream": True,
+    }
+
+    try:
+        with requests.post(
+            f"{OLLAMA_URL}/api/generate",
+            json=payload,
+            timeout=120,
+            stream=True
+        ) as r:
+            if r.status_code != 200:
+                _log(f"ERROR | status={r.status_code}")
+                yield f"[ERROR] Ollama returned status {r.status_code}"
+                return
+
+            full_response = []
+            for line in r.iter_lines():
+                if line:
+                    try:
+                        import json
+                        chunk = json.loads(line)
+                        text = chunk.get("response", "")
+                        if text:
+                            full_response.append(text)
+                            yield text
+                    except:
+                        pass
+
+            _log(f"STREAM_RESPONSE | len={len(''.join(full_response))}")
+
+    except requests.exceptions.Timeout:
+        _log("ERROR | timeout")
+        yield "[ERROR] Request timed out"
+    except Exception as e:
+        _log(f"ERROR | {type(e).__name__}: {e}")
+        yield f"[ERROR] {e}"
+
+
 def trigger_sync() -> str:
     """
     Trigger a Drive sync operation.

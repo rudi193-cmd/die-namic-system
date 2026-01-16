@@ -62,14 +62,12 @@ if user_input:
     with st.chat_message("user"):
         st.write(user_input)
 
-    # Get Response from Ollama via local_api
-    with st.spinner(f"{mode} processing..."):
-        response = local_api.process_command(user_input, persona=mode)
-
-    # Show System Response
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    # Stream Response from Ollama via local_api
     with st.chat_message("assistant"):
-        st.write(response)
+        response = st.write_stream(local_api.process_command_stream(user_input, persona=mode))
+
+    # Save full response to session
+    st.session_state.messages.append({"role": "assistant", "content": response})
 
 # 3. BUTTONS (The "Hands")
 st.divider()
