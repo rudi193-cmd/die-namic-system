@@ -181,6 +181,40 @@ def extract_keywords(query: str) -> list:
     return unique[:5]  # Max 5 keywords
 
 
+def fuzzy_variants(keyword: str) -> set:
+    """
+    Generate fuzzy variants of a keyword for approximate matching.
+
+    Handles common typos:
+    - Double letters reduced (mann -> man)
+    - Single letter omissions
+    - Common letter swaps
+    """
+    variants = {keyword}
+
+    # Remove double letters (mann -> man, boook -> book)
+    i = 0
+    while i < len(keyword) - 1:
+        if keyword[i] == keyword[i + 1]:
+            reduced = keyword[:i] + keyword[i + 1:]
+            variants.add(reduced)
+        i += 1
+
+    # Add double letters (man -> mann, book -> boook)
+    for i in range(len(keyword)):
+        doubled = keyword[:i] + keyword[i] + keyword[i:]
+        if len(doubled) <= 10:  # Don't get too long
+            variants.add(doubled)
+
+    # Single letter omissions (books -> book, boks)
+    if len(keyword) > 3:
+        for i in range(len(keyword)):
+            omitted = keyword[:i] + keyword[i + 1:]
+            variants.add(omitted)
+
+    return variants
+
+
 def search_knowledge(query: str, max_results: int = 3) -> str:
     """
     Search docs for context relevant to query.
@@ -207,40 +241,55 @@ def search_knowledge(query: str, max_results: int = 3) -> str:
                 content = md_file.read_text(encoding="utf-8", errors="ignore")
                 content_lower = content.lower()
 
-                # Score by keyword matches
-                score = sum(1 for kw in keywords if kw in content_lower)
+                # Score by keyword matches (with fuzzy variants)
+                score = 0
+                matched_kw = None
+                matched_idx = -1
+
+                for kw in keywords:
+                    # Check exact match first (higher score)
+                    if kw in content_lower:
+                        score += 2
+                        if matched_idx == -1:
+                            matched_kw = kw
+                            matched_idx = content_lower.find(kw)
+                    else:
+                        # Check fuzzy variants (lower score)
+                        for variant in fuzzy_variants(kw):
+                            if variant in content_lower:
+                                score += 1
+                                if matched_idx == -1:
+                                    matched_kw = variant
+                                    matched_idx = content_lower.find(variant)
+                                break
+
                 if score == 0:
                     continue
 
-                # Extract relevant snippet (first match with context)
-                for kw in keywords:
-                    idx = content_lower.find(kw)
-                    if idx != -1:
-                        # Get surrounding context (200 chars each side)
-                        start = max(0, idx - 200)
-                        end = min(len(content), idx + 200)
-                        snippet = content[start:end].strip()
+                # Extract relevant snippet using matched keyword
+                if matched_idx != -1:
+                    # Get surrounding context (200 chars each side)
+                    start = max(0, matched_idx - 200)
+                    end = min(len(content), matched_idx + 200)
+                    snippet = content[start:end].strip()
 
-                        # Find line boundaries
-                        if start > 0:
-                            newline = snippet.find('\n')
-                            if newline > 0:
-                                snippet = snippet[newline+1:]
-                        if end < len(content):
-                            newline = snippet.rfind('\n')
-                            if newline > 0:
-                                snippet = snippet[:newline]
+                    # Find line boundaries
+                    if start > 0:
+                        newline = snippet.find('\n')
+                        if newline > 0:
+                            snippet = snippet[newline+1:]
+                    if end < len(content):
+                        newline = snippet.rfind('\n')
+                        if newline > 0:
+                            snippet = snippet[:newline]
 
-                        # Dedupe by content hash
-                        content_hash = hash(snippet[:100])
-                        if content_hash in seen_content:
-                            continue
+                    # Dedupe by content hash
+                    content_hash = hash(snippet[:100])
+                    if content_hash not in seen_content:
                         seen_content.add(content_hash)
-
                         # Get relative path for attribution
                         rel_path = md_file.relative_to(PROJECT_ROOT)
                         results.append((score, str(rel_path), snippet))
-                        break
 
             except Exception:
                 continue
@@ -853,6 +902,13 @@ def process_smart_stream(prompt: str, persona: str = "Willow",
     """
     # Route to appropriate tier
     tier = route_prompt(prompt)
+
+    # If RAG finds context, escalate to Tier 3 (better instruction following)
+    retrieved = search_knowledge(prompt)
+    if retrieved and len(retrieved) > 100:
+        tier = 3
+        _log(f"TIER_ESCALATE | RAG found context, forcing Tier 3")
+
     model = get_model_for_tier(tier)
     tier_info = MODEL_TIERS.get(tier, {})
 
