@@ -51,11 +51,16 @@ TIER3_KEYWORDS = [
     "write a", "create a", "implement", "refactor",
 ]
 
+# TIER 1 DISABLED - tinyllama too unreliable with system prompts
+# Uncomment when a better small model is found
 TIER1_PATTERNS = [
-    r"^(yes|no|ok|sure|thanks|hi|hello|hey)\b",  # Simple greetings/responses
-    r"^what (is|are) \w+\??$",  # Simple "what is X" questions
-    r"^(how much|how many|when|where)\b.{0,30}\??$",  # Short factual questions
+    # r"^(yes|no|ok|sure|thanks|hi|hello|hey)\b",  # Simple greetings/responses
+    # r"^what (is|are) \w+\??$",  # Simple "what is X" questions
+    # r"^(how much|how many|when|where)\b.{0,30}\??$",  # Short factual questions
 ]
+
+# Minimum tier (skip Tier 1)
+MIN_TIER = 2
 
 # === SYSTEM CONTEXT ===
 # This is what Die-Namic actually IS - prevents hallucination
@@ -193,17 +198,15 @@ def route_prompt(prompt: str) -> int:
             _log(f"ROUTE | tier=1 | trigger=pattern")
             return 1
 
-    # Length heuristic: very short = tier 1, very long = tier 3
-    if len(prompt) < 20:
-        _log(f"ROUTE | tier=1 | trigger=short")
-        return 1
-    elif len(prompt) > 500:
+    # Length heuristic: very long = tier 3
+    if len(prompt) > 500:
         _log(f"ROUTE | tier=3 | trigger=long")
         return 3
 
-    # Default to tier 2
-    _log(f"ROUTE | tier=2 | trigger=default")
-    return DEFAULT_TIER
+    # Default to tier 2 (respecting MIN_TIER)
+    tier = max(DEFAULT_TIER, MIN_TIER)
+    _log(f"ROUTE | tier={tier} | trigger=default")
+    return tier
 
 
 def get_model_for_tier(tier: int) -> str:
