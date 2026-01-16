@@ -8,7 +8,7 @@
 | To | Next Instance |
 | Priority | HIGH |
 | Created | 2026-01-15 ~22:30 |
-| Status | PENDING |
+| Status | COMPLETE |
 
 ---
 
@@ -85,6 +85,8 @@ Major infrastructure session. Built the foundation layer for Die-Namic cross-ins
 | `3b4ecad` | governance: 10 instance files |
 | `7cd3f9b` | governance: Signal spec + handoff |
 | `75fd4f8` | feat: 58 Aios conversations |
+| `0a06e9b` | docs: Aios code catalog |
+| `4202757` | docs: Catalog + Willow logs |
 
 ---
 
@@ -119,9 +121,10 @@ Full list in conversation - key items:
 
 - Streamlit running on port 8501
 - Git is clean (all committed and pushed)
-- Latest commit: `75fd4f8`
+- Latest commit: `4202757`
 - RAG searches both Claude and Aios history
 - Tier routing works (Tier 2 casual, Tier 3 for knowledge queries)
+- Aios code catalog complete: `docs/AIOS_CODE_CATALOG.md`
 
 ---
 
