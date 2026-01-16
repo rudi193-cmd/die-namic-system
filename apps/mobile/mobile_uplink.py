@@ -18,6 +18,18 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from willow_sap import local_api
 
+# Add governance path for Gatekeeper
+governance_path = Path(__file__).parent.parent.parent / "governance"
+sys.path.insert(0, str(governance_path))
+try:
+    from gate import (
+        validate_modification, get_state, reset_demo, pending, audit,
+        verify, enter_layer, exit_layer, approve, reject
+    )
+    GATEKEEPER_AVAILABLE = True
+except ImportError:
+    GATEKEEPER_AVAILABLE = False
+
 # === CONFIGURATION ===
 st.set_page_config(
     page_title="Willow Mobile",
@@ -138,6 +150,98 @@ with col3:
     if st.button("Clear Chat"):
         st.session_state.messages = []
         st.rerun()
+
+# === GATEKEEPER TEST PANEL ===
+if GATEKEEPER_AVAILABLE:
+    st.divider()
+    with st.expander("🔐 Gatekeeper v2.3.0", expanded=False):
+        st.markdown("**ΔG-1 + ΔG-4 Enforced**")
+
+        # State display
+        state = get_state()
+        st.code(f"""State:
+  depth: {state['depth']}
+  sequence: {state['sequence']}
+  pending: {state['pending_count']}
+  audit: {state['audit_count']}
+  checksum: {'✓' if verify() else '✗'}""")
+
+        # Test form
+        st.markdown("**Test Mutation**")
+        col_a, col_b = st.columns(2)
+
+        with col_a:
+            test_authority = st.selectbox(
+                "Authority (ΔG-1)",
+                ["human", "ai", "system"],
+                key="gate_authority"
+            )
+            test_mod_type = st.selectbox(
+                "Mod Type",
+                ["state", "config", "behavior", "governance", "external"],
+                key="gate_mod_type"
+            )
+
+        with col_b:
+            test_gov_state = st.selectbox(
+                "Gov State (ΔG-4)",
+                ["", "proposed", "ratified", "active", "deprecated"],
+                key="gate_gov_state"
+            )
+            test_prev_state = st.selectbox(
+                "Prev State",
+                ["", "proposed", "ratified", "active", "deprecated"],
+                key="gate_prev_state"
+            )
+
+        test_target = st.text_input("Target", value="test.setting", key="gate_target")
+        test_value = st.text_input("New Value", value="test_value", key="gate_value")
+        test_reason = st.text_input("Reason", value="Datapad test", key="gate_reason")
+
+        col_submit, col_reset = st.columns(2)
+
+        with col_submit:
+            if st.button("Submit to Gate", type="primary"):
+                result = validate_modification(
+                    mod_type=test_mod_type,
+                    target=test_target,
+                    new_value=test_value,
+                    reason=test_reason,
+                    authority=test_authority,
+                    governance_state=test_gov_state,
+                    prev_governance_state=test_prev_state
+                )
+                if result['approved']:
+                    st.success(f"✓ APPROVED\nCode: {result['code']}")
+                elif result['requires_human']:
+                    st.warning(f"⏳ REQUIRES HUMAN\nCode: {result['code']}\n{result['reason']}")
+                else:
+                    st.error(f"✗ HALTED\nCode: {result['code']}\n{result['reason']}")
+
+        with col_reset:
+            if st.button("Reset Demo"):
+                reset_demo()
+                st.toast("Demo state reset")
+                st.rerun()
+
+        # Pending approvals
+        pending_list = pending()
+        if pending_list:
+            st.markdown(f"**Pending Approvals ({len(pending_list)})**")
+            for p in pending_list:
+                with st.container():
+                    st.code(f"ID: {p['request_id'][:8]}...\nTarget: {p['target']}\nValue: {p['new_value'][:30]}")
+                    c1, c2 = st.columns(2)
+                    with c1:
+                        if st.button("Approve", key=f"approve_{p['request_id']}"):
+                            approve(p['request_id'])
+                            st.toast("Approved")
+                            st.rerun()
+                    with c2:
+                        if st.button("Reject", key=f"reject_{p['request_id']}"):
+                            reject(p['request_id'], "Rejected via Datapad")
+                            st.toast("Rejected")
+                            st.rerun()
 
 # === FOOTER ===
 st.divider()
