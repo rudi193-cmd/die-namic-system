@@ -445,7 +445,7 @@ def list_models() -> list:
     return []
 
 
-def process_command(prompt: str, persona: str = "Willow (Interface)",
+def process_command(prompt: str, persona: str = "Willow",
                     model: Optional[str] = None, user: str = DEFAULT_USER) -> str:
     """
     Process a command through Ollama with persona routing and user context.
@@ -455,7 +455,7 @@ def process_command(prompt: str, persona: str = "Willow (Interface)",
 
     Args:
         prompt: User's input text
-        persona: One of "Willow (Interface)", "Riggs (Ops)", "Alexis (Bio)"
+        persona: One of "Willow", "Riggs (Ops)", "Alexis (Bio)"
         model: Override model (default: llama3.2:latest)
         user: Username for profile loading (default: Sweet-Pea-Rudi19)
 
@@ -465,7 +465,7 @@ def process_command(prompt: str, persona: str = "Willow (Interface)",
     _rate_limit()
 
     # Build full system prompt with context
-    persona_prompt = PERSONAS.get(persona, PERSONAS["Willow (Interface)"])
+    persona_prompt = PERSONAS.get(persona, PERSONAS["Willow"])
     user_context = load_user_profile(user)
 
     # Combine: System Context + User Context + Persona
@@ -517,7 +517,7 @@ Remember: Keep responses concise. CPU inference is slow. No hallucination."""
         return f"[ERROR] {type(e).__name__}: {e}"
 
 
-def process_command_stream(prompt: str, persona: str = "Willow (Interface)",
+def process_command_stream(prompt: str, persona: str = "Willow",
                            model: Optional[str] = None, user: str = DEFAULT_USER):
     """
     Process a command through Ollama with STREAMING response.
@@ -529,7 +529,7 @@ def process_command_stream(prompt: str, persona: str = "Willow (Interface)",
     _rate_limit()
 
     # Build full system prompt with context
-    persona_prompt = PERSONAS.get(persona, PERSONAS["Willow (Interface)"])
+    persona_prompt = PERSONAS.get(persona, PERSONAS["Willow"])
     user_context = load_user_profile(user)
 
     full_system_prompt = f"""{SYSTEM_CONTEXT}
@@ -593,7 +593,7 @@ Remember: Keep responses concise. CPU inference is slow. No hallucination."""
         yield f"[ERROR] {e}"
 
 
-def process_smart_stream(prompt: str, persona: str = "Willow (Interface)",
+def process_smart_stream(prompt: str, persona: str = "Willow",
                           user: str = DEFAULT_USER):
     """
     Smart streaming: Routes prompt to appropriate model tier.
@@ -650,5 +650,5 @@ if __name__ == "__main__":
 
     if check_ollama():
         print("\nTest query (Willow):")
-        result = process_command("What system are you part of?", persona="Willow (Interface)")
+        result = process_command("What system are you part of?", persona="Willow")
         print(result[:300] + "..." if len(result) > 300 else result)
