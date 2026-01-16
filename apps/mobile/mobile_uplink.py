@@ -104,6 +104,22 @@ if user_input:
     # Save full response to session
     st.session_state.messages.append({"role": "assistant", "content": response})
 
+    # Log conversation for training data
+    # Extract tier from response prefix (e.g., "[Tier 2: General conversation]")
+    tier_num = 2  # default
+    if response and response.startswith("[Tier "):
+        try:
+            tier_num = int(response[6])
+        except (ValueError, IndexError):
+            pass
+    local_api.log_conversation(
+        persona=mode,
+        user_input=user_input,
+        assistant_response=response,
+        model=local_api.MODEL_TIERS.get(tier_num, {}).get("name", "unknown"),
+        tier=tier_num
+    )
+
 # 3. BUTTONS (The "Hands")
 st.divider()
 col1, col2, col3 = st.columns(3)

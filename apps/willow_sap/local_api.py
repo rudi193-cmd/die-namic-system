@@ -62,6 +62,73 @@ TIER1_PATTERNS = [
 # Minimum tier (skip Tier 1)
 MIN_TIER = 2
 
+# === CONVERSATION LOGGING ===
+# Root of die-namic-system repo (relative to this file)
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+CONVERSATION_LOG_ROOT = PROJECT_ROOT / "docs" / "utety"
+
+# Map persona names to folder names (lowercase, filesystem-safe)
+PERSONA_FOLDERS = {
+    "Willow": "willow",
+    "Oakenscroll": "oakenscroll",
+    "Riggs": "riggs",
+    "Hanz": "hanz",
+    "Nova": "nova",
+    "Ada": "ada",
+    "Alexis": "alexis",
+    "Ofshield": "ofshield",
+    "Gerald": "gerald",
+}
+
+
+def log_conversation(
+    persona: str,
+    user_input: str,
+    assistant_response: str,
+    model: str = "unknown",
+    tier: int = 0
+) -> None:
+    """
+    Log a conversation exchange for later training/review.
+
+    Saves to: docs/utety/{persona}/conversations/{date}.md
+
+    SAFE: Append-only, no deletions, no overwrites.
+    """
+    try:
+        folder_name = PERSONA_FOLDERS.get(persona, persona.lower())
+        log_dir = CONVERSATION_LOG_ROOT / folder_name / "conversations"
+        log_dir.mkdir(parents=True, exist_ok=True)
+
+        # Daily log file
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        log_file = log_dir / f"{date_str}.md"
+
+        # Timestamp for this exchange
+        timestamp = datetime.now().strftime("%H:%M:%S")
+
+        # Format entry
+        entry = f"""
+---
+**[{timestamp}]** (Tier {tier}, {model})
+
+**User:** {user_input}
+
+**{persona}:** {assistant_response}
+
+"""
+        # Append (create if needed)
+        with open(log_file, "a", encoding="utf-8") as f:
+            # Add header if new file
+            if log_file.stat().st_size == 0 if log_file.exists() else True:
+                f.write(f"# {persona} Conversations - {date_str}\n\n")
+            f.write(entry)
+
+        _log(f"CONVERSATION_LOGGED | {persona} | {len(user_input)}c -> {len(assistant_response)}c")
+    except Exception as e:
+        _log(f"CONVERSATION_LOG_ERROR | {e}")
+
+
 # === SYSTEM CONTEXT ===
 # This is what Die-Namic actually IS - prevents hallucination
 SYSTEM_CONTEXT = """
