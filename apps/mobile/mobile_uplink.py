@@ -22,6 +22,9 @@ from willow_sap.coherence import get_coherence_report, THRESHOLDS
 # Auth module
 from auth import render_login, render_auth_status, get_current_user, render_admin_panel
 
+# Folder UI (Mitra's spatial navigation - SIG-041)
+from folder_ui import render_folder_ui, render_sidebar_tree
+
 # Add governance path for Gatekeeper
 governance_path = Path(__file__).parent.parent.parent / "governance"
 sys.path.insert(0, str(governance_path))
@@ -45,8 +48,58 @@ st.set_page_config(
 if not render_login():
     st.stop()
 
-# === THE SIDEBAR (Faculty Selection) ===
-st.sidebar.title("UTETY Faculty")
+# === UI MODE SELECTION ===
+st.sidebar.title("Willow Mobile")
+ui_mode = st.sidebar.radio(
+    "Interface",
+    ["Classic", "Spatial"],
+    format_func=lambda x: "📻 Classic (Channels)" if x == "Classic" else "📁 Spatial (Folders)",
+    help="Classic: Channel-based chat | Spatial: Folder navigation (SIG-041)"
+)
+
+st.sidebar.divider()
+
+# === SPATIAL MODE (Mitra's folder-as-persona UI) ===
+if ui_mode == "Spatial":
+    render_sidebar_tree()
+    st.sidebar.divider()
+
+    # System status in sidebar
+    st.sidebar.markdown("**System Status**")
+    ollama_status = "ONLINE" if local_api.check_ollama() else "OFFLINE"
+    models = local_api.list_models()
+    model_str = models[0] if models else "none"
+    st.sidebar.code(f"OLLAMA: {ollama_status}\nMODEL: {model_str}\nL5-L6: SAFE")
+
+    # ΔE Coherence Status
+    st.sidebar.divider()
+    st.sidebar.markdown("**ΔE Coherence**")
+    try:
+        coherence_report = get_coherence_report()
+        state_emoji = {"regenerative": "↑", "stable": "→", "decaying": "↓", "no_data": "○"}.get(
+            coherence_report.get("status", "stable"), "→"
+        )
+        delta_e = coherence_report.get("average_delta_e", 0)
+        ci = coherence_report.get("latest_coherence", 0) or 0
+        trend = coherence_report.get("trend", "unknown")
+        st.sidebar.code(f"ΔE: {delta_e:+.4f} {state_emoji}\nCᵢ: {ci:.2f}\nTrend: {trend}")
+    except Exception:
+        st.sidebar.code("ΔE: [loading...]")
+
+    render_auth_status()
+
+    # Main content: Folder UI
+    render_folder_ui(local_api.process_smart_stream)
+
+    # Footer
+    st.divider()
+    user = get_current_user()
+    user_str = f" | {user['display_name']}" if user else ""
+    st.caption(f"Die-Namic System | Spatial Mode{user_str} | ΔΣ=42")
+    st.stop()  # Don't render classic UI
+
+# === CLASSIC MODE: THE SIDEBAR (Faculty Selection) ===
+st.sidebar.markdown("### UTETY Faculty")
 
 # Faculty organized by role
 FACULTY = {
@@ -122,9 +175,12 @@ st.title(f"Connected to: {DISPLAY_NAMES.get(mode, mode)}")
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.write(message["content"])
+# Scrollable chat container (mobile-friendly)
+chat_container = st.container(height=400)
+with chat_container:
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.write(message["content"])
 
 # 2. Input Field
 user_input = st.chat_input("Transmit orders...")
