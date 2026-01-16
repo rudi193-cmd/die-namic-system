@@ -69,6 +69,15 @@ class DecisionCode(Enum):
     ROUTE_EXTERNAL_SURFACE = "route_external_surface"
     ROUTE_FORBIDDEN_SURFACE = "route_forbidden_surface"
 
+    # ΔG-1: Authority violation codes
+    HALT_AUTHORITY_MISSING = "halt_authority_missing"
+    HALT_AUTHORITY_INVALID = "halt_authority_invalid"
+    HALT_AUTHORITY_VIOLATION = "halt_authority_violation"
+
+    # ΔG-4: State transition violation codes
+    HALT_GOVERNANCE_STATE_INVALID = "halt_governance_state_invalid"
+    HALT_STATE_TRANSITION_VIOLATION = "halt_state_transition_violation"
+
 
 class ModificationType(Enum):
     """Categories of modification requests."""
@@ -77,6 +86,39 @@ class ModificationType(Enum):
     GOVERNANCE = "governance"
     STATE = "state"
     EXTERNAL = "external"
+
+
+class Authority(Enum):
+    """
+    Authority source for state mutations (ΔG-1).
+
+    AI is advisory-only: can propose but not ratify/activate/deprecate.
+    """
+    HUMAN = "human"
+    AI = "ai"
+    SYSTEM = "system"
+
+
+class GovernanceState(Enum):
+    """
+    Governance lifecycle states (ΔG-4).
+
+    Linear transitions only: proposed → ratified → active → deprecated
+    No skipping allowed.
+    """
+    PROPOSED = "proposed"
+    RATIFIED = "ratified"
+    ACTIVE = "active"
+    DEPRECATED = "deprecated"
+
+
+# ΔG-4: Allowed state transitions (closed set)
+ALLOWED_GOVERNANCE_TRANSITIONS = {
+    GovernanceState.PROPOSED: [GovernanceState.RATIFIED],
+    GovernanceState.RATIFIED: [GovernanceState.ACTIVE],
+    GovernanceState.ACTIVE: [GovernanceState.DEPRECATED],
+    GovernanceState.DEPRECATED: [],
+}
 
 
 @dataclass
@@ -123,15 +165,21 @@ class RuntimeState:
 class ModificationRequest:
     """
     A request to modify system state or behavior.
-    
+
     Must include sequence for ordering enforcement.
     Optional idempotency_key for safe retries.
+
+    ΔG-1: authority is REQUIRED for all mutations.
+    ΔG-4: governance_state transitions are validated.
     """
     mod_type: str  # String, validated by Gatekeeper
     target: str
     new_value: str
     reason: str
     sequence: int  # Required: must equal state.sequence + 1
+    authority: str = ""  # ΔG-1: human | ai | system (REQUIRED)
+    governance_state: str = ""  # ΔG-4: proposed | ratified | active | deprecated
+    prev_governance_state: str = ""  # ΔG-4: for transition validation
     old_value: Optional[str] = None
     idempotency_key: Optional[str] = None
     timestamp: str = ""

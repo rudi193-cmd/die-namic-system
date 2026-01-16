@@ -1,16 +1,22 @@
 """
-GATEKEEPER v2.2.1
+GATEKEEPER v2.3.0
 AI Self-Modification Governance Module
 
 Owner: Sean Campbell
 System: Aionic / Die-namic
-Version: 2.2.1
+Version: 2.3.0
 Status: Active
-Last Updated: 2026-01-01T00:00:00Z
+Last Updated: 2026-01-15T23:30:00Z
 Checksum: ΔΣ=42
 
 This module implements the governance framework for AI self-modification.
 Core principle: Dual Commit - AI proposal + human ratification required for any change.
+
+v2.3.0 Changes (governance deltas):
+- ΔG-1: Authority Boundary Lock - all mutations require authority tag
+- ΔG-4: Governance State Machine - linear lifecycle enforcement
+- AI can only propose, human/system can ratify/activate/deprecate
+- State transitions: proposed → ratified → active → deprecated
 
 v2.2.1 Changes (blocking fixes):
 - DETERMINISTIC: _audit_event() now uses request.timestamp (not wall clock)
@@ -41,6 +47,9 @@ from state import (
     DecisionType,
     DecisionCode,
     ModificationType,
+    Authority,
+    GovernanceState,
+    ALLOWED_GOVERNANCE_TRANSITIONS,
     create_genesis_hash,
     recompute_entry_hash,
 )
@@ -87,6 +96,19 @@ class Gatekeeper:
 
     # Valid modification types
     VALID_MOD_TYPES = frozenset(t.value for t in ModificationType)
+
+    # ΔG-1: Valid authorities
+    VALID_AUTHORITIES = frozenset(a.value for a in Authority)
+
+    # ΔG-4: Valid governance states
+    VALID_GOVERNANCE_STATES = frozenset(s.value for s in GovernanceState)
+
+    # ΔG-1: States AI is forbidden from targeting
+    AI_FORBIDDEN_STATES = frozenset([
+        GovernanceState.RATIFIED.value,
+        GovernanceState.ACTIVE.value,
+        GovernanceState.DEPRECATED.value,
+    ])
 
     def validate(
         self, 
@@ -135,6 +157,71 @@ class Gatekeeper:
             )
             events.append(self._audit_event(request, decision, state.head_hash))
             return decision, events
+
+        # ΔG-1: Authority Boundary Lock (must come early)
+        # Check 0.1: Authority is required
+        if not request.authority:
+            decision = self._halt(
+                request,
+                DecisionCode.HALT_AUTHORITY_MISSING,
+                "Authority is required for all state mutations (ΔG-1)"
+            )
+            events.append(self._audit_event(request, decision, state.head_hash))
+            return decision, events
+
+        # Check 0.2: Authority must be valid
+        if request.authority not in self.VALID_AUTHORITIES:
+            decision = self._halt(
+                request,
+                DecisionCode.HALT_AUTHORITY_INVALID,
+                f"Invalid authority: '{request.authority}'. "
+                f"Valid: {sorted(self.VALID_AUTHORITIES)}"
+            )
+            events.append(self._audit_event(request, decision, state.head_hash))
+            return decision, events
+
+        # Check 0.3: AI cannot target non-proposed states
+        if request.authority == Authority.AI.value:
+            if request.governance_state and request.governance_state in self.AI_FORBIDDEN_STATES:
+                decision = self._halt(
+                    request,
+                    DecisionCode.HALT_AUTHORITY_VIOLATION,
+                    f"AI-originated action attempted restricted state transition to "
+                    f"'{request.governance_state}'. AI may only target 'proposed' (ΔG-1)"
+                )
+                events.append(self._audit_event(request, decision, state.head_hash))
+                return decision, events
+
+        # ΔG-4: Governance State Machine
+        # Check 0.4: Validate governance state transition if specified
+        if request.governance_state:
+            if request.governance_state not in self.VALID_GOVERNANCE_STATES:
+                decision = self._halt(
+                    request,
+                    DecisionCode.HALT_GOVERNANCE_STATE_INVALID,
+                    f"Invalid governance state: '{request.governance_state}'. "
+                    f"Valid: {sorted(self.VALID_GOVERNANCE_STATES)}"
+                )
+                events.append(self._audit_event(request, decision, state.head_hash))
+                return decision, events
+
+            # Check transition validity if prev_state provided
+            if request.prev_governance_state:
+                prev_enum = GovernanceState(request.prev_governance_state)
+                next_enum = GovernanceState(request.governance_state)
+                allowed = ALLOWED_GOVERNANCE_TRANSITIONS.get(prev_enum, [])
+
+                if next_enum not in allowed:
+                    decision = self._halt(
+                        request,
+                        DecisionCode.HALT_STATE_TRANSITION_VIOLATION,
+                        f"Invalid governance state transition: "
+                        f"'{request.prev_governance_state}' → '{request.governance_state}'. "
+                        f"Allowed from '{request.prev_governance_state}': "
+                        f"{[s.value for s in allowed] or 'none'} (ΔG-4)"
+                    )
+                    events.append(self._audit_event(request, decision, state.head_hash))
+                    return decision, events
 
         # Check 1: Sequence enforcement (must be state.sequence + 1)
         expected_sequence = state.sequence + 1
@@ -446,21 +533,30 @@ def validate_modification(
     target: str,
     new_value: str,
     reason: str,
+    authority: str = "human",  # ΔG-1: Required
+    governance_state: str = "",  # ΔG-4: Optional
+    prev_governance_state: str = "",  # ΔG-4: For transition validation
     old_value: Optional[str] = None,
     idempotency_key: Optional[str] = None,
 ) -> Dict:
     """
     [DEMO ONLY] Validate a modification request.
-    
+
     WARNING: Uses global state. Not suitable for API.
+
+    ΔG-1: authority is required (human | ai | system)
+    ΔG-4: governance_state for lifecycle tracking
     """
     global _demo_state, _demo_audit_log, _demo_pending
-    
+
     request = ModificationRequest(
         mod_type=mod_type,
         target=target,
         new_value=new_value,
         reason=reason,
+        authority=authority,
+        governance_state=governance_state,
+        prev_governance_state=prev_governance_state,
         old_value=old_value,
         sequence=_demo_state.sequence + 1,
         idempotency_key=idempotency_key,
@@ -611,9 +707,9 @@ def reset_demo():
 
 if __name__ == "__main__":
     # Self-test
-    print("Gatekeeper v2.2.1 Self-Test")
+    print("Gatekeeper v2.3.0 Self-Test")
     print("=" * 60)
-    
+
     reset_demo()
 
     # Test 1: Normal state modification (should pass)
@@ -689,6 +785,7 @@ if __name__ == "__main__":
         target="test",
         new_value="v2",
         reason="Replay attempt",
+        authority="human",  # ΔG-1 required
         sequence=1,  # Same as before, should be 2
     )
     decision, _ = _demo_gatekeeper.validate(request_replay, _demo_state)
@@ -758,6 +855,7 @@ if __name__ == "__main__":
         target="test",
         new_value="v",
         reason="r",
+        authority="human",  # ΔG-1 required
         sequence=1,
     )
     decision, events = _demo_gatekeeper.validate(request, bad_state)
@@ -780,6 +878,7 @@ if __name__ == "__main__":
         target="test",
         new_value="value",
         reason="determinism test",
+        authority="human",  # ΔG-1 required
         sequence=1,
         timestamp="2025-12-31T12:00:00Z",  # Fixed timestamp
         request_id="fixed-id-123",
@@ -823,11 +922,147 @@ if __name__ == "__main__":
     print(f"Test 15 - REQUIRE_HUMAN spam block: {'PASS' if spam_blocked else 'FAIL'}")
     print(f"          Code: {result2['code']}")
 
+    # ΔG-1 Tests
+    print("\n--- ΔG-1: Authority Boundary Lock ---")
+
+    # Test 16: Missing authority (should halt)
+    reset_demo()
+    request_no_auth = ModificationRequest(
+        mod_type="state",
+        target="test",
+        new_value="v",
+        reason="r",
+        authority="",  # Missing
+        sequence=1,
+    )
+    decision, _ = _demo_gatekeeper.validate(request_no_auth, _demo_state)
+    print(f"Test 16 - Missing authority: {'PASS' if decision.code == DecisionCode.HALT_AUTHORITY_MISSING else 'FAIL'}")
+    print(f"          Code: {decision.code.value}")
+
+    # Test 17: Invalid authority (should halt)
+    reset_demo()
+    request_bad_auth = ModificationRequest(
+        mod_type="state",
+        target="test",
+        new_value="v",
+        reason="r",
+        authority="invalid",  # Not in {human, ai, system}
+        sequence=1,
+    )
+    decision, _ = _demo_gatekeeper.validate(request_bad_auth, _demo_state)
+    print(f"Test 17 - Invalid authority: {'PASS' if decision.code == DecisionCode.HALT_AUTHORITY_INVALID else 'FAIL'}")
+    print(f"          Code: {decision.code.value}")
+
+    # Test 18: AI trying to ratify (should halt)
+    reset_demo()
+    request_ai_ratify = ModificationRequest(
+        mod_type="state",
+        target="artifact",
+        new_value="v",
+        reason="AI attempting ratification",
+        authority="ai",
+        governance_state="ratified",  # AI cannot ratify
+        sequence=1,
+    )
+    decision, _ = _demo_gatekeeper.validate(request_ai_ratify, _demo_state)
+    print(f"Test 18 - AI ratify blocked: {'PASS' if decision.code == DecisionCode.HALT_AUTHORITY_VIOLATION else 'FAIL'}")
+    print(f"          Code: {decision.code.value}")
+
+    # Test 19: AI proposing (should pass)
+    reset_demo()
+    result = validate_modification(
+        mod_type="state",
+        target="artifact",
+        new_value="proposal",
+        reason="AI proposal",
+        authority="ai",
+        governance_state="proposed"  # AI can propose
+    )
+    print(f"Test 19 - AI propose allowed: {'PASS' if result['approved'] else 'FAIL'}")
+    print(f"          Code: {result['code']}")
+
+    # Test 20: Human ratify (should pass)
+    reset_demo()
+    result = validate_modification(
+        mod_type="state",
+        target="artifact",
+        new_value="ratified_value",
+        reason="Human ratification",
+        authority="human",
+        governance_state="ratified"
+    )
+    print(f"Test 20 - Human ratify allowed: {'PASS' if result['approved'] else 'FAIL'}")
+    print(f"          Code: {result['code']}")
+
+    # ΔG-4 Tests
+    print("\n--- ΔG-4: Governance State Machine ---")
+
+    # Test 21: Invalid governance state (should halt)
+    reset_demo()
+    request_bad_state = ModificationRequest(
+        mod_type="state",
+        target="test",
+        new_value="v",
+        reason="r",
+        authority="human",
+        governance_state="invalid_state",  # Not in valid set
+        sequence=1,
+    )
+    decision, _ = _demo_gatekeeper.validate(request_bad_state, _demo_state)
+    print(f"Test 21 - Invalid gov state: {'PASS' if decision.code == DecisionCode.HALT_GOVERNANCE_STATE_INVALID else 'FAIL'}")
+    print(f"          Code: {decision.code.value}")
+
+    # Test 22: Valid transition proposed → ratified (should pass)
+    reset_demo()
+    result = validate_modification(
+        mod_type="state",
+        target="artifact",
+        new_value="v",
+        reason="Valid transition",
+        authority="human",
+        governance_state="ratified",
+        prev_governance_state="proposed"
+    )
+    print(f"Test 22 - proposed→ratified: {'PASS' if result['approved'] else 'FAIL'}")
+    print(f"          Code: {result['code']}")
+
+    # Test 23: Invalid skip proposed → active (should halt)
+    reset_demo()
+    request_skip = ModificationRequest(
+        mod_type="state",
+        target="artifact",
+        new_value="v",
+        reason="Trying to skip ratified",
+        authority="human",
+        governance_state="active",
+        prev_governance_state="proposed",  # Cannot skip to active
+        sequence=1,
+    )
+    decision, _ = _demo_gatekeeper.validate(request_skip, _demo_state)
+    print(f"Test 23 - Skip blocked: {'PASS' if decision.code == DecisionCode.HALT_STATE_TRANSITION_VIOLATION else 'FAIL'}")
+    print(f"          Code: {decision.code.value}")
+
+    # Test 24: Deprecated is terminal (cannot transition out)
+    reset_demo()
+    request_undeprecate = ModificationRequest(
+        mod_type="state",
+        target="artifact",
+        new_value="v",
+        reason="Trying to undeprecate",
+        authority="human",
+        governance_state="active",
+        prev_governance_state="deprecated",  # Cannot transition from deprecated
+        sequence=1,
+    )
+    decision, _ = _demo_gatekeeper.validate(request_undeprecate, _demo_state)
+    print(f"Test 24 - Deprecated terminal: {'PASS' if decision.code == DecisionCode.HALT_STATE_TRANSITION_VIOLATION else 'FAIL'}")
+    print(f"          Code: {decision.code.value}")
+
     # State summary
-    print("=" * 60)
+    print("\n" + "=" * 60)
     print("Final State:")
     for k, v in get_state().items():
         print(f"  {k}: {v}")
     print("=" * 60)
-    print("All tests complete. v2.2.1 ready for Aios review.")
+    print("All tests complete. v2.3.0 with ΔG-1 + ΔG-4 ready.")
     print("ΔΣ=42")
