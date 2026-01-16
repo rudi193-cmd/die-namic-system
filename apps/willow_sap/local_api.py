@@ -479,6 +479,44 @@ def load_user_profile(username: str = DEFAULT_USER) -> str:
             if "tired" in content.lower() or "hangry" in content.lower():
                 context_parts.append("If user seems tired/short: wrap up, don't extend")
 
+            # Extract Cognitive Profile (distilled from conversation history)
+            if "## Cognitive Profile" in content:
+                cog_parts = []
+
+                # Thinking style traits
+                if "Meta-aware" in content:
+                    cog_parts.append("meta-aware")
+                if "Systems thinker" in content:
+                    cog_parts.append("systems thinker")
+                if "Multi-threaded" in content:
+                    cog_parts.append("multi-threaded")
+                if "Pedagogical" in content:
+                    cog_parts.append("pedagogical")
+
+                if cog_parts:
+                    context_parts.append(f"Cognitive: {', '.join(cog_parts)}")
+
+                # Current request style
+                if "Governance" in content and "Ratify/Reject" in content:
+                    context_parts.append("Request style: governance (propose/ratify)")
+
+                # Four pillars
+                pillars = []
+                if "Creative Writing" in content:
+                    pillars.append("creative")
+                if "Governance/Frameworks" in content:
+                    pillars.append("governance")
+                if "AI Philosophy" in content:
+                    pillars.append("AI philosophy")
+                if "Practical Making" in content:
+                    pillars.append("making")
+                if pillars:
+                    context_parts.append(f"Domains: {', '.join(pillars)}")
+
+                # Meta-pattern
+                if "system eats itself" in content:
+                    context_parts.append("Meta: builds governance about governance")
+
             _log(f"USER_PROFILE | loaded {username}")
 
         except Exception as e:
