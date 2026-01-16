@@ -129,6 +129,144 @@ def log_conversation(
         _log(f"CONVERSATION_LOG_ERROR | {e}")
 
 
+# === KNOWLEDGE SEARCH ===
+# Simple RAG: search docs for relevant context
+
+# Folders to search (relative to PROJECT_ROOT)
+SEARCH_PATHS = [
+    "docs/utety",
+    "governance",
+    "docs/journal",
+]
+
+# Stop words to skip when extracting keywords
+STOP_WORDS = {
+    "a", "an", "the", "is", "are", "was", "were", "be", "been", "being",
+    "have", "has", "had", "do", "does", "did", "will", "would", "could",
+    "should", "may", "might", "must", "shall", "can", "need", "dare",
+    "ought", "used", "to", "of", "in", "for", "on", "with", "at", "by",
+    "from", "as", "into", "through", "during", "before", "after", "above",
+    "below", "between", "under", "again", "further", "then", "once", "here",
+    "there", "when", "where", "why", "how", "all", "each", "few", "more",
+    "most", "other", "some", "such", "no", "nor", "not", "only", "own",
+    "same", "so", "than", "too", "very", "just", "and", "but", "if", "or",
+    "because", "until", "while", "about", "against", "between", "into",
+    "through", "during", "before", "after", "above", "below", "up", "down",
+    "out", "off", "over", "under", "again", "further", "then", "once",
+    "what", "which", "who", "whom", "this", "that", "these", "those",
+    "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you",
+    "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself",
+    "she", "her", "hers", "herself", "it", "its", "itself", "they", "them",
+    "their", "theirs", "themselves", "am", "been", "being", "both", "but",
+    "hi", "hello", "hey", "please", "thanks", "thank", "okay", "ok",
+}
+
+# Maximum context to inject (characters)
+MAX_SEARCH_CONTEXT = 2000
+
+
+def extract_keywords(query: str) -> list:
+    """Extract meaningful keywords from a query."""
+    # Simple tokenization
+    words = re.findall(r'\b[a-zA-Z]{3,}\b', query.lower())
+    # Filter stop words
+    keywords = [w for w in words if w not in STOP_WORDS]
+    # Dedupe while preserving order
+    seen = set()
+    unique = []
+    for w in keywords:
+        if w not in seen:
+            seen.add(w)
+            unique.append(w)
+    return unique[:5]  # Max 5 keywords
+
+
+def search_knowledge(query: str, max_results: int = 3) -> str:
+    """
+    Search docs for context relevant to query.
+
+    SAFE: Read-only. Searches local files only.
+
+    Returns formatted context string for prompt injection.
+    """
+    keywords = extract_keywords(query)
+    if not keywords:
+        return ""
+
+    results = []
+    seen_content = set()
+
+    for search_path in SEARCH_PATHS:
+        full_path = PROJECT_ROOT / search_path
+        if not full_path.exists():
+            continue
+
+        # Search markdown files
+        for md_file in full_path.rglob("*.md"):
+            try:
+                content = md_file.read_text(encoding="utf-8", errors="ignore")
+                content_lower = content.lower()
+
+                # Score by keyword matches
+                score = sum(1 for kw in keywords if kw in content_lower)
+                if score == 0:
+                    continue
+
+                # Extract relevant snippet (first match with context)
+                for kw in keywords:
+                    idx = content_lower.find(kw)
+                    if idx != -1:
+                        # Get surrounding context (200 chars each side)
+                        start = max(0, idx - 200)
+                        end = min(len(content), idx + 200)
+                        snippet = content[start:end].strip()
+
+                        # Find line boundaries
+                        if start > 0:
+                            newline = snippet.find('\n')
+                            if newline > 0:
+                                snippet = snippet[newline+1:]
+                        if end < len(content):
+                            newline = snippet.rfind('\n')
+                            if newline > 0:
+                                snippet = snippet[:newline]
+
+                        # Dedupe by content hash
+                        content_hash = hash(snippet[:100])
+                        if content_hash in seen_content:
+                            continue
+                        seen_content.add(content_hash)
+
+                        # Get relative path for attribution
+                        rel_path = md_file.relative_to(PROJECT_ROOT)
+                        results.append((score, str(rel_path), snippet))
+                        break
+
+            except Exception:
+                continue
+
+    if not results:
+        return ""
+
+    # Sort by score, take top N
+    results.sort(key=lambda x: x[0], reverse=True)
+    top_results = results[:max_results]
+
+    # Format for injection
+    context_parts = ["## RETRIEVED CONTEXT (from local knowledge base)"]
+    total_len = 0
+
+    for score, path, snippet in top_results:
+        if total_len > MAX_SEARCH_CONTEXT:
+            break
+        entry = f"\n**Source: {path}**\n{snippet}\n"
+        context_parts.append(entry)
+        total_len += len(entry)
+
+    _log(f"SEARCH | keywords={keywords} | found={len(results)} | used={len(top_results)}")
+    return "\n".join(context_parts)
+
+
 # === SYSTEM CONTEXT ===
 # This is what Die-Namic actually IS - prevents hallucination
 SYSTEM_CONTEXT = """
@@ -637,13 +775,18 @@ def process_command_stream(prompt: str, persona: str = "Willow",
     persona_prompt = PERSONAS.get(persona, PERSONAS["Willow"])
     user_context = load_user_profile(user)
 
+    # Search knowledge base for relevant context
+    retrieved_context = search_knowledge(prompt)
+
     full_system_prompt = f"""{SYSTEM_CONTEXT}
 
 {user_context}
 
 {persona_prompt}
 
-Remember: Keep responses concise. CPU inference is slow. No hallucination."""
+{retrieved_context}
+
+Remember: Keep responses concise. CPU inference is slow. No hallucination. If you use retrieved context, cite the source."""
 
     use_model = model or MODEL_FAST
 
