@@ -810,7 +810,8 @@ Remember: Keep responses concise. CPU inference is slow. No hallucination."""
 
 
 def process_command_stream(prompt: str, persona: str = "Willow",
-                           model: Optional[str] = None, user: str = DEFAULT_USER):
+                           model: Optional[str] = None, user: str = DEFAULT_USER,
+                           retrieved_context: Optional[str] = None):
     """
     Process a command through Ollama with STREAMING response.
 
@@ -824,8 +825,9 @@ def process_command_stream(prompt: str, persona: str = "Willow",
     persona_prompt = PERSONAS.get(persona, PERSONAS["Willow"])
     user_context = load_user_profile(user)
 
-    # Search knowledge base for relevant context
-    retrieved_context = search_knowledge(prompt)
+    # Use pre-fetched context if provided, otherwise search (for direct calls)
+    if retrieved_context is None:
+        retrieved_context = search_knowledge(prompt)
 
     full_system_prompt = f"""{SYSTEM_CONTEXT}
 
@@ -903,11 +905,22 @@ def process_smart_stream(prompt: str, persona: str = "Willow",
     # Route to appropriate tier
     tier = route_prompt(prompt)
 
-    # If RAG finds context, escalate to Tier 3 (better instruction following)
-    retrieved = search_knowledge(prompt)
-    if retrieved and len(retrieved) > 100:
-        tier = 3
-        _log(f"TIER_ESCALATE | RAG found context, forcing Tier 3")
+    # Check if this looks like a retrieval/knowledge question
+    keywords = extract_keywords(prompt)
+    retrieval_signals = ["what", "who", "tell", "about", "explain", "describe", "how", "why", "history", "remember", "discussed", "said", "mentioned"]
+    is_retrieval_query = any(kw in retrieval_signals for kw in keywords) or "?" in prompt
+
+    # Only escalate to Tier 3 if:
+    # 1. Query looks like a retrieval request (question, "tell me about", etc.)
+    # 2. RAG actually finds substantial context
+    retrieved = ""
+    if is_retrieval_query:
+        retrieved = search_knowledge(prompt)
+        if retrieved and len(retrieved) > 300:  # Substantial context threshold
+            tier = 3
+            _log(f"TIER_ESCALATE | retrieval query + RAG context, forcing Tier 3")
+    else:
+        _log(f"TIER_NORMAL | casual message, staying at Tier {tier}")
 
     model = get_model_for_tier(tier)
     tier_info = MODEL_TIERS.get(tier, {})
@@ -916,8 +929,8 @@ def process_smart_stream(prompt: str, persona: str = "Willow",
     tier_msg = f"[Tier {tier}: {tier_info.get('desc', model)}]\n"
     yield tier_msg
 
-    # Stream the actual response
-    for chunk in process_command_stream(prompt, persona=persona, model=model, user=user):
+    # Stream the actual response (pass retrieved context to avoid double-search)
+    for chunk in process_command_stream(prompt, persona=persona, model=model, user=user, retrieved_context=retrieved):
         yield chunk
 
 
