@@ -8,3 +8,7 @@ docs/ops/reddit_analytics/Image Input/
 apps/mobile/auth_config.json
 apps/mobile/known_devices.json
 apps/mobile/claude_api_key.txt
+
+# Training data (large JSONL files)
+training_data/*.jsonl
+training_data/export_stats_*.json
