@@ -120,6 +120,23 @@ PERSONA_FOLDERS = {
 }
 
 
+def _extract_topics(text: str, max_topics: int = 5) -> list:
+    """Extract topic keywords from text for frontmatter."""
+    # Use the existing keyword extraction but filter more aggressively
+    words = text.lower().split()
+    # Skip very short words and common filler
+    skip_words = STOP_WORDS | {"yeah", "yep", "nope", "gonna", "wanna", "gotta", "kinda", "sorta"}
+    topics = []
+    for word in words:
+        # Clean punctuation
+        clean = ''.join(c for c in word if c.isalnum())
+        if len(clean) > 3 and clean not in skip_words and clean not in topics:
+            topics.append(clean)
+            if len(topics) >= max_topics:
+                break
+    return topics
+
+
 def log_conversation(
     persona: str,
     user_input: str,
@@ -157,6 +174,10 @@ def log_conversation(
         # Timestamp for this exchange
         timestamp = datetime.now().strftime("%H:%M:%S")
 
+        # Extract topics from user input for searchability
+        topics = _extract_topics(user_input)
+        topics_str = ", ".join(topics) if topics else "general"
+
         # Format entry with coherence metrics
         delta_e_str = f"{coherence.get('delta_e', 0):+.4f}"
         ci_str = f"{coherence.get('coherence_index', 0):.2f}"
@@ -167,17 +188,31 @@ def log_conversation(
         entry = f"""
 ---
 **[{timestamp}]** (Tier {tier}, {model}) | ΔE: {delta_e_str} {state_emoji} Cᵢ: {ci_str}
+**Topics:** {topics_str}
 
 **User:** {user_input}
 
 **{persona}:** {assistant_response}
 
 """
+        # Check if file exists and has content
+        file_exists = log_file.exists() and log_file.stat().st_size > 0
+
         # Append (create if needed)
         with open(log_file, "a", encoding="utf-8") as f:
-            # Add header if new file
-            if log_file.stat().st_size == 0 if log_file.exists() else True:
-                f.write(f"# {persona} Conversations - {date_str}\n\n")
+            # Add YAML frontmatter and header if new file
+            if not file_exists:
+                frontmatter = f"""---
+persona: {persona}
+date: {date_str}
+type: conversation_log
+searchable: true
+---
+
+# {persona} Conversations - {date_str}
+
+"""
+                f.write(frontmatter)
             f.write(entry)
 
         _log(f"CONVERSATION_LOGGED | {persona} | ΔE={delta_e_str} | {len(user_input)}c -> {len(assistant_response)}c")
