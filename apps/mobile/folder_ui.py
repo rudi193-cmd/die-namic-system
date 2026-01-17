@@ -412,7 +412,8 @@ Now respond as {persona} to the original question: {user_input}
 
 Keep it brief (2-3 sentences). You may agree, disagree, or add nuance."""
 
-            response = st.write_stream(process_func(context_prompt, persona=persona))
+            # Force Tier 2 for lounge - casual chat, speed matters
+            response = st.write_stream(process_func(context_prompt, persona=persona, force_tier=2))
 
             full_discussion.append(f"{persona}: {response}")
             add_message("assistant", response, persona=persona)

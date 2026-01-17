@@ -56,12 +56,22 @@ DEFAULT_TIER = 2
 MODEL_FAST = MODEL_TIERS[2]["name"]
 MODEL_VISION = "llama3.2-vision:latest"
 
-# Keywords that trigger tier escalation
+# Keywords that trigger tier escalation (must be real technical work)
 TIER3_KEYWORDS = [
-    "code", "python", "javascript", "function", "class", "debug",
-    "analyze", "explain how", "step by step", "algorithm",
-    "compare", "difference between", "pros and cons",
-    "write a", "create a", "implement", "refactor",
+    "python code", "javascript code", "function", "class ", "debug",
+    "analyze this", "explain how", "step by step", "algorithm",
+    "difference between", "pros and cons",
+    "write a script", "write code", "implement", "refactor",
+]
+
+# Casual/roleplay patterns - keep these at Tier 2 (fast response matters more than depth)
+TIER2_CASUAL = [
+    "who is", "who's", "what are you", "what is your", "how are you",
+    "making", "doing", "coffee", "tea", "lunch", "breakfast",
+    "hello", "hi ", "hey ", "good morning", "good evening",
+    "thanks", "thank you", "please", "sorry",
+    "favorite", "favourite", "like", "hate", "love",
+    "tell me about yourself", "what do you think",
 ]
 
 # Keywords that trigger Tier 4 (Claude API) - use sparingly
@@ -686,6 +696,17 @@ def route_prompt(prompt: str) -> int:
             _log(f"ROUTE | tier=4 | trigger='{keyword}'")
             return 4
 
+    # Check for casual/roleplay - keep at Tier 2 for fast response
+    for pattern in TIER2_CASUAL:
+        if pattern in prompt_lower:
+            _log(f"ROUTE | tier=2 | trigger=casual '{pattern}'")
+            return 2
+
+    # Short questions (under 100 chars) stay at Tier 2 unless they have code keywords
+    if len(prompt) < 100:
+        _log(f"ROUTE | tier=2 | trigger=short_question")
+        return 2
+
     # Check for Tier 3 keywords (escalate to heavy local)
     for keyword in TIER3_KEYWORDS:
         if keyword in prompt_lower:
@@ -1088,7 +1109,7 @@ Remember: Keep responses concise. CPU inference is slow. No hallucination. If yo
 
 
 def process_smart_stream(prompt: str, persona: str = "Willow",
-                          user: str = DEFAULT_USER):
+                          user: str = DEFAULT_USER, force_tier: int = None):
     """
     Smart streaming: Routes prompt to appropriate model tier.
 
@@ -1101,25 +1122,44 @@ def process_smart_stream(prompt: str, persona: str = "Willow",
 
     SAFE: Same constraints as other process functions.
     """
-    # Route to appropriate tier
-    tier = route_prompt(prompt)
-
-    # Check if this looks like a retrieval/knowledge question
-    keywords = extract_keywords(prompt)
-    retrieval_signals = ["what", "who", "tell", "about", "explain", "describe", "how", "why", "history", "remember", "discussed", "said", "mentioned"]
-    is_retrieval_query = any(kw in retrieval_signals for kw in keywords) or "?" in prompt
-
-    # Only escalate to Tier 3 if:
-    # 1. Query looks like a retrieval request (question, "tell me about", etc.)
-    # 2. RAG actually finds substantial context
-    retrieved = ""
-    if is_retrieval_query and tier < 4:
-        retrieved = search_knowledge(prompt)
-        if retrieved and len(retrieved) > 300:  # Substantial context threshold
-            tier = 3
-            _log(f"TIER_ESCALATE | retrieval query + RAG context, forcing Tier 3")
+    # Use forced tier if provided (e.g., from lounge continuation)
+    if force_tier is not None:
+        tier = force_tier
+        _log(f"TIER_FORCED | tier={tier} (caller override)")
     else:
-        _log(f"TIER_NORMAL | casual message, staying at Tier {tier}")
+        # Route to appropriate tier
+        tier = route_prompt(prompt)
+        prompt_lower = prompt.lower()
+
+        # Check if this is a casual/roleplay question (skip RAG for these)
+        is_casual = any(pattern in prompt_lower for pattern in TIER2_CASUAL)
+
+        # FORCE Tier 2 for casual - override any other routing
+        if is_casual and tier > 2:
+            _log(f"TIER_OVERRIDE | casual question forcing Tier 2 (was {tier})")
+            tier = 2
+
+    # Skip RAG entirely if tier was forced (caller knows what they want)
+    retrieved = ""
+    if force_tier is None:
+        # Check if this looks like a retrieval/knowledge question
+        keywords = extract_keywords(prompt)
+        retrieval_signals = ["history", "remember", "discussed", "said", "mentioned", "last time", "previous", "earlier"]
+        is_retrieval_query = any(kw in retrieval_signals for kw in keywords)
+
+        # Only escalate to Tier 3 if:
+        # 1. NOT a casual question (casual stays fast at Tier 2)
+        # 2. Query looks like a retrieval request (memory/history questions)
+        # 3. RAG actually finds substantial context
+        if not is_casual and is_retrieval_query and tier < 4:
+            retrieved = search_knowledge(prompt)
+            if retrieved and len(retrieved) > 300:  # Substantial context threshold
+                tier = 3
+                _log(f"TIER_ESCALATE | retrieval query + RAG context, forcing Tier 3")
+        elif is_casual:
+            _log(f"TIER_CASUAL | casual question, staying at Tier {tier}, skipping RAG")
+        else:
+            _log(f"TIER_NORMAL | message at Tier {tier}")
 
     tier_info = MODEL_TIERS.get(tier, {})
 
